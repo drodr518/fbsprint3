@@ -6,6 +6,7 @@ bin-release/
 
 # Other files and folders
 .settings/
+learnfiu_db.json
 /node_modules
 # Executables
 *.swf
