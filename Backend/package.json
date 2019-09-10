@@ -1,7 +1,7 @@
 {
   "name": "fb_lms",
   "version": "3.0.0",
-  "description": "TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project.",
+  "description": "Backend API for Basic LMS",
   "main": "index.js",
   "scripts": {
     "test": "node index.js"
