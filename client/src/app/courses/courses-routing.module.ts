@@ -6,9 +6,9 @@ import { NgModule } from '@angular/core';
 const routes: Routes = [
     {path:'', component: CoursesComponent},
     {path:'viewCourse', component: CourseComponent}
-]
+];
 
-@NgModule({
+@NgModule({ 
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
