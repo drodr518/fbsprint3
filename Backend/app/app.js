@@ -40,7 +40,8 @@ app.use('/utils', utilsRoutes);
 const coursesRoutes = require('./courses/courses.router')();
 app.use('/courses', coursesRoutes);
 
-
+const usersRoutes = require('./users/users.router')(passport);
+app.use('/users', usersRoutes);
 
 //------- End --------//
 
