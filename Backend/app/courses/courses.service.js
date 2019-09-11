@@ -6,7 +6,7 @@ class CoursesService {
     async addCourse(newCourse) {
         try {
 
-            await database.ref('/courses').push(
+            let courseId = await database.ref('/courses').push(
                 {
                     name: newCourse.name,
                     description: newCourse.description,
@@ -16,11 +16,14 @@ class CoursesService {
                     assignments: [],
                     students: [],
                     discussions: [],
-                    size: newCourse.size,
                     MAX_SIZE: newCourse.MAX_SIZE,
                     isOpen: newCourse.isOpen,
                 }
             );
+
+            let cat = await database.ref('/categories/' + newCourse.category).once('value');
+            cat.ref.push({ courseId: courseId.key })
+            
         } catch (err) {
             console.error(err);
             return false;
@@ -55,19 +58,25 @@ class CoursesService {
     }
 
     async getCourse(key) {
-
+        let myCourse;
         let courses = await database.ref('/courses').orderByKey().equalTo(key).once('value');
-        courses.forEach( (course) => {
-            return course.toJSON();
+        courses.forEach( (member) => {
+            var course = member.toJSON();
+            myCourse = course;
+            myCourse.key = member.key;
         });
+
+        return myCourse;
     }
 
     async getCourseInfo(key) {
 
+        let myCourse;
+
         let courses = await database.ref('/courses').orderByKey().equalTo(key).once('value');
-        courses.forEach( (course) => {
+        courses.forEach( (member) => {
             var course = member.toJSON();
-            return {
+            myCourse = {
                 id: member.key,
                 name: course.name,
                 img: course.img,
@@ -75,6 +84,8 @@ class CoursesService {
                 instructor: course.instructor,
             };
         });
+
+        return myCourse;
     }
 
 
@@ -100,6 +111,19 @@ class CoursesService {
                 instructor: course.instructor,
             });
         });
+    }
+
+    async getCategories() {
+        let payload = {
+            categories : []
+        };
+
+        let categories = await database.ref('/categories').once('value');
+        categories.forEach( (category) => {
+            payload.categories.push(category.key);
+        })
+
+        return payload.categories;
     }
 }
 

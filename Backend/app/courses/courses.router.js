@@ -11,5 +11,25 @@ module.exports = () => {
         });
     });
 
+    router.get('/course-info', async (req, res, next) => {
+        const resp = await coursesServices.getCourseInfo(req.query.key);
+        res.json(resp);
+    });
+
+    router.get('/get-course', async (req, res, next) => {
+        const resp = await coursesServices.getCourse(req.query.key);
+        res.json(resp);
+    });
+
+    router.get('/get-courses', async ( req, res, next) => {
+        const resp = await coursesServices.getAllCourses();
+        res.json(resp);
+    });
+
+    router.get('/get-categories', async (req, res, next) => {
+        const resp = await coursesServices.getCategories();
+        res.json(resp);
+    });
+
     return router;
 }
