@@ -31,8 +31,19 @@ app.use((req, res, next) => {
 	next();
 });
 
-const utilsRoute = require('./utils/utils.router')();
-app.use('/utils', utilsRoute);
+
+//------ Routes -------//
+
+const utilsRoutes = require('./utils/utils.router')();
+app.use('/utils', utilsRoutes);
+
+const coursesRoutes = require('./courses/courses.router')();
+app.use('/courses', coursesRoutes);
+
+
+
+//------- End --------//
+
 
 app.use(errorHandler);
 
