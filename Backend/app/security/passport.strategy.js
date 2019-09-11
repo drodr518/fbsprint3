@@ -15,15 +15,15 @@ module.exports = (passport) => {
     });
 
     passport.use( new LocalStrategy(
-        async function(username, passowrd, callback) {
+        async function(username, password, callback) {
             if(!username) {
                 return callback(null, false);
             }
-            if(!passowrd) {
+            if(!password) {
                 return callback(null, false);
             }
 
-            var users = await firebaseDB.ref('/users')
+            var users = await firebaseDB.ref('/instructors')
                 .orderByChild('email')
                 .equalTo(username)
                 .once('value');
@@ -33,8 +33,8 @@ module.exports = (passport) => {
             } else {
                 users.forEach( (record) => {
                     const user = JSON.parse(JSON.stringify(record));
-                    user.key = item.key;
-                    crypto.compare(password, user.passowrd, (err, same) => {
+                    user.key = record.key;
+                    crypto.compare(password, user.password, (err, same) => {
                         if(same) {
                             return callback(null, user);
                         } else {
