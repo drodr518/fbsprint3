@@ -10,5 +10,11 @@ module.exports = () => {
         });
     });
 
+    router.get('/dashboard', async (req, res, next) => {
+        const resp = await utilsServices.listcourses();
+        res.json({
+            payload: resp,
+        });
+    });
     return router;
 }
