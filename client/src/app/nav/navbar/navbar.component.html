@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Facebook LMS</span>
+      <span>
+            <button [routerLink]="['nav']" mat-button>Home</button>
+      </span>
+      <span>
+            <button mat-button [matMenuTriggerFor]="menu">My Courses</button>
+            <mat-menu #menu="matMenu">
+            <button [routerLink]="['courses/view-course']" mat-menu-item>Example Course</button>
+            </mat-menu>
+      </span>
+      <span>
+            <button [routerLink]="['courses/']" mat-button>Courses</button>
+      </span>
+    </mat-toolbar-row>
+</mat-toolbar>
