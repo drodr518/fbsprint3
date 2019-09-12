@@ -1,1 +1,16 @@
-<p>modules works!</p>
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let module of modules">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon>folder_open</mat-icon>
+                <strong>{{module.name}}</strong>
+            </mat-panel-title>
+        </mat-expansion-panel-header> 
+        
+        <mat-nav-list *ngFor="let content of module.resources">
+                <a *ngIf="content.url" mat-list-item [href]=content.url><mat-icon>link</mat-icon>{{content.title}}</a>
+                <a *ngIf="content.link" mat-list-item routerLink="."><mat-icon>insert_drive_file</mat-icon>{{content.title}}</a>
+                <a *ngIf="content.isTimed" mat-list-item routerLink="."><mat-icon>assessment</mat-icon>{{content.title}}</a>
+        </mat-nav-list>
+    </mat-expansion-panel>
+</mat-accordion>

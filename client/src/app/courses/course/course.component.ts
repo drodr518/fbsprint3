@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CourseComponent implements OnInit {
 
-  navs = ['Home', 'Modules', 'Grades', 'Discussions'];
+  navs = [
+    {val:'Home', ico: 'home'}, 
+    {val:'Modules', ico:'view_module'}, 
+    {val:'Grades', ico:'assessment'}, 
+    {val:'Discussions', ico: 'forum'}];
+    
   private navItem = 'Home';
 
   constructor() { }

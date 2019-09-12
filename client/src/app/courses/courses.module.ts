@@ -1,4 +1,14 @@
-import { MatToolbarModule, MatSidenavModule, MatIconModule, MatButtonModule, MatListModule } from '@angular/material';
+import { 
+  MatToolbarModule, 
+  MatSidenavModule, 
+  MatIconModule, 
+  MatButtonModule, 
+  MatListModule, 
+  MatExpansionModule,
+  MatCardModule,
+  MatTableModule
+} from '@angular/material';
+
 import { CoursesRoutingModule } from './courses-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,7 +21,14 @@ import { InfoComponent } from './course/info/info.component';
 
 
 @NgModule({
-  declarations: [CourseComponent, CoursesComponent, ModulesComponent, GradesComponent, DiscussionsComponent, InfoComponent],
+  declarations: [
+    CourseComponent, 
+    CoursesComponent, 
+    ModulesComponent, 
+    GradesComponent, 
+    DiscussionsComponent, 
+    InfoComponent
+  ],
   imports: [
     CommonModule,
     CoursesRoutingModule,
@@ -19,7 +36,10 @@ import { InfoComponent } from './course/info/info.component';
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatTableModule
   ]
 })
 export class CoursesModule { }

@@ -9,7 +9,7 @@
 
         <mat-sidenav class="size-nav" #snav mode="side" opened>
             <mat-nav-list *ngFor="let nav of navs">
-                <a mat-list-item (click)="setNav(nav)" routerLink=".">{{nav}}</a>
+                <a mat-list-item (click)="setNav(nav.val)"><mat-icon>{{nav.ico}}</mat-icon>{{nav.val}}</a>
             </mat-nav-list>
         </mat-sidenav>
     

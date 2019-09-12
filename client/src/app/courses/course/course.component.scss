@@ -4,10 +4,15 @@ mat-sidenav-container, mat-sidenav-content, mat-sidenav {
 }
  
 mat-sidenav {
-    width: 175px;
+    max-width: 20%;
+    min-width: 150px;
 }
 
 .content {
     padding: 1rem;
     margin: auto;
+}
+
+mat-icon {
+    margin-right: 1rem;
 }
