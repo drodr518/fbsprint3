@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-course',
@@ -15,9 +17,19 @@ export class CourseComponent implements OnInit {
     
   private navItem = 'Home';
 
-  constructor() { }
+  private subscriptions: Subscription[] = [];
+
+
+  constructor(
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.subscriptions.push(this.route.queryParams.subscribe( (params) => {
+      if(params.select) {
+        this.navItem = params.select;
+      }
+    }));
   }
 
   setNav(val: string) {

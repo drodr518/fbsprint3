@@ -18,6 +18,7 @@ import { ModulesComponent } from './course/modules/modules.component';
 import { GradesComponent } from './course/grades/grades.component';
 import { DiscussionsComponent } from './course/discussions/discussions.component';
 import { InfoComponent } from './course/info/info.component';
+import { DiscussionComponent } from './course/discussion/discussion.component';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import { InfoComponent } from './course/info/info.component';
     ModulesComponent, 
     GradesComponent, 
     DiscussionsComponent, 
-    InfoComponent
+    InfoComponent, DiscussionComponent
   ],
   imports: [
     CommonModule,

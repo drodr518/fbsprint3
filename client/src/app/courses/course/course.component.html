@@ -9,7 +9,7 @@
 
         <mat-sidenav class="size-nav" #snav mode="side" opened>
             <mat-nav-list *ngFor="let nav of navs">
-                <a mat-list-item (click)="setNav(nav.val)"><mat-icon>{{nav.ico}}</mat-icon>{{nav.val}}</a>
+                <a mat-list-item [routerLink]="" [queryParams]="{course: 'jasldasfdsa',select: nav.val}" (click)="setNav(nav.val)"><mat-icon>{{nav.ico}}</mat-icon>{{nav.val}}</a>
             </mat-nav-list>
         </mat-sidenav>
     
@@ -21,6 +21,7 @@
                 <app-modules *ngIf="isEqual('Modules')"></app-modules>
                 <app-grades *ngIf="isEqual('Grades')"></app-grades>
                 <app-discussions *ngIf="isEqual('Discussions')"></app-discussions>
+                <app-discussion *ngIf="isEqual('Discussion')"></app-discussion>
             </div>
 
         </mat-sidenav-content>
