@@ -20,6 +20,11 @@ import { DiscussionsComponent } from './course/discussions/discussions.component
 import { InfoComponent } from './course/info/info.component';
 import { DiscussionComponent } from './course/discussion/discussion.component';
 
+import { FormsModule} from '@angular/forms';
+
+import { AngularEditorModule} from '@kolkov/angular-editor';
+
+
 
 @NgModule({
   declarations: [
@@ -40,7 +45,9 @@ import { DiscussionComponent } from './course/discussion/discussion.component';
     MatListModule,
     MatExpansionModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    AngularEditorModule,
+    FormsModule,
   ]
 })
 export class CoursesModule { }
