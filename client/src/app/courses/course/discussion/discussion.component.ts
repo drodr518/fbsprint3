@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-discussion',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiscussionComponent implements OnInit {
 
-  constructor() { }
+
+  private subscriptions: Subscription[] = [];
+  discussion_id: string = '';
+
+  constructor(private route: ActivatedRoute) { }
+
+  @Input('current_course') current_course: string;
 
   ngOnInit() {
+    this.subscriptions.push(this.route.queryParams.subscribe( (params) => {
+      if(params.discussion) {
+        this.discussion_id = params.discussion;
+      }
+    }));
+  }
+
+  ngOnChanges() {
+    this.ngOnInit();
   }
 
 }

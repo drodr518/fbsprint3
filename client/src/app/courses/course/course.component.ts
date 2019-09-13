@@ -18,6 +18,7 @@ export class CourseComponent implements OnInit {
   private navItem = 'Home';
 
   private subscriptions: Subscription[] = [];
+  current_course = '';
 
 
   constructor(
@@ -28,6 +29,9 @@ export class CourseComponent implements OnInit {
     this.subscriptions.push(this.route.queryParams.subscribe( (params) => {
       if(params.select) {
         this.navItem = params.select;
+      }
+      if(params.course) {
+        this.current_course = params.course;
       }
     }));
   }

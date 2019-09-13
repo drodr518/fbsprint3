@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-discussions',
@@ -16,6 +16,8 @@ export class DiscussionsComponent implements OnInit {
   ];
 
   constructor() { }
+
+  @Input('current_course') current_course: string;
 
   ngOnInit() {
   }

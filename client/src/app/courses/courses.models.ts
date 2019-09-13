@@ -38,6 +38,7 @@ export interface Assessment extends Content {
     isTimed: boolean;
     time: number;
     dueDate: string;
+    doneDate: string;
     attempts: number;
     items: Question[];
 }
