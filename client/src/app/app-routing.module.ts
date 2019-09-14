@@ -8,9 +8,9 @@ import {
 
 
 const routes: Routes = [
-  {path:'', redirectTo: 'nav/courses', pathMatch: 'full'},
+  {path:'', redirectTo: 'nav/dashboard', pathMatch: 'full'},
   {path:'nav', loadChildren: () => import('./nav/nav.module').then (mod => mod.NavModule)},
-  {path: '**', redirectTo: 'nav/courses'}
+  {path: '**', redirectTo: 'nav/dashboard'}
 ];
 
 const config: ExtraOptions = {
