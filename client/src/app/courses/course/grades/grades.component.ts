@@ -24,10 +24,10 @@ export class GradesComponent implements OnInit {
   displayedColumns: string[] = ['title', 'dueDate', 'doneDate', 'score', 'outOf'];
   dataSource = [
     {title: 'Quiz 1', dueDate: '12/12/19', doneDate: '11/12/19', score: 10 , outOf: 10},
-    {title: 'Quiz 2', dueDate: '12/12/19', doneDate: '11/12/19', score: 10 , outOf: 10},
-    {title: 'Quiz 3', dueDate: '12/12/19', doneDate: '11/12/19', score: 10 , outOf: 10},
-    {title: 'Quiz 4', dueDate: '12/12/19', doneDate: '11/12/19', score: 10 , outOf: 10},
-    {title: 'Quiz 5', dueDate: '12/12/19', doneDate: '11/12/19', score: 10 , outOf: 10},
+    {title: 'Quiz 2', dueDate: '12/12/19', doneDate: '11/12/19', score: 8 , outOf: 10},
+    {title: 'Quiz 3', dueDate: '12/12/19', doneDate: '11/12/19', score: 7 , outOf: 10},
+    {title: 'Quiz 4', dueDate: '12/12/19', doneDate: '11/12/19', score: 7 , outOf: 10},
+    {title: 'Quiz 5', dueDate: '12/12/19', doneDate: '11/12/19', score: 8 , outOf: 10},
     {title: 'Quiz 6', dueDate: '12/12/19', doneDate: '11/12/19', score: 10 , outOf: 10},
     {title: 'Quiz 7', dueDate: '12/12/19', doneDate: '11/12/19', score: 10 , outOf: 10},
   ];
@@ -35,26 +35,8 @@ export class GradesComponent implements OnInit {
   ngOnInit() {
   }
 
-  getTotalScore() {
-
-    this.scoreTotal = 0;
-
-    this.dataSource.forEach( (item) => {
-      this.scoreTotal += item.score;
-    });
-
-    return this.scoreTotal;
-  }
-
-  getTotalOutOf() {
-
-    this.outOfTotal = 0;
-
-    this.dataSource.forEach( (item) => {
-      this.outOfTotal += item.score;
-    });
-
-    return this.outOfTotal;
+  getPercent() {
+    return this.dataSource.map( data => data.score).reduce( (acc , value) => (acc + value), 0.0) / this.dataSource.map( data => data.outOf).reduce( (acc , value) => (acc + value), 0.0);
   }
 
 }
