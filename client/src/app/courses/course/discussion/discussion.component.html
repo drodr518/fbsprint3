@@ -5,7 +5,7 @@
 </p>
 <div id="text_input">
     <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
-    <button (click)="pushPost()" mat-button>Submit</button>
+    <button (click)="pushPost()" mat-flat-button color='primary'>Submit</button>
 </div>
 
 <mat-card *ngFor="let post of posts">

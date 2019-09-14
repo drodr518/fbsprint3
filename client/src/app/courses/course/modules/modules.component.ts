@@ -25,7 +25,7 @@ export class ModulesComponent implements OnInit {
     {id: '1', name: 'Module 2', resources: [
       {title: 'Google', url: "https://www.google.com"} as Content,
       {title: 'Microsoft', url: "https://www.microsoft.com"} as Content,
-      {title: 'Youtube', url: "https://www.youtube.com"} as Content,
+      {title: 'Quiz 1', isTimed: "false"} as Content,
     ], }
   ];
 
