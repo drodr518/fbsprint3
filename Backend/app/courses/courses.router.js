@@ -11,6 +11,26 @@ module.exports = () => {
         });
     });
 
+    router.post('/add-module', async (req, res, next) => {
+        const resp = await coursesServices.addCourseModule(req.body.course, req.body.module);
+        res.json({success: resp});
+    });
+
+    router.post('/add-module-url', async (req, res, next) => {
+        const resp = await coursesServices.addModuleUrl(req.body.course, req.body.module, req.body.content);
+        res.json({success: resp});
+    });
+
+    router.post('/add-module-link', async (req, res, next) => {
+        const resp = await coursesServices.addModuleLink(req.body.course, req.body.module, req.body.content);
+        res.json({success: resp});
+    });
+
+    router.post('/add-module-quiz', async (req, res, next) => {
+        const resp = await coursesServices.addModuleQuiz(req.body.course, req.body.module, req.body.content);
+        res.json({success: resp});
+    });
+
     router.get('/course-info', async (req, res, next) => {
         const resp = await coursesServices.getCourseInfo(req.query.key);
         res.json(resp);

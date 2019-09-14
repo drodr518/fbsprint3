@@ -34,6 +34,95 @@ class CoursesService {
 
     }
 
+    async addCourseModule(course, module_obj) {
+        try {
+            var courses = await database.ref('/courses').orderByKey().equalTo(course).once('value');
+            if(courses.numChildren() != 1) {
+                throw false;
+            }
+
+            courses.child(course).child('modules').ref.push({
+                name: module_obj.name
+            });
+
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
+    }
+
+    async addModuleUrl(course_key, module_key, content) {
+        try {
+            var courses = await database.ref('/courses').orderByKey().equalTo(course_key).once('value');
+            if(courses.hasChildren) {
+                courses.child(course_key).child('modules').child(module_key).child('content').ref.push({
+                    title: content.title,
+                    url: content.url
+                });
+            } else {
+                throw false;
+            }
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
+    }
+
+    async addModuleLink(course_key, module_key, content) {
+        try {
+            var courses = await database.ref('/courses').orderByKey().equalTo(course_key).once('value');
+            if(courses.hasChildren) {
+                courses.child(course_key).child('modules').child(module_key).child('content').ref.push({
+                    title: content.title,
+                    link: content.link
+                });
+            } else {
+                throw false;
+            }
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
+    }
+
+
+    async addModuleQuiz(course_key, module_key, content) {
+        try {
+            var courses = await database.ref('/courses').orderByKey().equalTo(course_key).once('value');
+            if(courses.hasChildren) {
+                var items = courses.child(course_key).child('modules').child(module_key).child('content').ref.push({
+                    title: content.title,
+                    isTimed: content.isTimed,
+                    time: content.time,
+                    dueDate: content.dueDate,
+                    attempts: content.attempts,
+                });
+
+                content.items.forEach( (item) => {
+                    items.child('items').ref.push({
+                        val: item.val,
+                        question: item.question,
+                        answer: item.answer,
+                        options: item.options
+                    });
+                });
+            } else {
+                throw false;
+            }
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
+    }
+
     async getMyCourses(user) {
 
         let payload = {
@@ -48,7 +137,7 @@ class CoursesService {
         } else {
             users.forEach( (member) => {
                 member.child('enrolled').val().forEach( (course) => {
-                    payload.courses.push()
+                    payload.courses.push(course)
                 });
             });
         }

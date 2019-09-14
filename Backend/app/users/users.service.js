@@ -29,7 +29,7 @@ class UsersSerivce {
             if(users.numChildren() != 1) {
                 throw false;
             }
-            users.child('Courses').ref.push({id: course_key});
+            users.child('enrolled').ref.push({id: course_key});
         } catch (err) {
             console.error(err);
             return err;
