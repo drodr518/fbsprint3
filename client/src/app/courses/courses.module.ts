@@ -6,7 +6,8 @@ import {
   MatListModule, 
   MatExpansionModule,
   MatCardModule,
-  MatTableModule
+  MatTableModule,
+  MatButtonToggleModule
 } from '@angular/material';
 
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -23,6 +24,7 @@ import { DiscussionComponent } from './course/discussion/discussion.component';
 import { FormsModule} from '@angular/forms';
 
 import { AngularEditorModule} from '@kolkov/angular-editor';
+import { AssessmentComponent } from './assessment/assessment.component';
 
 
 
@@ -33,7 +35,7 @@ import { AngularEditorModule} from '@kolkov/angular-editor';
     ModulesComponent, 
     GradesComponent, 
     DiscussionsComponent, 
-    InfoComponent, DiscussionComponent
+    InfoComponent, DiscussionComponent, AssessmentComponent
   ],
   imports: [
     CommonModule,
@@ -48,6 +50,7 @@ import { AngularEditorModule} from '@kolkov/angular-editor';
     MatTableModule,
     AngularEditorModule,
     FormsModule,
+    MatButtonToggleModule
   ]
 })
 export class CoursesModule { }

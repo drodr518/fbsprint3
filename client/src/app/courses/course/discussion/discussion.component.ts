@@ -14,9 +14,11 @@ export class DiscussionComponent implements OnInit {
 
 
   private subscriptions: Subscription[] = [];
+  replying = false;
   discussion_id: string = '';
   htmlContent = '';
   posts = [];
+  isClosed = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,14 +36,6 @@ export class DiscussionComponent implements OnInit {
     translate: 'no',   
     defaultFontName: 'Arial',
     customClasses: [
-      {
-        name: "quote",
-        class: "quote",
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
       {
         name: "titleText",
         class: "titleText",
@@ -64,7 +58,20 @@ export class DiscussionComponent implements OnInit {
 
   pushPost() {
     this.posts.push(this.htmlContent);
+    this.replying = false;
     this.htmlContent = '';
+  }
+
+  openEditor() {
+    this.replying = true;
+  }
+
+  closeEditor() {
+    this.replying = false;
+  }
+
+  isPostEmpty() {
+    return this.htmlContent == '';
   }
 
   ngOnChanges() {
