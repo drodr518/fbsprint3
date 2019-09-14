@@ -1,0 +1,16 @@
+<br>
+<button mat-button [matMenuTriggerFor]="menu">Dashboard</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>Item 1</button>
+  <button mat-menu-item>Item 2</button>
+</mat-menu>
+
+<br>
+
+<mat-card *ngFor="let course of courses">
+    <h1>{{course.title}}</h1>
+    <p>
+        Instructor: {{course.prof}}
+    </p>
+    <button [routerLink]="['courses/']" mat-button>Syllabus</button>
+</mat-card>
