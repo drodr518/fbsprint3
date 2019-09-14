@@ -4,3 +4,16 @@
 .angular-editor-toolbar-set .angular-editor-button[title="Justify Center"] {
     display: none;
 }
+
+a {
+    cursor: pointer;
+}
+
+.controls button {
+    margin: 0.5rem;
+    float: right;
+}
+
+mat-icon {
+    margin-right: 0.5rem;
+}
