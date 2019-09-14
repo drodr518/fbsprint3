@@ -18,8 +18,9 @@
 
 
 <mat-card *ngFor="let post of posts">
+    <mat-card-header>
+        <mat-card-title>User name</mat-card-title>
+        <mat-card-subtitle>Time Posted</mat-card-subtitle>
+  </mat-card-header>
     <p [innerHTML]="post"></p>
-    <mat-nav-list *ngIf="!replying">
-        <a mat-list-item routerLink="." fragment="top" (click)="openEditor()"><mat-icon>reply</mat-icon>Reply</a>
-    </mat-nav-list>
 </mat-card>

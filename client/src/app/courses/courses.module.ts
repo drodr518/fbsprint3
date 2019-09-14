@@ -6,7 +6,8 @@ import {
   MatListModule, 
   MatExpansionModule,
   MatCardModule,
-  MatTableModule
+  MatTableModule,
+  MatButtonToggleModule
 } from '@angular/material';
 
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -49,6 +50,7 @@ import { AssessmentComponent } from './assessment/assessment.component';
     MatTableModule,
     AngularEditorModule,
     FormsModule,
+    MatButtonToggleModule
   ]
 })
 export class CoursesModule { }

@@ -6,7 +6,7 @@ import {
   ExternalLink, 
   Assessment
 } from './../../courses.models';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 
 @Component({
@@ -15,6 +15,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./modules.component.scss']
 })
 export class ModulesComponent implements OnInit {
+
+  @Input('current_course') current_course: string;
 
   modules : Module[] = [
     {id: '0', name: 'Module 1', resources: [
@@ -25,7 +27,7 @@ export class ModulesComponent implements OnInit {
     {id: '1', name: 'Module 2', resources: [
       {title: 'Google', url: "https://www.google.com"} as Content,
       {title: 'Microsoft', url: "https://www.microsoft.com"} as Content,
-      {title: 'Quiz 1', isTimed: "false"} as Content,
+      {title: 'Quiz 1', isTimed: "false", id: "Quiz1"} as Content,
     ], }
   ];
 

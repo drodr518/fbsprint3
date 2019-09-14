@@ -37,14 +37,6 @@ export class DiscussionComponent implements OnInit {
     defaultFontName: 'Arial',
     customClasses: [
       {
-        name: "quote",
-        class: "quote",
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
         name: "titleText",
         class: "titleText",
         tag: "h1",

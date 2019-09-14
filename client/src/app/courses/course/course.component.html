@@ -18,7 +18,7 @@
             
             <div class="content">
                 <app-info *ngIf="isEqual('Home')"></app-info>
-                <app-modules *ngIf="isEqual('Modules')"></app-modules>
+                <app-modules [current_course]="current_course" *ngIf="isEqual('Modules')"></app-modules>
                 <app-grades [current_course]="current_course" *ngIf="isEqual('Grades')"></app-grades>
                 <app-discussions [current_course]="current_course" *ngIf="isEqual('Discussions')"></app-discussions>
                 <app-discussion [current_course]="current_course" *ngIf="isEqual('Discussion')"></app-discussion>
