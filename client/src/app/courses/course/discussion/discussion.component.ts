@@ -1,12 +1,14 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-discussion',
   templateUrl: './discussion.component.html',
-  styleUrls: ['./discussion.component.scss']
+  styleUrls: ['./discussion.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DiscussionComponent implements OnInit {
 
@@ -14,8 +16,12 @@ export class DiscussionComponent implements OnInit {
   private subscriptions: Subscription[] = [];
   discussion_id: string = '';
   htmlContent = '';
+  posts = [];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
+    ) { }
 
   @Input('current_course') current_course: string;
 
@@ -50,6 +56,15 @@ export class DiscussionComponent implements OnInit {
         this.discussion_id = params.discussion;
       }
     }));
+  }
+
+  sanitizeHtml(val) {
+    return this.sanitizer.bypassSecurityTrustHtml(val);
+  }
+
+  pushPost() {
+    this.posts.push(this.htmlContent);
+    this.htmlContent = '';
   }
 
   ngOnChanges() {

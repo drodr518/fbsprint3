@@ -3,4 +3,11 @@
     discussion_id: {{discussion_id}}
     currentCourse: {{current_course}}
 </p>
-<angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+<div id="text_input">
+    <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+    <button (click)="pushPost()" mat-button>Submit</button>
+</div>
+
+<mat-card *ngFor="let post of posts">
+    <p [innerHTML]="post"></p>
+</mat-card>

@@ -14,6 +14,9 @@ export interface PeriodicElement {
 })
 export class GradesComponent implements OnInit {
 
+  private scoreTotal = 0;
+  private outOfTotal = 0;
+
   constructor() { }
 
   @Input('current_course') course: string;
@@ -30,6 +33,28 @@ export class GradesComponent implements OnInit {
   ];
 
   ngOnInit() {
+  }
+
+  getTotalScore() {
+
+    this.scoreTotal = 0;
+
+    this.dataSource.forEach( (item) => {
+      this.scoreTotal += item.score;
+    });
+
+    return this.scoreTotal;
+  }
+
+  getTotalOutOf() {
+
+    this.outOfTotal = 0;
+
+    this.dataSource.forEach( (item) => {
+      this.outOfTotal += item.score;
+    });
+
+    return this.outOfTotal;
   }
 
 }
