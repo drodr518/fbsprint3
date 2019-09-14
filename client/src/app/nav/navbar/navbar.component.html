@@ -1,12 +1,12 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
       <span>
-            <button [routerLink]="['nav']" mat-button>Home</button>
+            <button [routerLink]="['nav']" mat-button>Dashboard</button>
       </span>
       <span>
             <button mat-button [matMenuTriggerFor]="menu">My Courses</button>
             <mat-menu #menu="matMenu">
-            <button [routerLink]="['courses/view-course']" mat-menu-item>Example Course</button>
+            <button *ngFor="let course of myCourses" [routerLink]="['courses/view-course']" [queryParams]="{course:course.id,select:'Home'}" mat-menu-item>{{course.title}}</button>
             </mat-menu>
       </span>
       <span>
