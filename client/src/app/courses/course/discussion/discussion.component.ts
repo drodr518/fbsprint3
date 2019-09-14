@@ -66,6 +66,7 @@ export class DiscussionComponent implements OnInit {
 
   pushPost() {
     this.posts.push(this.htmlContent);
+    this.replying = false;
     this.htmlContent = '';
   }
 

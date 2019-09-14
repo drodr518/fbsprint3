@@ -1,20 +1,25 @@
 <p>discussion works!</p>
-<mat-card>
+<mat-card id="top">
     discussion_id: {{discussion_id}}
     currentCourse: {{current_course}}
     <mat-nav-list *ngIf="!replying">
         <a mat-list-item (click)="openEditor()"><mat-icon>reply</mat-icon>Reply</a>
     </mat-nav-list>
-</mat-card>
-<div *ngIf="replying" id="text_input">
-    <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
-    <div class="controls">
-        <button [disabled]="isClosed || isPostEmpty()" (click)="pushPost()" mat-flat-button color='primary'>Submit</button>
+    <div *ngIf="replying" >
+        <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+        <mat-card-actions class="controls">
+            <button [disabled]="isClosed || isPostEmpty()" (click)="pushPost()" mat-flat-button color='primary'>Submit</button>
 
-        <button (click)="closeEditor()" mat-stroked-button>Cancel</button>
+            <button (click)="closeEditor()" mat-stroked-button>Cancel</button>
+        </mat-card-actions>
     </div>
-    
+
+</mat-card>
+
 
 <mat-card *ngFor="let post of posts">
     <p [innerHTML]="post"></p>
+    <mat-nav-list *ngIf="!replying">
+        <a mat-list-item routerLink="." fragment="top" (click)="openEditor()"><mat-icon>reply</mat-icon>Reply</a>
+    </mat-nav-list>
 </mat-card>

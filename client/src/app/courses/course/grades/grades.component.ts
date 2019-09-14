@@ -16,7 +16,7 @@ export class GradesComponent implements OnInit {
 
   constructor() { }
 
-  @Input('current_course') course: string;
+  @Input('current_course') current_course: string;
 
   displayedColumns: string[] = ['title', 'dueDate', 'doneDate', 'score', 'outOf'];
   dataSource = [
