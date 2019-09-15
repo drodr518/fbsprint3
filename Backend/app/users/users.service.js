@@ -22,6 +22,22 @@ class UsersSerivce {
         return true;
     }
 
+    async enrollIn(student_key, course_key) {
+        try {
+
+            let users = await database.ref('/students').orderByKey().equalTo(student_key).once('value');
+            if(users.numChildren() != 1) {
+                throw false;
+            }
+            users.child('enrolled').ref.push({id: course_key});
+        } catch (err) {
+            console.error(err);
+            return err;
+        }
+
+        return true;
+    }
+
     async addInstructor(user) {
         console.log(user);
         try {

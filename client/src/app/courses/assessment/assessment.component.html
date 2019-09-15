@@ -4,18 +4,18 @@
     assesment id: {{assessment_id}}
 </p>
 
-<mat-card>
+<mat-card class="question">
     <mat-card-header>
         <mat-card-title>{{item.question}}</mat-card-title>
         <mat-card-subtitle>{{item.val}} pts</mat-card-subtitle>
     </mat-card-header>
-<mat-button-toggle-group #group="matButtonToggleGroup" vertical>
+<mat-button-toggle-group [(ngModel)]="response" vertical>
   <mat-button-toggle *ngFor="let option of item.options" value="option" aria-label="Text align left">
     {{option}}
   </mat-button-toggle>
 </mat-button-toggle-group>
     <mat-card-actions class="controls">
-        <button (click)="prevQuestion()" [disabled]="1 > select" class="prev" mat-button>Previous</button>
-        <button [disabled]="!canNext()" (click)="nextQuestion()"  class="next" mat-button>Next</button>
+        <button (click)="prevQuestion()" [disabled]="1 > select" class="prev" mat-stroked-button color="primary"><mat-icon>navigate_before</mat-icon>Previous</button>
+        <button [disabled]="!canNext()" (click)="nextQuestion()"  class="next" mat-stroked-button color="primary">Next <mat-icon>navigate_next</mat-icon></button>
     </mat-card-actions>
 </mat-card>

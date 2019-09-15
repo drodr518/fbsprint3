@@ -34,6 +34,7 @@ export class AssessmentComponent implements OnInit {
   current_course = '';
   select = 0;
   item = this.items[this.select];
+  response = '';
 
   
 
@@ -41,7 +42,8 @@ export class AssessmentComponent implements OnInit {
 
   nextQuestion() {
     this.select = this.select + 1;
-    this.loadItem();  
+    this.loadItem();
+    this.response = ''; // load answer if exists
   }
 
   canNext() {
@@ -51,6 +53,7 @@ export class AssessmentComponent implements OnInit {
   prevQuestion() {
     this.select = this.select - 1;
     this.loadItem();
+    this.response = ''; // load answer if exists
   }
 
   loadItem() {
