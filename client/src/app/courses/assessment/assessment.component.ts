@@ -14,19 +14,19 @@ export class AssessmentComponent implements OnInit {
   private items: Question[] = [
     {title: "Quiz 1", val: 10, question: "Which bear is best1?", answer: "Black Bear", options: [
       'Black Bear', 'Polar Bear', 'Cave Bear', 'Brown Bear'
-    ]} as Question,
+    ], response: ""} as Question,
     {title: "Quiz 1", val: 10, question: "Which bear is best2?", answer: "Black Bear", options: [
       'Black Bear', 'Polar Bear', 'Cave Bear', 'Brown Bear'
-    ]} as Question,
+    ], response: ""} as Question,
     {title: "Quiz 1", val: 10, question: "Which bear is best3?", answer: "Black Bear", options: [
       'Black Bear', 'Polar Bear', 'Cave Bear', 'Brown Bear'
-    ]} as Question,
+    ], response: ""} as Question,
     {title: "Quiz 1", val: 10, question: "Which bear is best4?", answer: "Black Bear", options: [
       'Black Bear', 'Polar Bear', 'Cave Bear', 'Brown Bear'
-    ]} as Question,
+    ], response: ""} as Question,
     {title: "Quiz 1", val: 10, question: "Which bear is best5?", answer: "Black Bear", options: [
       'Black Bear', 'Polar Bear', 'Cave Bear', 'Brown Bear'
-    ]} as Question,
+    ], response: ""} as Question,
   ];
 
   private subscriptions: Subscription[] = [];
@@ -43,7 +43,6 @@ export class AssessmentComponent implements OnInit {
   nextQuestion() {
     this.select = this.select + 1;
     this.loadItem();
-    this.response = ''; // load answer if exists
   }
 
   canNext() {
@@ -53,11 +52,15 @@ export class AssessmentComponent implements OnInit {
   prevQuestion() {
     this.select = this.select - 1;
     this.loadItem();
-    this.response = ''; // load answer if exists
   }
 
   loadItem() {
     this.item = this.items[this.select];
+    this.response = this.items[this.select].response;
+  }
+
+  submit() {
+    this.items[this.select].response = this.response.toString();
   }
 
   ngOnInit() {

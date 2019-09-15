@@ -10,12 +10,22 @@ mat-card {
 .controls button {
     width: 50%;
     margin: auto;
+    float: left;
 }
 
 .controls {
     width: 100%;
+    min-height: 2rem;
 }
 
 .question {
     margin-top: 5%;
+}
+
+.submit_right {
+    float: right;
+}
+
+.fill {
+    flex: 1 1 auto;
 }

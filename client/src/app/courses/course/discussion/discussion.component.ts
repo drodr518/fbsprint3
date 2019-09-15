@@ -1,3 +1,4 @@
+import { Discussion, Post } from './../../courses.models';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
@@ -14,16 +15,21 @@ export class DiscussionComponent implements OnInit {
 
 
   private subscriptions: Subscription[] = [];
+
+  discussion: Discussion = {
+    id: "missing_id",
+    title: "missing_title",
+    description: '<h4>Default Description</h4><p>Ths discussion is about this or that.</p>',
+    posts: [],
+    isClosed: false
+  };
   replying = false;
-  discussion_id: string = '';
   htmlContent = '';
-  posts = [];
-  isClosed = false;
 
   constructor(
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer
-    ) { }
+    ) {}
 
   @Input('current_course') current_course: string;
 
@@ -47,9 +53,11 @@ export class DiscussionComponent implements OnInit {
   ngOnInit() {
     this.subscriptions.push(this.route.queryParams.subscribe( (params) => {
       if(params.discussion) {
-        this.discussion_id = params.discussion;
+        this.discussion.id = params.Discussion;
+        //this.discussion_id = params.discussion;
       }
     }));
+
   }
 
   sanitizeHtml(val) {
@@ -57,7 +65,12 @@ export class DiscussionComponent implements OnInit {
   }
 
   pushPost() {
-    this.posts.push(this.htmlContent);
+    this.discussion.posts.push({
+      user_id: "test_user_id_here",
+      user_name: "John Doe",
+      date: new Date().toUTCString(),
+      post:this.htmlContent} as Post);
+    //this.posts.push(this.htmlContent);
     this.replying = false;
     this.htmlContent = '';
   }
