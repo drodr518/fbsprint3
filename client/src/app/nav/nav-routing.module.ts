@@ -6,7 +6,9 @@ const routes: Routes = [
     { path: '', component: MainComponent, children: [
         {path: 'courses', loadChildren: () => import('../courses/courses.module').then(mod => mod.CoursesModule)},
         {path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.module').then(mod => mod.DashboardModule)},
-    ]}
+        {path: 'helppage', loadChildren: () => import('../helppage/helppage.module').then(mod => mod.HelppageModule)},
+
+      ]}
 ];
 
 @NgModule({
