@@ -1,5 +1,5 @@
 
-export interface Course {
+export class Course {
     id: string; // databse key
     name: string; // course name
     description: string; // course description
@@ -12,29 +12,29 @@ export interface Course {
     discussions: Discussion[]; // discussion objs
 }
 
-export interface Module {
+export class Module {
     id: string;
     name: string;
     resources: Content[];
 }
 
-export interface Content {
+export class Content {
     title: string;
 }
 
-export interface Document extends Content {
+export class Document extends Content {
     link: string;
 }
 
-export interface EmbededVideo extends Content {
+export class EmbededVideo extends Content {
     html: string;
 }
 
-export interface ExternalLink extends Content {
+export class ExternalLink extends Content {
     url: string;
 }
 
-export interface Assessment extends Content {
+export class Assessment extends Content {
     id: string;
     isTimed: boolean;
     time: number;
@@ -44,18 +44,16 @@ export interface Assessment extends Content {
     items: Question[];
 }
 
-export interface Question {
+export class Question {
+    id: number;
     val: number;
     question: string;
     answer: string;
     response: string;
+    options: string[];
 }
 
-export interface MultipleChoiseQuestion extends Question {
-    options: string[];    
-}
-
-export interface Discussion {
+export class Discussion {
     id: string;
     title: string;
     description: string;
@@ -63,7 +61,7 @@ export interface Discussion {
     isClosed: boolean;
 }
 
-export interface Post {
+export class Post {
     id: string;
     user_name: string;
     user_id: string;

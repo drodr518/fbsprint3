@@ -14,7 +14,7 @@ class CoursesService {
                     instructor_name: newCourse.instructor_name,
                     modules: [],
                     assignments: [],
-                    students: [],
+                    size: 0,
                     discussions: [],
                     MAX_SIZE: newCourse.MAX_SIZE,
                     isOpen: newCourse.isOpen,
@@ -31,6 +31,53 @@ class CoursesService {
 
         return true;
         
+
+    }
+
+    async addDiscussionPost(course, discussion, post) {
+        try {
+
+            await database.ref('/courses/' + course + '/discussions/')
+            .child(discussion).child('posts').push(
+                {
+                    user_name: post.user_name,
+                    user_id: post.user_id,
+                    date: post.date,
+                    post: post.post
+                }
+            )
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
+    }
+
+    async getDiscussionPosts(course, discussion) {
+        let payload = {
+            posts: []
+        }
+
+        try {
+
+            let posts = await database.ref('/courses/' + course + '/discussions/' + discussion + '/posts/').orderByKey().once('value');
+
+            if(!posts.hasChildren()) {
+                return payload;
+            }
+            
+            posts.forEach( (item) => {
+                var post = item.toJSON();
+                post.id = item.key;
+                payload.posts.push(post);
+            });
+
+        }catch (err) {
+            console.error(err);
+        }
+
+        return payload;
 
     }
 
@@ -213,6 +260,58 @@ class CoursesService {
         })
 
         return payload.categories;
+    }
+
+    async getDiscussions(course_key) {
+        let payload = {
+            discusions: []
+        };
+
+        let courses = await database.ref('/courses')
+        .orderByKey()
+        .equalTo(course_key)
+        .once('value');
+        
+        if(courses.numChildren == 1){
+
+            courses.forEach( (course) => {
+                if(course.child.child('discussions').exists() && course.child('discussions').hasChildren()) {
+                    payload.discusions = course.child('discussions').toJSON();
+                }
+            });
+        }
+        
+
+        return payload;
+    }
+
+    async addDiscussion(course_key, newDiscussion) {
+        
+        try {
+
+            let courses = await database.ref('/courses')
+            .orderByKey()
+            .equalTo(course_key)
+            .once('value');
+
+            if(courses.numChildren() > 1) {
+                return false;
+            }
+
+            courses.forEach((course) => {
+                course.child('discussions').ref.push({
+                    title: newDiscussion.title,
+                    description: newDiscussion.description,
+                    isClosed: newDiscussion.isClosed
+                });
+            });
+        } catch(err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
+            
     }
 }
 
