@@ -16,6 +16,25 @@ module.exports = () => {
         res.json({success: resp});
     });
 
+    router.post('/add-course-discussion', async (req, res, next) => {
+        const resp = await coursesServices.addDiscussion(req.body.course, req.body.discussion);
+        res.json(resp);
+    });
+
+    router.post('/add-discussion-post', async (req, res, next) => {
+        const resp = await coursesServices.addDiscussionPost(req.body.course, req.body.discussion, req.body.post);
+        res.json(resp);
+    });
+
+    router.get('/discusssion-posts', async (req, res, next) => {
+        const resp = await coursesServices.getDiscussionPosts(req.body.course, req.body.discussion);
+        res.json(resp);
+    });
+
+    router.get('/get-course-discussions', async (req, res, next) => {
+        const resp = await coursesServices.getDiscussions(req.body.course);
+    });
+
     router.post('/add-module-url', async (req, res, next) => {
         const resp = await coursesServices.addModuleUrl(req.body.course, req.body.module, req.body.content);
         res.json({success: resp});

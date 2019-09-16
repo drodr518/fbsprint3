@@ -12,19 +12,19 @@ export class AssessmentComponent implements OnInit {
 
 
   private items: Question[] = [
-    {title: "Quiz 1", val: 10, question: "Which bear is best1?", answer: "Black Bear", options: [
+    {id: 0, title: "Quiz 1", val: 10, question: "Which bear is best1?", answer: "Black Bear", options: [
       'Black Bear', 'Polar Bear', 'Cave Bear', 'Brown Bear'
     ], response: ""} as Question,
-    {title: "Quiz 1", val: 10, question: "Which bear is best2?", answer: "Black Bear", options: [
+    {id: 1, title: "Quiz 1", val: 10, question: "Which bear is best2?", answer: "Black Bear", options: [
       'Black Bear', 'Polar Bear', 'Cave Bear', 'Brown Bear'
     ], response: ""} as Question,
-    {title: "Quiz 1", val: 10, question: "Which bear is best3?", answer: "Black Bear", options: [
+    {id: 2, title: "Quiz 1", val: 10, question: "Which bear is best3?", answer: "Black Bear", options: [
       'Black Bear', 'Polar Bear', 'Cave Bear', 'Brown Bear'
     ], response: ""} as Question,
-    {title: "Quiz 1", val: 10, question: "Which bear is best4?", answer: "Black Bear", options: [
+    {id: 3, title: "Quiz 1", val: 10, question: "Which bear is best4?", answer: "Black Bear", options: [
       'Black Bear', 'Polar Bear', 'Cave Bear', 'Brown Bear'
     ], response: ""} as Question,
-    {title: "Quiz 1", val: 10, question: "Which bear is best5?", answer: "Black Bear", options: [
+    {id: 4, title: "Quiz 1", val: 10, question: "Which bear is best5?", answer: "Black Bear", options: [
       'Black Bear', 'Polar Bear', 'Cave Bear', 'Brown Bear'
     ], response: ""} as Question,
   ];
