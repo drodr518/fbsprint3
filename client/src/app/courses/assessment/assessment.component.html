@@ -1,16 +1,17 @@
-<p>assessment works!</p>
-<p>
-    course : {{current_course}}
-    assesment id: {{assessment_id}}
-</p>
+<mat-toolbar>
+    <span class="fill"></span>
+    <span>
+        <button class="submit_right" mat-flat-button color="primary">Submit</button>
+    </span>
+</mat-toolbar>
 
 <mat-card class="question">
     <mat-card-header>
         <mat-card-title>{{item.question}}</mat-card-title>
         <mat-card-subtitle>{{item.val}} pts</mat-card-subtitle>
     </mat-card-header>
-<mat-button-toggle-group [(ngModel)]="response" vertical>
-  <mat-button-toggle *ngFor="let option of item.options" value="option" aria-label="Text align left">
+<mat-button-toggle-group [(ngModel)]="item.response" vertical>
+  <mat-button-toggle *ngFor="let option of item.options" value="{{option}}" aria-label="Text align left">
     {{option}}
   </mat-button-toggle>
 </mat-button-toggle-group>
