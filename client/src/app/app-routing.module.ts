@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
-import { 
+import {
   Routes,
-  RouterModule, 
-  ExtraOptions, 
-  PreloadAllModules 
+  RouterModule,
+  ExtraOptions,
+  PreloadAllModules
 } from '@angular/router';
 
 
 const routes: Routes = [
-  {path:'', redirectTo: 'nav/dashboard', pathMatch: 'full'},
-  {path:'nav', loadChildren: () => import('./nav/nav.module').then (mod => mod.NavModule)},
+  {path: '', redirectTo: 'nav/dashboard', pathMatch: 'full'},
+  {path: 'nav', loadChildren: () => import('./nav/nav.module').then (mod => mod.NavModule)},
+  {path: 'home', loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule)},
+  {path: 'security', loadChildren: () => import('./security/security.module').then(mod => mod.SecurityModule)},
   {path: '**', redirectTo: 'nav/dashboard'}
 ];
 
@@ -18,7 +20,7 @@ const config: ExtraOptions = {
   anchorScrolling: 'enabled',
   preloadingStrategy: PreloadAllModules,
   onSameUrlNavigation: 'reload',
-}
+};
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, config)],

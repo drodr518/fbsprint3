@@ -1,0 +1,16 @@
+<br>
+<div style="width: 700px;  margin-left: auto;  margin-right: auto;"> <textarea rows="10" [value]="'Please explain your problem here!'"></textarea>
+<button (click)="ComplaintSubmitted()"> Submit </button>
+<p> {{submittedComplaint}} </p>
+<hr>
+<mat-list>
+  <h3 mat-subheader>Contact Information</h3>
+  <mat-list-item *ngFor="let admin of admins">
+    <mat-icon mat-list-icon>Administrators</mat-icon>
+    <h4 mat-line>{{admin.name}}</h4>
+    <p mat-line> {{admin.phone}} </p>
+    <p mat-line> {{admin.email}} </p>
+  </mat-list-item>
+</mat-list>
+</div>
+
