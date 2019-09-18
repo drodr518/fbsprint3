@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {HelppageComponent} from './helppage/helppage.component';
+import {SecurityComponent} from './security/security.component';
+import {LoginComponent} from './login/login.component';
 import {
   MatIconModule,
   MatFormFieldModule,
@@ -9,7 +10,8 @@ import {
 } from '@angular/material';
 
 const routes: Routes = [
-  {path: '', component: HelppageComponent}
+  {path: '', component: SecurityComponent},
+  { path: 'login', component: LoginComponent}
 ];
 
 @NgModule({
@@ -21,4 +23,4 @@ const routes: Routes = [
     MatFormFieldModule,
     MatButtonModule]
 })
-export class HelppageRoutingModule { }
+export class SecurityRoutingModule { }
