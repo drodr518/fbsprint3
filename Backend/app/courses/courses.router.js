@@ -69,6 +69,11 @@ module.exports = () => {
         const resp = await coursesServices.getCategories();
         res.json(resp);
     });
+    
+    router.get('/user-courses', async (req, res, next) => {
+        const resp = await coursesServices.getMyCourses(req.body.student);
+        res.json(resp);
+    })
 
     return router;
 }

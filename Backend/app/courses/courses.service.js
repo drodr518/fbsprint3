@@ -176,21 +176,19 @@ class CoursesService {
             courses: []
         };
 
-        let users = await database.ref('/users').orderByKey().equalTo(user.key).once('value');
-        if(!users.hasChildren()) {
-            return null;
-        } else if (users.numChildren() > 1) {
-            return null;
-        } else {
-            users.forEach( (member) => {
-                member.child('enrolled').val().forEach( (course) => {
-                    payload.courses.push(course)
-                });
-            });
+        let student = await database.ref('/students/' + user + '/enrolled').once('value');
+
+
+        student.forEach( (item) => {
+            payload.courses.push(item.toJSON());
+        })
+
+        let courses = await database.ref('/courses').once('value');
+        for(var i =0; i < payload.courses.length; i++){
+            payload.courses[i].name = (courses.child(payload.courses[i].id).child('name').val());
         }
 
-
-        return courses;
+        return payload.courses;
     }
 
     async getCourse(key) {
