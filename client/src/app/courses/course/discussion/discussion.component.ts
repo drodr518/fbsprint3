@@ -54,7 +54,6 @@ export class DiscussionComponent implements OnInit {
     this.subscriptions.push(this.route.queryParams.subscribe( (params) => {
       if(params.discussion) {
         this.discussion.id = params.Discussion;
-        //this.discussion_id = params.discussion;
       }
     }));
 
