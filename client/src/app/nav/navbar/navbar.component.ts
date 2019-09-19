@@ -11,12 +11,12 @@ export class NavbarComponent implements OnInit {
 
   myCourses = [];
 
-  private student_id= "";
+  private student_id = '';
   private subscriptions: Subscription[] = [];
 
   constructor(private userServices: UserService) {
     this.student_id = this.userServices.user();
-    
+
    }
 
   ngOnInit() {
@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
     } ));
   }
 
-  reload(){
+  reload() {
   }
 
 }
