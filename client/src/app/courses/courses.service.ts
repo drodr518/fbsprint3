@@ -14,4 +14,9 @@ export class CoursesService {
     return this.http.get(`${environment.apiAddress}/courses/course-info`, params);
   }
 
+  getDiscussions(course_id) {
+    const params = { params: new HttpParams().set('course', `${course_id}`)};
+    return this.http.get(`${environment.apiAddress}/courses/course-discussions`, params);
+  }
+
 }

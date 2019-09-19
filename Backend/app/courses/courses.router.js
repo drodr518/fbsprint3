@@ -32,7 +32,8 @@ module.exports = () => {
     });
 
     router.get('/course-discussions', async (req, res, next) => {
-        const resp = await coursesServices.getDiscussions(req.body.course);
+        const resp = await coursesServices.getDiscussions(req.query.course);
+        res.json(resp);
     });
 
     router.post('/add-module-url', async (req, res, next) => {

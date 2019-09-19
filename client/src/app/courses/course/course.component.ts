@@ -23,7 +23,7 @@ export class CourseComponent implements OnInit, OnChanges {
   private user_id: string;
   private authorized = false;
   current_course = '';
-  course = {name: '', id: this.current_course, description: ''};
+  course = {name: '', id: this.current_course, description: '', instructor: ''};
 
 
   constructor(
@@ -35,6 +35,8 @@ export class CourseComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     
+    this.loadData();
+
     this.subscriptions.push(this.router.events.subscribe((e:any) => {
       if(e instanceof NavigationEnd) {
         this.loadData();
@@ -58,13 +60,16 @@ export class CourseComponent implements OnInit, OnChanges {
 
     this.subscriptions.push(this.userServices.studentHasCourse(this.user_id, this.current_course).subscribe( (resp:boolean) => {
       this.authorized = resp;
-      console.log(resp);
 
-    }));
+      if(this.authorized) {
+        this.subscriptions.push(this.coursesServices
+          .getCourseInfo(this.current_course)
+          .subscribe( (course: {id: string, name:string, description: string, instructor: string}) => {
+          this.course = course;
+          //console.log(course);
+        }));
+      }
 
-    this.subscriptions.push(this.coursesServices.getCourseInfo(this.current_course).subscribe( (course: {id: string, name:string, description: string}) => {
-      this.course = course;
-      console.log(course);
     }));
   }
 

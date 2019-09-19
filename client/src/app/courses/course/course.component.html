@@ -17,7 +17,7 @@
         <mat-sidenav-content class="course_viewer">
             
             <div class="content">
-                <app-info [current_course]="current_course" *ngIf="isEqual('Home')"></app-info>
+                <app-info [current_course]="current_course" [courseData]="course" *ngIf="isEqual('Home')"></app-info>
                 <app-modules [current_course]="current_course" *ngIf="isEqual('Modules')"></app-modules>
                 <app-grades [current_course]="current_course" *ngIf="isEqual('Grades')"></app-grades>
                 <app-discussions [current_course]="current_course" *ngIf="isEqual('Discussions')"></app-discussions>
