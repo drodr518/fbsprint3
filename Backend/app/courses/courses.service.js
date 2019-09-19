@@ -311,6 +311,20 @@ class CoursesService {
         return true;
             
     }
+
+    async studentHasCourse(student_id, course_id) {
+        let reference = await database.ref('/students/' + student_id + '/enrolled/')
+        .orderByChild('id')
+        .equalTo(course_id)
+        .once('value');
+        
+        if(reference.hasChildren()) {
+            return true;
+        }
+
+        return false
+        
+    }
 }
 
 module.exports = new CoursesService();

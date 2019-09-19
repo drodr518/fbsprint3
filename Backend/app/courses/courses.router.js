@@ -31,7 +31,7 @@ module.exports = () => {
         res.json(resp);
     });
 
-    router.get('/get-course-discussions', async (req, res, next) => {
+    router.get('/course-discussions', async (req, res, next) => {
         const resp = await coursesServices.getDiscussions(req.body.course);
     });
 
@@ -55,25 +55,30 @@ module.exports = () => {
         res.json(resp);
     });
 
-    router.get('/get-course', async (req, res, next) => {
+    router.get('/course', async (req, res, next) => {
         const resp = await coursesServices.getCourse(req.query.key);
         res.json(resp);
     });
 
-    router.get('/get-courses', async ( req, res, next) => {
+    router.get('/courses', async ( req, res, next) => {
         const resp = await coursesServices.getAllCourses();
         res.json(resp);
     });
 
-    router.get('/get-categories', async (req, res, next) => {
+    router.get('/categories', async (req, res, next) => {
         const resp = await coursesServices.getCategories();
         res.json(resp);
     });
     
-    router.get('/user-courses', async (req, res, next) => {
-        const resp = await coursesServices.getMyCourses(req.body.student);
+    router.get('/student-courses', async (req, res, next) => {
+        const resp = await coursesServices.getMyCourses(req.query.student);
         res.json(resp);
     })
+
+    router.get('/student-has-course', async (req, res, next) => {
+        const resp = await coursesServices.studentHasCourse(req.query.student, req.query.course);
+        res.json(resp);
+    });
 
     return router;
 }

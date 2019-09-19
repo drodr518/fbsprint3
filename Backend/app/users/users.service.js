@@ -1,6 +1,7 @@
 const database = require('firebase-admin').database();
 const jwt = require('jsonwebtoken');
 const crypto = require('bcrypt');
+const coursesService = require('../courses/courses.service');
 
 class UsersSerivce {
     constructor() {}
@@ -23,6 +24,8 @@ class UsersSerivce {
     }
 
     async enrollIn(student_key, course_key) {
+
+        if(!coursesService.studentHasCourse(student_key, course_key)) return false;
         try {
 
             let users = await database.ref('/students').orderByKey().equalTo(student_key).once('value');
