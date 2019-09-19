@@ -215,7 +215,7 @@ class CoursesService {
                 name: course.name,
                 img: course.img,
                 description: course.description,
-                instructor: course.instructor,
+                instructor: course.instructor_id,
             };
         });
 
@@ -265,22 +265,24 @@ class CoursesService {
             discusions: []
         };
 
-        let courses = await database.ref('/courses')
-        .orderByKey()
-        .equalTo(course_key)
-        .once('value');
-        
-        if(courses.numChildren == 1){
+        try {
 
-            courses.forEach( (course) => {
-                if(course.child.child('discussions').exists() && course.child('discussions').hasChildren()) {
-                    payload.discusions = course.child('discussions').toJSON();
-                }
+            let discussions = await database.ref('/courses/' + course_key + '/discussions')
+            .once('value');
+
+            discussions.forEach( (discussion) => {
+                payload.discusions.push({
+                    id: discussion.key,
+                    title: discussion.child('title').val(),
+                    description: discussion.child('description').val()
+                });
             });
-        }
-        
 
-        return payload;
+        } catch (err) {
+            console.error(err);
+        }
+
+        return payload.discusions;
     }
 
     async addDiscussion(course_key, newDiscussion) {
@@ -310,6 +312,20 @@ class CoursesService {
 
         return true;
             
+    }
+
+    async studentHasCourse(student_id, course_id) {
+        let reference = await database.ref('/students/' + student_id + '/enrolled/')
+        .orderByChild('id')
+        .equalTo(course_id)
+        .once('value');
+
+        if(reference.hasChildren()) {
+            return true;
+        }
+
+        return false
+        
     }
 }
 

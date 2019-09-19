@@ -13,7 +13,6 @@
   "author": "Joao Guimaraes, Daniel Rodrigues, Alejandro Arrieta",
   "license": "MIT",
   "dependencies": {
-    "@angular/cli": "^8.3.4",
     "@hapi/boom": "^7.4.3",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
