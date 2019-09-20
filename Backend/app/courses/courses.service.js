@@ -1,5 +1,7 @@
 const database = require('firebase-admin').database();
 
+const MAX_POSTS = 50;
+
 class CoursesService {
     constructor() {}
 
@@ -53,6 +55,7 @@ class CoursesService {
 
         return true;
     }
+    
 
     async getDiscussionPosts(course, discussion) {
         let payload = {
@@ -78,6 +81,58 @@ class CoursesService {
         }
 
         return payload.posts;
+
+    }
+
+    async getNumberOfPosts(course, discussion) {
+        try {
+            let posts = await database.ref('/courses/' + course + '/discussions/' + discussion + '/posts/').once('value');
+            return posts.numChildren();
+        } catch (err) {
+            console.error(err);
+        }
+
+        return 0;
+    }
+
+
+    async getDiscussionPostsFrom(course, discussion, start) {
+        let payload = {
+            posts: [],
+            total: 0,
+        }
+
+        let loadedPosts = 0;
+
+        try {
+
+            payload.total = await this.getNumberOfPosts(course, discussion);
+
+            let posts = await database.ref('/courses/' + course + '/discussions/' + discussion + '/posts/')
+            .orderByKey()
+            .limitToLast(payload.total - start)
+            .once('value');
+
+            if(!posts.hasChildren()) {
+                return payload;
+            }
+            
+            posts.forEach( (item) => {
+                if(loadedPosts < MAX_POSTS) {
+                    var post = item.toJSON();
+                    post.id = item.key;
+                    payload.posts.push(post);
+                } else {
+                    throw "Not error, just interrup for each with a throw";
+                }
+                loadedPosts++;
+            });
+
+        }catch (err) {
+            console.error(err);
+        }
+
+        return payload;
 
     }
 

@@ -26,6 +26,11 @@ module.exports = () => {
         res.json(resp);
     });
 
+    router.get('/discussion-posts-from', async (req, res, next) => {
+        const resp = await coursesServices.getDiscussionPostsFrom(req.query.course, req.query.discussion, Number(req.query.start));
+        res.json(resp);
+    });
+
     router.get('/discusssion-posts', async (req, res, next) => {
         const resp = await coursesServices.getDiscussionPosts(req.query.course, req.query.discussion);
         res.json(resp);

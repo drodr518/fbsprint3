@@ -24,9 +24,9 @@ export class CoursesService {
     return this.http.get(`${environment.apiAddress}/courses/modules`, params);
   }
 
-  getDiscussionPosts(course_id, discussion_id) {
-    const params = { params: new HttpParams().set('course', `${course_id}`).set('discussion', `${discussion_id}`)};
-    return this.http.get(`${environment.apiAddress}/courses/discusssion-posts`, params);
+  getDiscussionPosts(course_id, discussion_id, startFrom) {
+    const params = { params: new HttpParams().set('course', `${course_id}`).set('discussion', `${discussion_id}`).set('start',`${startFrom}`)};
+    return this.http.get(`${environment.apiAddress}/courses/discussion-posts-from`, params);
   }
 
   postDiscussionPost(course_id, discussion_id, post) {
