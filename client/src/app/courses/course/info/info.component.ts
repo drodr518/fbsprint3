@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+import { CoursesService } from './../../courses.service';
 
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
@@ -8,6 +10,8 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 })
 export class InfoComponent implements OnInit, OnChanges {
 
+  subscriptions: Subscription[] = [];
+
   @Input('current_course') current_course: string;
   @Input('courseData') courseData: {id: string, name: string, description: string};
 
@@ -15,10 +19,14 @@ export class InfoComponent implements OnInit, OnChanges {
   instructor: string = "Bob Le Builder";
   instructorEmail: string = "blebuild@fiu.edu"
 
-  constructor() { }
+  constructor(private courseServices: CoursesService) { }
 
   ngOnInit() {
-    console.log(this.courseData);
+    //console.log(this.courseData);
+    this.subscriptions.push(this.courseServices.getInstructorInfo(this.courseData.instructor).subscribe( (resp: {contactEmail: string, name: string}) => {
+      this.instructor = resp.name;
+      this.instructorEmail = resp.contactEmail;
+    }));
   }
 
   ngOnChanges() {

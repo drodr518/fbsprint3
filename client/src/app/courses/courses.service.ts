@@ -19,4 +19,18 @@ export class CoursesService {
     return this.http.get(`${environment.apiAddress}/courses/course-discussions`, params);
   }
 
+  getDiscussionPosts(course_id, discussion_id) {
+    const params = { params: new HttpParams().set('course', `${course_id}`).set('discussion', `${discussion_id}`)};
+    return this.http.get(`${environment.apiAddress}/courses/discusssion-posts`, params);
+  }
+
+  getDiscussionInfo(course_id, discussion_id) {
+    const params = { params: new HttpParams().set('course', `${course_id}`).set('discussion', `${discussion_id}`)};
+    return this.http.get(`${environment.apiAddress}/courses/course-discussion-info`, params);
+  }
+
+  getInstructorInfo(instructor_id) {
+    const params = { params: new HttpParams().set('id', `${instructor_id}`)};
+    return this.http.get(`${environment.apiAddress}/users/instructor-info`, params);
+  }
 }
