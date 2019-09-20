@@ -14,7 +14,7 @@ import { MatMenuModule } from '@angular/material';
     DashboardRoutingModule,
     MatCardModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
   ]
 })
 export class DashboardModule { }

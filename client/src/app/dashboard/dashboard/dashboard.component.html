@@ -1,25 +1,25 @@
-<div>
+<div class="dashboard">
+<div class="dashboard-header">
 <button mat-button class="dashboardbutton" [matMenuTriggerFor]="menu">Dashboard</button>
 </div>
 <div>
 <mat-menu #menu="matMenu">
-    <span>
-            <button [routerLink]="['courses/']" mat-button>Courses</button>
-      </span>
+  <button [routerLink]="['courses/']" mat-button>Courses</button>
   <button mat-menu-item>Calendar</button>
   <button mat-menu-item>Announcements</button>
 </mat-menu>
 
 </div>
 
-<br>
-
 <div>
 <mat-card *ngFor="let course of courses">
     <h1>{{course.title}}</h1>
-    <p>
-        Instructor: {{course.prof}}
-    </p>
-    <button [routerLink]="['/nav/courses/']" mat-button>Syllabus</button>
+    <a> Instructor: {{course.prof}}
+      <br>
+    </a>
+  <button [routerLink]="['/nav/courses/']" mat-button>Syllabus</button>
+
+  <hr>
 </mat-card>
+</div>
 </div>
