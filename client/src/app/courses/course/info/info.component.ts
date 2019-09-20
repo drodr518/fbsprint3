@@ -13,11 +13,11 @@ export class InfoComponent implements OnInit, OnChanges {
   subscriptions: Subscription[] = [];
 
   @Input('current_course') current_course: string;
-  @Input('courseData') courseData: {id: string, name: string, description: string};
+  @Input('courseData') courseData: {id: string, name: string, description: string, instructor: string};
 
-  description: string = "<h1>Title</h1><p>The cours is about lots of things. Things that will blow your mind.</p>";
-  instructor: string = "Bob Le Builder";
-  instructorEmail: string = "blebuild@fiu.edu"
+  description: string;
+  instructor: string;
+  instructorEmail: string;
 
   constructor(private courseServices: CoursesService) { }
 

@@ -19,6 +19,11 @@ export class CoursesService {
     return this.http.get(`${environment.apiAddress}/courses/course-discussions`, params);
   }
 
+  getModules(course_id) {
+    const params = { params: new HttpParams().set('course', `${course_id}`)};
+    return this.http.get(`${environment.apiAddress}/courses/modules`, params);
+  }
+
   getDiscussionPosts(course_id, discussion_id) {
     const params = { params: new HttpParams().set('course', `${course_id}`).set('discussion', `${discussion_id}`)};
     return this.http.get(`${environment.apiAddress}/courses/discusssion-posts`, params);

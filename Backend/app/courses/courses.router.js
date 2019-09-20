@@ -56,6 +56,11 @@ module.exports = () => {
         res.json({success: resp});
     });
 
+    router.get('/modules', async (req, res, next) => {
+        const resp = await coursesServices.getCourseModules(req.query.course);
+        res.json(resp);
+    })
+
     router.get('/course-info', async (req, res, next) => {
         const resp = await coursesServices.getCourseInfo(req.query.key);
         res.json(resp);

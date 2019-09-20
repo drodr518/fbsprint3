@@ -4,6 +4,10 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 
+
+
+
+
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',

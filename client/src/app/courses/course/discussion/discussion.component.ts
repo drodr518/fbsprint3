@@ -17,9 +17,9 @@ export class DiscussionComponent implements OnInit {
 
   private subscriptions: Subscription[] = [];
 
-  id = "missing_id";
-  title = "missing_title";
-  description = '<h4>Default Description</h4><p>Ths discussion is about this or that.</p>';
+  id;
+  title;
+  description;
   posts = [];
   isClosed = false;
 
