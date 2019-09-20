@@ -54,6 +54,7 @@ class UsersSerivce {
                 const hashedPass = await crypto.hash(user.password, salt);
                 await database.ref('/instructors').push({
                     email: user.email,
+                    contactEmail: user.contactEmail,
                     f_name: user.f_name,
                     l_name: user.l_name,
                     password: hashedPass,
@@ -70,6 +71,27 @@ class UsersSerivce {
 
         return false;
     }
+
+
+    async getInstructor(id) {
+        var resp = {
+            contactEmail:'',
+            name: '',
+        };
+
+        try {
+
+            var instructor = await database.ref('/instructors/' + id).once('value');
+            resp.contactEmail = instructor.child('contactEmail').val();
+            resp.name = instructor.child('f_name').val() + ' ' + instructor.child('l_name').val();
+            
+        } catch (err) {
+            console.log(err);
+        }
+
+        return resp;
+    }
+
 
     async login(user) {
         const userInfo = {

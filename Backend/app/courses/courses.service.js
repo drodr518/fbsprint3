@@ -77,8 +77,26 @@ class CoursesService {
             console.error(err);
         }
 
-        return payload;
+        return payload.posts;
 
+    }
+
+    async getDiscussionInfo(course, discussion_id) {
+        
+        try {
+
+            var discussion = await database.ref('/courses/' + course + '/discussions/' + discussion_id).once('value');
+            return {
+                title: discussion.child("title").val(),
+                description: discussion.child("description").val(),
+                isClosed: discussion.child("isClosed").val()
+            };
+
+        }catch (err) {
+            console.error(err);
+        }
+
+        return {title: "", description: "", isClosed: true};
     }
 
     async addCourseModule(course, module_obj) {
@@ -314,6 +332,41 @@ class CoursesService {
             
     }
 
+    async getCourseModules(courses_id) {
+
+        let payload = {
+            modules: []
+        };
+
+        let tempModule;
+
+        try {
+
+            var courseModules = await database.ref('/courses/' + courses_id + '/modules').once('value');
+
+            courseModules.forEach( (mod) => {
+                tempModule = {name: '', resources: []};
+
+                tempModule.name = mod.child('name').val();
+
+                mod.child('content').forEach( (item) => {
+                    tempModule.resources.push({
+                        title: item.child('title').val(),
+                        url: item.child('url').val(),
+                        link: item.child('link').val(),
+                        isTimed: item.child('isTimed').val()
+                    });
+                });
+
+                payload.modules.push(tempModule);
+            });
+        } catch (err) {
+            console.error(err);
+        }
+
+        return payload.modules;
+    }
+
     async studentHasCourse(student_id, course_id) {
         let reference = await database.ref('/students/' + student_id + '/enrolled/')
         .orderByChild('id')
@@ -324,8 +377,7 @@ class CoursesService {
             return true;
         }
 
-        return false
-        
+        return false;
     }
 }
 

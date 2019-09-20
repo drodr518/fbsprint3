@@ -27,7 +27,7 @@ module.exports = () => {
     });
 
     router.get('/discusssion-posts', async (req, res, next) => {
-        const resp = await coursesServices.getDiscussionPosts(req.body.course, req.body.discussion);
+        const resp = await coursesServices.getDiscussionPosts(req.query.course, req.query.discussion);
         res.json(resp);
     });
 
@@ -35,6 +35,11 @@ module.exports = () => {
         const resp = await coursesServices.getDiscussions(req.query.course);
         res.json(resp);
     });
+
+    router.get('/course-discussion-info', async (req, res, next) => {
+        const resp = await coursesServices.getDiscussionInfo(req.query.course, req.query.discussion);
+        res.json(resp);
+    })
 
     router.post('/add-module-url', async (req, res, next) => {
         const resp = await coursesServices.addModuleUrl(req.body.course, req.body.module, req.body.content);
@@ -50,6 +55,11 @@ module.exports = () => {
         const resp = await coursesServices.addModuleQuiz(req.body.course, req.body.module, req.body.content);
         res.json({success: resp});
     });
+
+    router.get('/modules', async (req, res, next) => {
+        const resp = await coursesServices.getCourseModules(req.query.course);
+        res.json(resp);
+    })
 
     router.get('/course-info', async (req, res, next) => {
         const resp = await coursesServices.getCourseInfo(req.query.key);

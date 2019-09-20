@@ -1,3 +1,5 @@
+import { CoursesService } from './../../courses.service';
+import { Subscription } from 'rxjs';
 import { 
   Module, 
   Content, 
@@ -18,22 +20,11 @@ export class ModulesComponent implements OnInit {
 
   @Input('current_course') current_course: string;
 
-  modules : Module[] = [
-    {id: '0', name: 'Module 1', resources: [
-      {title: 'Google', link: "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"} as Content,
-      {title: 'Microsoft', link: ""} as Content,
-      {title: 'Youtube', link: ""} as Content,
-    ], },
-    {id: '1', name: 'Module 2', resources: [
-      {title: 'Google', url: "https://www.google.com"} as Content,
-      {title: 'Microsoft', url: "https://www.microsoft.com"} as Content,
-      {title: 'Quiz 1', isTimed: "false", id: "Quiz1"} as Content,
-    ], }
-  ];
+  modules = [];
 
-  
+  subscriptions: Subscription[] = [];
 
-  constructor() { }
+  constructor(private coursesServices: CoursesService) { }
 
 
   openInNewTab(url) {
@@ -41,6 +32,11 @@ export class ModulesComponent implements OnInit {
   }
   
   ngOnInit() {
+
+    this.subscriptions.push(this.coursesServices.getModules(this.current_course).subscribe( (resp: []) => {
+      this.modules = resp;
+      //console.log(resp);
+    }));
   }
 
 }

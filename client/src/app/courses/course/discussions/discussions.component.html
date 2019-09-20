@@ -2,4 +2,7 @@
     <mat-nav-list *ngFor='let discussion of discussions'>
         <a mat-list-item [routerLink]="" [queryParams]="{course: current_course, select:'Discussion', discussion:discussion.id}"><mat-icon>insert_comment</mat-icon>{{discussion.title}}</a>
     </mat-nav-list>
+    <div class="empty_message" *ngIf="1 > discussions.length">
+        There are no discussions.
+    </div>
 </mat-card>
