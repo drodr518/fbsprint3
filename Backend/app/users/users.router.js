@@ -19,6 +19,11 @@ module.exports = (passport) => {
         res.json(resp);
     });
 
+    router.get('/instructor-info', async (req, res, next) => {
+        const resp = await usersServices.getInstructor(req.query.id);
+        res.json(resp);
+    });
+
     router.post('/login', passport.authenticate('local', {}), async (req, res, next) => {
         const token = await usersServices.login(req.user);
         res.status(200).json({
