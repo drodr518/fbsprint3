@@ -377,8 +377,7 @@ class CoursesService {
             return true;
         }
 
-        return false
-        
+        return false;
     }
 }
 

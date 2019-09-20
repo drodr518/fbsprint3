@@ -1,3 +1,4 @@
+import { UserService } from './../../../user.service';
 import { CoursesService } from './../../courses.service';
 import { Discussion, Post } from './../../courses.models';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -29,6 +30,7 @@ export class DiscussionComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private coursesServices: CoursesService,
+    private userServices: UserService,
     ) {}
 
   @Input('current_course') current_course: string;
@@ -51,11 +53,37 @@ export class DiscussionComponent implements OnInit {
   };
 
   ngOnInit() {
+
+    
     this.subscriptions.push(this.route.queryParams.subscribe( (params) => {
       if(params.discussion) {
         this.id = params.discussion;
       }
     }));
+
+    this.loadDiscussion();
+
+  }
+
+
+  pushPost() {
+    const post = {
+      user_id: this.userServices.user(),
+      user_name: "John Doe",
+      date: new Date().toUTCString(),
+      post:this.htmlContent};
+    
+    this.subscriptions.push(this.coursesServices.postDiscussionPost(this.current_course, this.id, post).subscribe( (resp) => {
+      console.log(resp);
+    }));
+
+    this.loadDiscussion();
+    
+  }
+
+  loadDiscussion() {
+    this.replying = false;
+    this.htmlContent = '';
 
     this.subscriptions.push(this.coursesServices.getDiscussionInfo(this.current_course, this.id).subscribe( (resp: {title: any, description:any, isClosed:any}) => {
       this.description = resp.description;
@@ -68,21 +96,6 @@ export class DiscussionComponent implements OnInit {
         this.posts = resp;
       }
     }));
-
-    this.subscriptions.push();
-
-  }
-
-
-  pushPost() {
-    this.posts.push({
-      user_id: "test_user_id_here",
-      user_name: "John Doe",
-      date: new Date().toUTCString(),
-      post:this.htmlContent});
-    //this.posts.push(this.htmlContent);
-    this.replying = false;
-    this.htmlContent = '';
   }
 
   openEditor() {
