@@ -1,11 +1,11 @@
 <mat-card id="top">
     <mat-card-header>
         <mat-card-title>
-            {{discussion.title}}
+            {{title}}
         </mat-card-title>
     </mat-card-header>
 
-    <p [innerHTML]="this.discussion.description"></p>
+    <p [innerHTML]="this.description"></p>
 
     <mat-nav-list *ngIf="!replying">
         <a mat-list-item (click)="openEditor()"><mat-icon>reply</mat-icon>Reply</a>
@@ -14,7 +14,7 @@
     <div *ngIf="replying" >
         <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
         <mat-card-actions class="controls">
-            <button [disabled]="discussion.isClosed || isPostEmpty()" (click)="pushPost()" mat-flat-button color='primary'>Submit</button>
+            <button [disabled]="isClosed || isPostEmpty()" (click)="pushPost()" mat-flat-button color='primary'>Submit</button>
 
             <button (click)="closeEditor()" mat-stroked-button>Cancel</button>
         </mat-card-actions>
@@ -23,7 +23,7 @@
 </mat-card>
 
 
-<mat-card *ngFor="let post of discussion.posts">
+<mat-card *ngFor="let post of posts">
     <mat-card-header>
         <mat-card-title>{{post.user_name}}</mat-card-title>
         <mat-card-subtitle>{{post.date}}</mat-card-subtitle>

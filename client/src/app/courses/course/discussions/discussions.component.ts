@@ -13,19 +13,20 @@ export class DiscussionsComponent implements OnInit, OnChanges {
 
   subscriptions: Subscription[] = [];
 
+
   constructor(private coursesServices: CoursesService) { }
 
   @Input('current_course') current_course: string;
 
   ngOnInit() {
     this.subscriptions.push(this.coursesServices.getDiscussions(this.current_course).subscribe( (resp:{id: string, title: string, description: string}[]) => {
-      console.log(resp);
+      //console.log(resp);
       this.discussions = resp;
     }))
   }
 
   ngOnChanges() {
-    console.log(this.current_course);
+    //console.log(this.current_course);
     this.ngOnInit();
   }
 }
