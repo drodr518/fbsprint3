@@ -14,3 +14,9 @@
         </mat-nav-list>
     </mat-expansion-panel>
 </mat-accordion>
+
+<mat-card *ngIf="1 > modules.length">
+    <div class="empty_message">
+        There are no modules.
+    </div>
+</mat-card>
