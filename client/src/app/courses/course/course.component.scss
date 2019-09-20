@@ -1,8 +1,12 @@
 
 mat-sidenav-container, mat-sidenav-content, mat-sidenav {
-    height: 100%;
+    min-height: 100%;
 }
  
+mat-sidenav-container {
+    background-color: lightgray;
+}
+
 mat-sidenav {
     max-width: 20%;
     min-width: 150px;
@@ -15,8 +19,4 @@ mat-sidenav {
 
 mat-icon {
     margin-right: 1rem;
-}
-
-.course_viewer {
-    background-color: lightgray;
 }
