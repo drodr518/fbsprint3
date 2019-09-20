@@ -77,8 +77,26 @@ class CoursesService {
             console.error(err);
         }
 
-        return payload;
+        return payload.posts;
 
+    }
+
+    async getDiscussionInfo(course, discussion_id) {
+        
+        try {
+
+            var discussion = await database.ref('/courses/' + course + '/discussions/' + discussion_id).once('value');
+            return {
+                title: discussion.child("title").val(),
+                description: discussion.child("description").val(),
+                isClosed: discussion.child("isClosed").val()
+            };
+
+        }catch (err) {
+            console.error(err);
+        }
+
+        return {title: "", description: "", isClosed: true};
     }
 
     async addCourseModule(course, module_obj) {
