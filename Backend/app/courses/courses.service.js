@@ -418,6 +418,7 @@ class CoursesService {
     }
 
     async getDiscussions(course_key) {
+
         let payload = {
             discusions: []
         };
@@ -431,7 +432,6 @@ class CoursesService {
                 payload.discusions.push({
                     id: discussion.key,
                     title: discussion.child('title').val(),
-                    description: discussion.child('description').val()
                 });
             });
 
@@ -471,6 +471,13 @@ class CoursesService {
             
     }
 
+    /**
+     * 
+     * @param {string} courses_id 
+     * 
+     * @returns {name: string,
+     *           resources: {id: string, title: string, url: string, link: string, isTime}[]}[]
+     */
     async getCourseModules(courses_id) {
 
         let payload = {
@@ -490,6 +497,7 @@ class CoursesService {
 
                 mod.child('content').forEach( (item) => {
                     tempModule.resources.push({
+                        id: item.key,
                         title: item.child('title').val(),
                         url: item.child('url').val(),
                         link: item.child('link').val(),
@@ -506,6 +514,14 @@ class CoursesService {
         return payload.modules;
     }
 
+
+
+    /**
+     * @param {string} student_id 
+     * @param {string} course_id 
+     * 
+     * @returns {boolean} true if this student is enrolled in this course
+     */
     async studentHasCourse(student_id, course_id) {
         let reference = await database.ref('/students/' + student_id + '/enrolled/')
         .orderByChild('id')
@@ -518,6 +534,9 @@ class CoursesService {
 
         return false;
     }
+
+
+
 }
 
 module.exports = new CoursesService();
