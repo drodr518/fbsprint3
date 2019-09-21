@@ -1,10 +1,15 @@
+import { Subscription } from 'rxjs';
+import { CoursesService } from './../../courses.service';
+import { UserService } from './../../../user.service';
 import { Component, OnInit, Input } from '@angular/core';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+export interface Record {
+  id: string;
+  title: string;
+  dueDate: string;
+  doneOn: string;
+  score: number;
+  outOf: number;
 }
 
 @Component({
@@ -14,26 +19,37 @@ export interface PeriodicElement {
 })
 export class GradesComponent implements OnInit {
 
-  constructor() { }
 
   @Input('current_course') current_course: string;
 
-  displayedColumns: string[] = ['title', 'dueDate', 'doneDate', 'score', 'outOf'];
-  dataSource = [
-    {id:'Quiz1', title: 'Quiz 1', dueDate: '12/12/19', doneDate: '11/12/19', score: 10 , outOf: 10},
-    {id:'Quiz2', title: 'Quiz 2', dueDate: '12/12/19', doneDate: '11/12/19', score: 8 , outOf: 10},
-    {id:'Quiz3', title: 'Quiz 3', dueDate: '12/12/19', doneDate: '11/12/19', score: 7 , outOf: 10},
-    {id:'Quiz4', title: 'Quiz 4', dueDate: '12/12/19', doneDate: '11/12/19', score: 7 , outOf: 10},
-    {id:'Quiz5', title: 'Quiz 5', dueDate: '12/12/19', doneDate: '11/12/19', score: 8 , outOf: 10},
-    {id:'Quiz6', title: 'Quiz 6', dueDate: '12/12/19', doneDate: '11/12/19', score: 10 , outOf: 10},
-    {id:'Quiz7', title: 'Quiz 7', dueDate: '12/12/19', doneDate: '11/12/19', score: 10 , outOf: 10},
-  ];
+  private debugUser = this.userServices.user();
+  private subscriptions: Subscription[] = [];
+
+  constructor(
+    private userServices: UserService,
+    private coursesServices: CoursesService,
+    ) { }
+
+  
+
+  displayedColumns: string[] = ['title', 'dueDate', 'doneOn', 'score', 'outOf'];
+  dataSource: Record[] = [];
 
   ngOnInit() {
+    this.loadGrades();
+  }
+
+
+  loadGrades() {
+    this.subscriptions.push(this.coursesServices.getStudentCourseGrades(this.current_course, this.debugUser).subscribe( (resp: Record[]) => {
+      this.dataSource = resp;
+    }));
   }
 
   getPercent() {
-    return this.dataSource.map( data => data.score).reduce( (acc , value) => (acc + value), 0.0) / this.dataSource.map( data => data.outOf).reduce( (acc , value) => (acc + value), 0.0);
+    var total = this.dataSource.map( data => data.outOf).reduce( (acc , value) => (acc + value), 0.0);
+    if(total < 0) return 0;
+    return this.dataSource.map( data => data.score).reduce( (acc , value) => (acc + value), 0.0) / total;
   }
 
 }

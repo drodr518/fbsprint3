@@ -68,3 +68,20 @@ export class Post {
     date: string;
     post: string;
 }
+
+export interface CourseNav {
+    id: string;
+    name: string;
+}
+
+export interface DIscussions {
+    id: string;
+    title: string;
+}
+
+export interface IPost {
+    user_id: string;
+    user_name: string;
+    date: string;
+    post: string;
+}

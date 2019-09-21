@@ -1,6 +1,7 @@
 import { CoursesService } from './../../courses.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { DIscussions } from '../../courses.models';
 
 @Component({
   selector: 'app-discussions',
@@ -9,24 +10,28 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 })
 export class DiscussionsComponent implements OnInit, OnChanges {
 
-  discussions: {id: string, title: string, description: string}[] = [];
-
+  discussions: DIscussions[] = [];
   subscriptions: Subscription[] = [];
-
+  @Input('current_course') current_course: string;
 
   constructor(private coursesServices: CoursesService) { }
 
-  @Input('current_course') current_course: string;
 
+  // Runs whenever this component is loaded
   ngOnInit() {
-    this.subscriptions.push(this.coursesServices.getDiscussions(this.current_course).subscribe( (resp:{id: string, title: string, description: string}[]) => {
-      //console.log(resp);
+    this.loadDiscussions();
+  }
+
+  // Loads discussions id, title, and description
+  loadDiscussions() {
+    this.subscriptions.push(this.coursesServices.getDiscussions(this.current_course).subscribe( (resp: DIscussions[]) => {
       this.discussions = resp;
     }))
   }
 
+  // Runs whenever input values change
   ngOnChanges() {
-    //console.log(this.current_course);
+
     this.ngOnInit();
   }
 }
