@@ -47,7 +47,7 @@ class UsersSerivce {
 
     /**
      * 
-     * @param {key: string, name: string, email: string} user 
+     * @param {key: string, name: string} user 
      * 
      * @return true if successfully added new user
      */
