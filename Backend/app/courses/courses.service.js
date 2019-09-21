@@ -5,6 +5,81 @@ const MAX_POSTS = 50;
 class CoursesService {
     constructor() {}
 
+
+    async getAssessmentsList(course_id) {
+        let assessments = [];
+        try {
+            let courseModules = await database.ref('/courses/' + course_id + '/modules').once('value');
+
+            courseModules.forEach( (mod) => {
+                mod.child("content").forEach( (cont) => {
+                    if(cont.hasChild('isTimed')) {
+                        console.log(cont.child('title').val());
+                        const assessment = cont.toJSON();
+                        assessments.push({
+                            id: cont.key,
+                            title: assessment.title,
+                            dueDate: assessment.dueDate,
+                            outOf: assessment.outOf,
+                        });
+                    }
+                })
+            });
+
+
+        } catch(err) {
+            console.error(err);
+        }
+
+        return assessments;
+    }
+
+    async getStudentRecord(student_id, course_id, assessment_id) {
+        try {
+            let records = await database.ref('/students/' + student_id + '/enrolled')
+            .orderByChild('id')
+            .equalTo(course_id)
+            .once('value');
+
+            records.child('records').child(assessment_id).forEach( (record) => {
+                return {
+                    doneOn: record.child('doneOn').val(),
+                     score: record.child('score').val()
+                    };
+            });
+
+        } catch(err) {
+            console.error(err);
+        }
+
+        return {
+            doneOn: null,
+             score: null
+            };
+    }
+
+    async getStudentGrades(course_id, student_id) {
+
+        let assessments = await this.getAssessmentsList(course_id);
+
+        if(assessments.length < 1) return assessments;
+
+        try {
+
+            assessments.forEach((item) => {
+                var record = this.getStudentRecord(student_id, course_id, item.id);
+                item.doneOn = record.doneOn || null;
+                item.score = record.score || null;
+            });
+            
+        } catch(err) {
+            console.error(err);
+        }
+
+        return assessments;
+
+    }
+
     async addCourse(newCourse) {
         try {
 
@@ -223,8 +298,13 @@ class CoursesService {
                     dueDate: content.dueDate,
                     attempts: content.attempts,
                 });
+                
+
+                //await database.ref('/courses/' + course_key + '/assessments').push({id: items.key});
+                let total = 0;
 
                 content.items.forEach( (item) => {
+                    total += item.val;
                     items.child('items').ref.push({
                         val: item.val,
                         question: item.question,
@@ -232,6 +312,10 @@ class CoursesService {
                         options: item.options
                     });
                 });
+
+                items.update({outOf: total});
+
+
             } else {
                 throw false;
             }

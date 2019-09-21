@@ -31,6 +31,12 @@ module.exports = () => {
         res.json(resp);
     });
 
+
+    router.get('/student-grades', async(req, res, next) => {
+        const resp = await coursesServices.getStudentGrades(req.query.course, req.query.student);
+        res.json(resp);
+    });
+
     router.get('/discusssion-posts', async (req, res, next) => {
         const resp = await coursesServices.getDiscussionPosts(req.query.course, req.query.discussion);
         res.json(resp);
