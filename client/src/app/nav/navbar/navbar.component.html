@@ -1,12 +1,17 @@
+<!--  This is the main navigation bar for the app -->
+
 <mat-toolbar color="primary">
     <mat-toolbar-row>
       <span>
             <button [routerLink]="['nav']" mat-button>Dashboard</button>
       </span>
       <span>
-            <button (click)="reload()" mat-button [matMenuTriggerFor]="menu">My Courses</button>
+            <button mat-button [matMenuTriggerFor]="menu">My Courses</button>
+
             <mat-menu #menu="matMenu">
-            <button *ngFor="let course of myCourses" [routerLink]="['courses/view-course']" [queryParams]="{course:course.id,select:'Home'}" mat-menu-item>{{course.name}}</button>
+                  <button *ngFor="let course of myCourses" [routerLink]="['courses/view-course']" [queryParams]="{course:course.id,select:'Home'}" mat-menu-item>
+                        {{course.name}}
+                  </button>
             </mat-menu>
       </span>
       <span>

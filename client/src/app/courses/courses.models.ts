@@ -68,3 +68,8 @@ export class Post {
     date: string;
     post: string;
 }
+
+export interface CourseNav {
+    id: string;
+    name: string;
+}
