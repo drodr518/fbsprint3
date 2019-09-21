@@ -6,8 +6,12 @@
   <div>
     <mat-menu #menu="matMenu">
       <button [routerLink]="['courses/']" mat-button>Courses</button>
+      <button mat-menu-item>Modules</button>
+      <button mat-menu-item>Syllabus</button>
       <button mat-menu-item>Calendar</button>
       <button mat-menu-item>Announcements</button>
+      <button mat-menu-item>Help</button>
+
     </mat-menu>
 
   </div>
@@ -19,7 +23,6 @@
         <br>
       </a>
       <button [routerLink]="['/nav/courses/']" mat-button>Syllabus</button>
-
       <hr>
     </mat-card>
   </div>

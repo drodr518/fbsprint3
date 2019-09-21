@@ -6,6 +6,9 @@ import { HomepageComponent } from './homepage/homepage.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatTableModule} from "@angular/material/table";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 
 @NgModule({
@@ -15,7 +18,10 @@ import {MatIconModule} from "@angular/material/icon";
     HomeRoutingModule,
     MatCardModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatExpansionModule
   ]
 })
 export class HomeModule { }
