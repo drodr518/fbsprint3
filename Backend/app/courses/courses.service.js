@@ -14,7 +14,7 @@ class CoursesService {
             courseModules.forEach( (mod) => {
                 mod.child("content").forEach( (cont) => {
                     if(cont.hasChild('isTimed')) {
-                        console.log(cont.child('title').val());
+                        //console.log(cont.child('title').val());
                         const assessment = cont.toJSON();
                         assessments.push({
                             id: cont.key,
@@ -59,8 +59,11 @@ class CoursesService {
     }
 
     async getStudentGrades(course_id, student_id) {
+        //console.log(course_id, student_id);
 
         let assessments = await this.getAssessmentsList(course_id);
+
+        //console.log(assessments);
 
         if(assessments.length < 1) return assessments;
 
