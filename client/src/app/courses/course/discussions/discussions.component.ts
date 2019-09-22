@@ -1,3 +1,4 @@
+import { UserService } from './../../../user.service';
 import { CoursesService } from './../../courses.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
@@ -14,7 +15,10 @@ export class DiscussionsComponent implements OnInit, OnChanges {
   subscriptions: Subscription[] = [];
   @Input('current_course') current_course: string;
 
-  constructor(private coursesServices: CoursesService) { }
+  constructor(
+    private coursesServices: CoursesService,
+    private userServices: UserService
+    ) { }
 
 
   // Runs whenever this component is loaded
@@ -27,6 +31,10 @@ export class DiscussionsComponent implements OnInit, OnChanges {
     this.subscriptions.push(this.coursesServices.getDiscussions(this.current_course).subscribe( (resp: DIscussions[]) => {
       this.discussions = resp;
     }))
+  }
+
+  isAdmin() {
+    return this.userServices.getIsAdmin();
   }
 
   // Runs whenever input values change

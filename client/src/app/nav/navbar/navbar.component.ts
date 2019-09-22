@@ -33,4 +33,8 @@ export class NavbarComponent implements OnInit {
       this.myCourses = resp;
     } ));
   }
+
+  toggleAdmin() {
+    this.userServices.ToggleIsAdmin();
+  }
 }

@@ -8,8 +8,9 @@
 
     <p [innerHTML]="this.description"></p>
 
-    <mat-nav-list *ngIf="!replying">
-        <a mat-list-item (click)="openEditor()"><mat-icon>reply</mat-icon>Reply</a>
+    <mat-nav-list >
+        <a *ngIf="this.isAdmin()" mat-list-item class="add_button"><mat-icon>edit</mat-icon>Edit Discussion</a>
+        <a *ngIf="!replying" mat-list-item (click)="openEditor()"><mat-icon>reply</mat-icon>Reply</a>
     </mat-nav-list>
     
     <div *ngIf="replying" >

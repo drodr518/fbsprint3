@@ -8,6 +8,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 export class UserService {
 
   private student_id = "haslhadsfapsjdfp"; // debugging value
+  private isAdmin = false;
 
   constructor(private http: HttpClient) { }
 
@@ -39,5 +40,14 @@ export class UserService {
    */
   user() {
     return this.student_id;
+  }
+
+
+  getIsAdmin() {
+    return this.isAdmin;
+  }
+
+  ToggleIsAdmin() {
+    this.isAdmin = !this.isAdmin;
   }
 }

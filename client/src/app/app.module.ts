@@ -1,3 +1,4 @@
+import { UserService } from './user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -33,7 +34,7 @@ import { MatInputModule,
     MatSortModule,
     MatSelectModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

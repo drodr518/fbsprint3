@@ -89,4 +89,9 @@ export class CourseComponent implements OnInit, OnChanges {
     this.ngOnInit();
   }
 
+  isAdmin() {
+    return this.userServices.getIsAdmin();
+  }
+
+
 }
