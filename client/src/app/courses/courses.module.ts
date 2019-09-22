@@ -56,6 +56,13 @@ import { ModuleEditorComponent } from './course/modules/module-editor/module-edi
     AngularEditorModule,
     FormsModule,
     MatButtonToggleModule
+  ],
+  entryComponents: [
+    DiscussionEditorComponent,
+    NewDiscussionComponent,
+    CourseDetailEditorComponent,
+    ModuleEditorComponent,
+    NewContentComponent,
   ]
 })
 export class CoursesModule { }
