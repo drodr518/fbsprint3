@@ -20,6 +20,8 @@
     </mat-expansion-panel>
 </mat-accordion>
 
+<br *ngIf="modules.length > 1 && this.isAdmin()">
+
 <mat-card *ngIf="1 > modules.length || this.isAdmin()">
     <div *ngIf="1 > modules.length" class="empty_message">
         There are no modules.

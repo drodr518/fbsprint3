@@ -29,11 +29,6 @@ export class CoursesService {
     return this.http.get(`${environment.apiAddress}/courses/discussion-posts-from`, params);
   }
 
-  postDiscussionPost(course_id, discussion_id, post) {
-    //const params = { params: new HttpParams().set('course', `${course_id}`).set('discussion', `${discussion_id}`).set('post', `${post}`)};
-    return this.http.post(`${environment.apiAddress}/courses/add-discussion-post`, {course: course_id, discussion: discussion_id, post: post});
-  }
-
   getDiscussionInfo(course_id, discussion_id) {
     const params = { params: new HttpParams().set('course', `${course_id}`).set('discussion', `${discussion_id}`)};
     return this.http.get(`${environment.apiAddress}/courses/course-discussion-info`, params);
@@ -47,5 +42,10 @@ export class CoursesService {
   getInstructorInfo(instructor_id) {
     const params = { params: new HttpParams().set('id', `${instructor_id}`)};
     return this.http.get(`${environment.apiAddress}/users/instructor-info`, params);
+  }
+
+  postDiscussionPost(course_id, discussion_id, post) {
+    //const params = { params: new HttpParams().set('course', `${course_id}`).set('discussion', `${discussion_id}`).set('post', `${post}`)};
+    return this.http.post(`${environment.apiAddress}/courses/add-discussion-post`, {course: course_id, discussion: discussion_id, post: post});
   }
 }
