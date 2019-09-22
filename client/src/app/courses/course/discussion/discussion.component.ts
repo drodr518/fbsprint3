@@ -119,6 +119,10 @@ export class DiscussionComponent implements OnInit {
     }));
   }
 
+  isAdmin() {
+    return this.userServices.getIsAdmin();
+  }
+
   // allows the new post editor to display
   openEditor() {
     this.replying = true;
