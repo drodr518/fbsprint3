@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { NavRoutingModule } from './nav-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,6 +15,7 @@ import {MatToolbarModule, MatButtonModule, MatMenuModule, MatSlideToggleModule} 
     MatButtonModule,
     MatMenuModule,
     MatSlideToggleModule,
+    MatIconModule
   ]
 })
 export class NavModule { }

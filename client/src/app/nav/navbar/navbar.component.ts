@@ -37,4 +37,8 @@ export class NavbarComponent implements OnInit {
   toggleAdmin() {
     this.userServices.ToggleIsAdmin();
   }
+
+  isAdmin() {
+    return this.userServices.getIsAdmin();
+  }
 }
