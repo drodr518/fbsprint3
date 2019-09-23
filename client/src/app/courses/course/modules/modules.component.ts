@@ -1,3 +1,4 @@
+import { UserService } from './../../../user.service';
 import { CoursesService } from './../../courses.service';
 import { Subscription } from 'rxjs';
 import { 
@@ -24,11 +25,18 @@ export class ModulesComponent implements OnInit {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private coursesServices: CoursesService) { }
+  constructor(
+    private coursesServices: CoursesService,
+    private userServices: UserService,
+    ) { }
 
 
   openInNewTab(url) {
     window.open(url, "_blank");
+  }
+
+  isAdmin() {
+    return this.userServices.getIsAdmin();
   }
   
   ngOnInit() {

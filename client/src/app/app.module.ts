@@ -1,3 +1,8 @@
+import { NewContentComponent } from './courses/course/modules/new-content/new-content.component';
+import { ModuleEditorComponent } from './courses/course/modules/module-editor/module-editor.component';
+import { CourseDetailEditorComponent } from './courses/course/info/course-detail-editor/course-detail-editor.component';
+import { DiscussionEditorComponent } from './courses/course/discussion/discussion-editor/discussion-editor.component';
+import { UserService } from './user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -13,10 +18,13 @@ import { MatInputModule,
   MatExpansionModule,
   MatSortModule,
   MatSelectModule} from '@angular/material';
+import { NewCourseComponent } from './new-course/new-course.component';
+import { NewDiscussionComponent } from './courses/course/discussions/new-discussion/new-discussion.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NewCourseComponent
   ],
   imports: [
     AppRoutingModule,
@@ -33,7 +41,8 @@ import { MatInputModule,
     MatSortModule,
     MatSelectModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [UserService],
+  bootstrap: [AppComponent],
+  entryComponents: [NewCourseComponent],
 })
 export class AppModule { }

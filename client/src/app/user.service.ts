@@ -7,21 +7,47 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class UserService {
 
-  private student_id = "haslhadsfapsjdfp";
+  private student_id = "haslhadsfapsjdfp"; // debugging value
+  private isAdmin = false;
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * 
+   * @param student_id facebook id for this app's user
+   * 
+   * @returns {course_id: string, name: string}[]
+   */
   getStudentCourses(student_id: string) {
     const params = { params: new HttpParams().set('student', `${student_id}`)};
     return this.http.get(`${environment.apiAddress}/courses/student-courses`, params);
   }
 
+  /**
+   * 
+   * @param student_id facebook id for this app's user
+   * @param course_id course database id
+   * 
+   * @returns boolean, is this student enrolled in this course
+   */
   studentHasCourse(student_id, course_id) {
     const params = { params: new HttpParams().set('student', `${student_id}`).set('course', `${course_id}`)};
     return this.http.get(`${environment.apiAddress}/courses/student-has-course`, params);
   }
 
+  /**
+   * DEBUGGING GETTER FOR DEBUG STUDENT
+   */
   user() {
     return this.student_id;
+  }
+
+
+  getIsAdmin() {
+    return this.isAdmin;
+  }
+
+  ToggleIsAdmin() {
+    this.isAdmin = !this.isAdmin;
   }
 }

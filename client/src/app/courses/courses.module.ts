@@ -25,6 +25,11 @@ import { FormsModule} from '@angular/forms';
 
 import { AngularEditorModule} from '@kolkov/angular-editor';
 import { AssessmentComponent } from './assessment/assessment.component';
+import { DiscussionEditorComponent } from './course/discussion/discussion-editor/discussion-editor.component';
+import { NewDiscussionComponent } from './course/discussions/new-discussion/new-discussion.component';
+import { CourseDetailEditorComponent } from './course/info/course-detail-editor/course-detail-editor.component';
+import { NewContentComponent } from './course/modules/new-content/new-content.component';
+import { ModuleEditorComponent } from './course/modules/module-editor/module-editor.component';
 
 
 
@@ -35,7 +40,7 @@ import { AssessmentComponent } from './assessment/assessment.component';
     ModulesComponent, 
     GradesComponent, 
     DiscussionsComponent, 
-    InfoComponent, DiscussionComponent, AssessmentComponent
+    InfoComponent, DiscussionComponent, AssessmentComponent, DiscussionEditorComponent, NewDiscussionComponent, CourseDetailEditorComponent, NewContentComponent, ModuleEditorComponent
   ],
   imports: [
     CommonModule,
@@ -51,6 +56,13 @@ import { AssessmentComponent } from './assessment/assessment.component';
     AngularEditorModule,
     FormsModule,
     MatButtonToggleModule
+  ],
+  entryComponents: [
+    DiscussionEditorComponent,
+    NewDiscussionComponent,
+    CourseDetailEditorComponent,
+    ModuleEditorComponent,
+    NewContentComponent,
   ]
 })
 export class CoursesModule { }

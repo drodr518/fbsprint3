@@ -4,26 +4,49 @@ const router = express.Router();
 
 module.exports = (passport) => {
 
-    router.post('/add-student', async (req, res, next) => {
-        const resp = await usersServices.addStudent(req.body.user);
-        res.json(resp);
-    });
-
+    /**
+     * @param user: {email: string, contactEmail: string, f_name: string, l_name: string, password: string}
+     */
     router.post('/add-instructor', async (req, res, next) => {
         const resp = await usersServices.addInstructor(req.body.user);
         res.json(resp);
     })
 
+    /**
+     * @param user: {key: string, name: string}
+     */
+    router.post('/add-student', async (req, res, next) => {
+        const resp = await usersServices.addStudent(req.body.user);
+        res.json(resp);
+    });
+
+    /**
+     * @param student: string, student databasse key
+     * @param course: string, course database key
+     */
     router.post('/enroll-student', async (req, res, next) => {
         const resp = await usersServices.enrollIn(req.body.student, req.body.course);
         res.json(resp);
     });
 
+    /**
+     * @param id: string, instructor database key
+     */
     router.get('/instructor-info', async (req, res, next) => {
         const resp = await usersServices.getInstructor(req.query.id);
         res.json(resp);
     });
 
+    /**
+     * 
+     * @param req.body.username: string
+     * @param req.body.password: string
+     * 
+     * ----> after passport authenricate ---->
+     * 
+     * @param user: {key: string, email: string, concatEmail: string, name: string, auth: number}
+     * 
+     */
     router.post('/login', passport.authenticate('local', {}), async (req, res, next) => {
         const token = await usersServices.login(req.user);
         res.status(200).json({

@@ -1,3 +1,4 @@
+import { UserService } from './../../../user.service';
 import { Subscription } from 'rxjs';
 import { CoursesService } from './../../courses.service';
 
@@ -19,7 +20,10 @@ export class InfoComponent implements OnInit, OnChanges {
   instructor: string;
   instructorEmail: string;
 
-  constructor(private courseServices: CoursesService) { }
+  constructor(
+    private courseServices: CoursesService,
+    private userServices: UserService,
+    ) { }
 
   ngOnInit() {
     //console.log(this.courseData);
@@ -27,6 +31,10 @@ export class InfoComponent implements OnInit, OnChanges {
       this.instructor = resp.name;
       this.instructorEmail = resp.contactEmail;
     }));
+  }
+
+  isAdmin() {
+    return this.userServices.getIsAdmin();
   }
 
   ngOnChanges() {
