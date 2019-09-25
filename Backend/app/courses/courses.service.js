@@ -24,7 +24,7 @@ class CoursesService {
                     assignments: [],
                     size: 0,
                     discussions: [],
-                    MAX_SIZE: newCourse.max_size,
+                    MAX_SIZE: newCourse.MAX_SIZE,
                     isOpen: newCourse.isOpen,
                 }
             );

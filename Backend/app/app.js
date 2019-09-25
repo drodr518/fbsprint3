@@ -6,6 +6,7 @@ const errorHandler = require('./middleware/error-handler.middleware');
 
 
 const firebase = require('firebase-admin');
+
 const firebaseAccountConfig = require('../learnfiu_db.json');
 firebase.initializeApp({
 	credential: firebase.credential.cert(firebaseAccountConfig),
