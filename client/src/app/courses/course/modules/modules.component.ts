@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material';
 import { UserService } from './../../../user.service';
 import { CoursesService } from './../../courses.service';
 import { Subscription } from 'rxjs';
@@ -10,6 +11,8 @@ import {
   Assessment
 } from './../../courses.models';
 import { Component, OnInit, Input } from '@angular/core';
+import { NewContentComponent } from './new-content/new-content.component';
+import { ModuleEditorComponent } from './module-editor/module-editor.component';
 
 
 @Component({
@@ -28,7 +31,32 @@ export class ModulesComponent implements OnInit {
   constructor(
     private coursesServices: CoursesService,
     private userServices: UserService,
+    private dialog: MatDialog,
     ) { }
+
+  openNewContentDialog() {
+    const dialogRef = this.dialog.open(NewContentComponent, {
+      width: '90%'
+    });
+
+    this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {
+      if(result) {
+        console.log(result);
+      }
+    }));
+  }
+
+  openEditModuleDialog() {
+    const dialogRef = this.dialog.open(ModuleEditorComponent, {
+      width: '90%'
+    });
+
+    this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {
+      if(result) {
+        console.log(result);
+      }
+    }));
+  }
 
 
   openInNewTab(url) {

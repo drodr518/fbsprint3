@@ -15,7 +15,7 @@
 
     <!-- Add discussion button -->
     <mat-nav-list *ngIf="this.isAdmin()">
-        <a mat-list-item class="add_button empty_message"><mat-icon>add</mat-icon>Add Discussion</a>
+        <a (click)="openDiscussionDialog()" mat-list-item class="add_button empty_message"><mat-icon>add</mat-icon>Add Discussion</a>
     </mat-nav-list>
 
 </mat-card>

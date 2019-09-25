@@ -1,8 +1,10 @@
+import { MatDialog } from '@angular/material';
 import { UserService } from './../../../user.service';
 import { Subscription } from 'rxjs';
 import { CoursesService } from './../../courses.service';
 
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { CourseDetailEditorComponent } from './course-detail-editor/course-detail-editor.component';
 
 @Component({
   selector: 'app-info',
@@ -23,7 +25,21 @@ export class InfoComponent implements OnInit, OnChanges {
   constructor(
     private courseServices: CoursesService,
     private userServices: UserService,
+    private dialog: MatDialog,
     ) { }
+
+  
+  openEditCourse() {
+    const dialogRef = this.dialog.open(CourseDetailEditorComponent, {
+      width: '90%'
+    });
+
+    this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {
+      if(result) {
+        console.log(result);
+      }
+    }));
+  }
 
   ngOnInit() {
     //console.log(this.courseData);
