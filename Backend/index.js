@@ -42,7 +42,7 @@ const onListening = () => {
 	console.warn('Listening on ' + bind);
 };
 
-const port = portNorm(process.env.PORT || '80');
+const port = portNorm(process.env.PORT || '3001');
 app.set('port', port);
 
 const server = http.createServer(app);
