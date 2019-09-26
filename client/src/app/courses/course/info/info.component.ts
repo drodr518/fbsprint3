@@ -31,7 +31,8 @@ export class InfoComponent implements OnInit, OnChanges {
   
   openEditCourse() {
     const dialogRef = this.dialog.open(CourseDetailEditorComponent, {
-      width: '90%'
+      width: '90%',
+      data: this.courseData
     });
 
     this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {
