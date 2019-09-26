@@ -55,6 +55,7 @@ export class InfoComponent implements OnInit, OnChanges {
     return this.userServices.getIsAdmin();
   }
 
+
   ngOnChanges() {
     this.ngOnInit();
   }
