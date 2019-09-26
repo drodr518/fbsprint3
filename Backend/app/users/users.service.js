@@ -95,6 +95,23 @@ class UsersSerivce {
         return true;
     }
 
+
+    async getAllInstructors() {
+
+        let payload = [];
+
+        let instructorsRef =  await database.ref('/instructors').orderByChild('l_name').once('value');
+
+        instructorsRef.forEach((instructor) => {
+            payload.push({
+                name: instructor.child('l_name').val() + ', ' + instructor.child('f_name').val(),
+                id: instructor.key,
+            });
+        })
+
+        return payload;
+    }
+
     
 
     /**

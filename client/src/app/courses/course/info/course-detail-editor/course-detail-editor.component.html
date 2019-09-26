@@ -1,5 +1,5 @@
 <h3 mat-dialog-title>Course Details Editor</h3>
-<form [formGroup]="courseForm" mat-dialog-content>
+<form [formGroup]="courseForm">
 
     <mat-form-field appearance="outline">
         <mat-label>Course Title</mat-label>
@@ -8,17 +8,20 @@
 
     <mat-form-field appearance="outline">
         <mat-label>Select Instructor</mat-label>
-        <mat-select formControlName="instructor" [(value)]="selected">
+        <mat-select formControlName="instructor">
             <mat-option>None</mat-option>
-            <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option2">Option 2</mat-option>
-            <mat-option value="option3">Option 3</mat-option>
+            <mat-option *ngFor="let inst of instructors" value="{{inst.id}}">{{inst.name}}</mat-option>
         </mat-select>
     </mat-form-field>
-<!--
-    <mat-form-field>
-        <angular-editor formControlName="description" [config]="config"></angular-editor>
-    </mat-form-field>-->
 
-    <p>You selected: {{selected}}</p>
+    <div>
+        <mat-label><strong>Course Description:</strong></mat-label>
+        <angular-editor formControlName="description" [config]="config"></angular-editor>
+        <mat-error *ngIf="courseForm.invalid">{{getDescriptionError()}}</mat-error>
+    </div>
 </form>
+<mat-dialog-actions>
+    <span class="fill"></span>
+    <button (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>
+    <button (click)="updateCourse()" mat-raised-button color="primary">Update</button>
+</mat-dialog-actions>

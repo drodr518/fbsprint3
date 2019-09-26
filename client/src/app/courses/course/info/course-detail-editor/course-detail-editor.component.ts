@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs/internal/Subscription';
+import { CoursesService } from './../../../courses.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, Optional, Inject } from '@angular/core';
@@ -11,17 +13,22 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class CourseDetailEditorComponent implements OnInit {
 
+  subscriptions: Subscription[] = [];
   courseForm: FormGroup;
   selected = 'option2';
+  data: {id: string, name: string, description: string, instructor: string};
+  instructors: {name: string, id: string}[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<CourseDetailEditorComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) data: {id: string, name: string, description: string, instructor: string},
     private formBuilder: FormBuilder,
+    private courseServices: CoursesService,
   ) {
+    this.data = data;
     this.courseForm = this.formBuilder.group({
       title: [data.name, Validators.required],
-      instructor: ["option3", Validators.required],
+      instructor: [data.instructor, Validators.required],
       description: [data.description, Validators.required],
     });
    }
@@ -32,8 +39,11 @@ export class CourseDetailEditorComponent implements OnInit {
     spellcheck: true,
     height: '15rem',
     minHeight: '5rem',
+    maxHeight: '15rem',
     placeholder: 'Enter text here...',
-    translate: 'no',   
+    translate: 'no',
+    outline: true,
+    sanitize: false,
     defaultFontName: 'Arial',
     customClasses: [
       {
@@ -43,9 +53,28 @@ export class CourseDetailEditorComponent implements OnInit {
       },
     ]
   };
+
+
+  updateCourse() {
+    const course = {
+      id: this.data.id,
+      name: this.courseForm.value.title,
+      instructor: this.courseForm.value.instructor,
+      description: this.courseForm.value.description
+    }
+
+    console.log(course);
+  }
+
+  getDescriptionError() {
+    return this.courseForm.hasError('required', 'courseForm.description')  ? '' : 'The description of a course cannot be empty!';
+  }
   
 
   ngOnInit() {
+    this.subscriptions.push(this.courseServices.getAllInstructors().subscribe( (resp: {name: string, id: string}[]) => {
+      this.instructors = resp;
+    }));
   }
 
   onNoClick() {

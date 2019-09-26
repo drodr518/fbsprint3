@@ -32,6 +32,7 @@ export class InfoComponent implements OnInit, OnChanges {
   openEditCourse() {
     const dialogRef = this.dialog.open(CourseDetailEditorComponent, {
       width: '90%',
+      height: '90%',
       data: this.courseData
     });
 

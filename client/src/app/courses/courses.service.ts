@@ -44,6 +44,10 @@ export class CoursesService {
     return this.http.get(`${environment.apiAddress}/users/instructor-info`, params);
   }
 
+  getAllInstructors() {
+    return this.http.get(`${environment.apiAddress}/users/all-instructors`);
+  }
+
   postDiscussionPost(course_id, discussion_id, post) {
     //const params = { params: new HttpParams().set('course', `${course_id}`).set('discussion', `${discussion_id}`).set('post', `${post}`)};
     return this.http.post(`${environment.apiAddress}/courses/add-discussion-post`, {course: course_id, discussion: discussion_id, post: post});

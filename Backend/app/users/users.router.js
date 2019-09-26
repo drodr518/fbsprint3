@@ -29,6 +29,11 @@ module.exports = (passport) => {
         res.json(resp);
     });
 
+    router.get('/all-instructors', async (req, res, next) => {
+        const resp = await usersServices.getAllInstructors();
+        res.json(resp);
+    });
+
     /**
      * @param id: string, instructor database key
      */
