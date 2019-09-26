@@ -118,5 +118,10 @@ module.exports = () => {
         res.json(resp);
     });
 
+    router.post('/update-course', async(req, res, next) => {
+        const resp = await coursesServices.updateCourse(req.body.course);
+        res.json(resp);
+    });
+
     return router;
 }

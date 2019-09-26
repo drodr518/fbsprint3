@@ -680,6 +680,23 @@ class CoursesService {
         return false;
     }
 
+    async updateCourse(course) {
+        
+        try {
+
+            await database.ref('/courses/' + course.id).update({
+                name: course.name,
+                instructor_id: course.instructor,
+                description: course.description
+            });
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
+    }
+
 
 
 }

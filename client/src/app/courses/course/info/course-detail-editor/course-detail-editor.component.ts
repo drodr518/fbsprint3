@@ -56,14 +56,25 @@ export class CourseDetailEditorComponent implements OnInit {
 
 
   updateCourse() {
-    const course = {
-      id: this.data.id,
-      name: this.courseForm.value.title,
-      instructor: this.courseForm.value.instructor,
-      description: this.courseForm.value.description
+
+    if(this.courseForm.pristine) {
+      this.dialogRef.close(); 
+    }  else {
+
+      const course = {
+        id: this.data.id,
+        name: this.courseForm.value.title,
+        instructor: this.courseForm.value.instructor,
+        description: this.courseForm.value.description
+      }
+  
+      this.subscriptions.push(this.courseServices.updateCourse(course).subscribe( (resp) => {
+        if(resp) {
+          this.dialogRef.close(resp);
+        }     
+      }));
     }
 
-    console.log(course);
   }
 
   getDescriptionError() {

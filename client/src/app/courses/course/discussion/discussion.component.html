@@ -14,13 +14,17 @@
     </mat-nav-list>
     
     <div *ngIf="replying" >
-        <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+        <mat-card-content>
+                <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+        </mat-card-content>
+        
         <mat-card-actions class="controls">
             <button [disabled]="isClosed || isPostEmpty()" (click)="pushPost()" mat-flat-button color='primary'>Submit</button>
 
             <button (click)="closeEditor()" mat-stroked-button>Cancel</button>
         </mat-card-actions>
     </div>
+    <br>
 
 </mat-card>
 
