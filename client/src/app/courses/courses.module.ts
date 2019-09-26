@@ -7,7 +7,8 @@ import {
   MatExpansionModule,
   MatCardModule,
   MatTableModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatDialogModule
 } from '@angular/material';
 
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -55,7 +56,8 @@ import { ModuleEditorComponent } from './course/modules/module-editor/module-edi
     MatTableModule,
     AngularEditorModule,
     FormsModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatDialogModule,
   ],
   entryComponents: [
     DiscussionEditorComponent,

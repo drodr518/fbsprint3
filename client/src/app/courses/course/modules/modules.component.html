@@ -14,8 +14,8 @@
         </mat-nav-list>
 
         <mat-nav-list *ngIf="this.isAdmin()">
-            <a mat-list-item class="add_button"><mat-icon>edit</mat-icon>Edit Module</a>
-            <a mat-list-item><mat-icon>add</mat-icon>Add Content</a>
+            <a (click)="openEditModuleDialog()" mat-list-item class="add_button"><mat-icon>edit</mat-icon>Edit Module</a>
+            <a (click)="openNewContentDialog()" mat-list-item><mat-icon>add</mat-icon>Add Content</a>
         </mat-nav-list>
     </mat-expansion-panel>
 </mat-accordion>
@@ -27,6 +27,6 @@
         There are no modules.
     </div>
     <mat-nav-list *ngIf="this.isAdmin()">
-        <a mat-list-item class="add_button"><mat-icon>add</mat-icon>Add Module</a>
+        <a (click)="openEditModuleDialog()" mat-list-item class="add_button"><mat-icon>add</mat-icon>Add Module</a>
     </mat-nav-list>
 </mat-card>

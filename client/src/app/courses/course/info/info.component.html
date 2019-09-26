@@ -9,7 +9,7 @@
     </div>
 
     <mat-nav-list *ngIf="this.isAdmin()">
-        <a mat-list-item class="add_button"><mat-icon>edit</mat-icon>Edit Course Details</a>
+        <a (click)="openEditCourse()" mat-list-item class="add_button"><mat-icon>edit</mat-icon>Edit Course Details</a>
     </mat-nav-list>
   </mat-card-content>
 </mat-card>

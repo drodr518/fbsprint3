@@ -1,3 +1,5 @@
+import { DiscussionEditorComponent } from './discussion-editor/discussion-editor.component';
+import { MatDialog } from '@angular/material';
 import { UserService } from './../../../user.service';
 import { CoursesService } from './../../courses.service';
 import { IPost } from './../../courses.models';
@@ -42,6 +44,7 @@ export class DiscussionComponent implements OnInit {
     private coursesServices: CoursesService,
     private userServices: UserService,
     private router: Router,
+    private dialog: MatDialog
     ) {}
 
   @Input('current_course') current_course: string;
@@ -62,6 +65,18 @@ export class DiscussionComponent implements OnInit {
       },
     ]
   };
+
+  openEditDiscussionDialog() {
+    const dialogRef = this.dialog.open(DiscussionEditorComponent, {
+      width: '90%'
+    });
+
+    this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {
+      if(result) {
+        console.log(result);
+      }
+    }))
+  }
 
 
   // runs when this component is loaded, gets parameters from url
