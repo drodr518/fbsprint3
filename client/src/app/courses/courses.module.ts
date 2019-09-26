@@ -8,7 +8,9 @@ import {
   MatCardModule,
   MatTableModule,
   MatButtonToggleModule,
-  MatDialogModule
+  MatDialogModule,
+  MatSelectModule,
+  MatInputModule
 } from '@angular/material';
 
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -22,7 +24,7 @@ import { DiscussionsComponent } from './course/discussions/discussions.component
 import { InfoComponent } from './course/info/info.component';
 import { DiscussionComponent } from './course/discussion/discussion.component';
 
-import { FormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AngularEditorModule} from '@kolkov/angular-editor';
 import { AssessmentComponent } from './assessment/assessment.component';
@@ -58,6 +60,9 @@ import { ModuleEditorComponent } from './course/modules/module-editor/module-edi
     FormsModule,
     MatButtonToggleModule,
     MatDialogModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatInputModule
   ],
   entryComponents: [
     DiscussionEditorComponent,
