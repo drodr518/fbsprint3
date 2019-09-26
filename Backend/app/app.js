@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 var helmet = require('helmet');
@@ -49,9 +48,7 @@ app.use('/users', usersRoutes);
 
 //------- End --------//
 
-//Deployment purposes -- to have the frontend running in the same server as the backend
-app.use('/', express.static(path.join(__dirname, '../dist/client')));
 
-//app.use(errorHandler);
+app.use(errorHandler);
 
 module.exports = app;
