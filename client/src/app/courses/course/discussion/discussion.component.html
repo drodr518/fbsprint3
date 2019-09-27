@@ -10,7 +10,7 @@
 
     <mat-nav-list >
         <a (click)="openEditDiscussionDialog()" *ngIf="this.isAdmin()" mat-list-item class="add_button"><mat-icon>edit</mat-icon>Edit Discussion</a>
-        <a *ngIf="!replying" mat-list-item (click)="openEditor()"><mat-icon>reply</mat-icon>Reply</a>
+        <a *ngIf="!replying && !isClosed && !isLate()" mat-list-item (click)="openEditor()"><mat-icon>reply</mat-icon>Reply</a>
     </mat-nav-list>
     
     <div *ngIf="replying" >

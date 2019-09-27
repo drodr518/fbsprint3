@@ -15,13 +15,14 @@ export class CourseDetailEditorComponent implements OnInit {
 
   subscriptions: Subscription[] = [];
   courseForm: FormGroup;
+  today = new Date();
   
   data: {id: string, name: string, description: string, instructor: string};
   instructors: {name: string, id: string}[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<CourseDetailEditorComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) data: {id: string, name: string, description: string, instructor: string},
+    @Optional() @Inject(MAT_DIALOG_DATA) data: {id: string, name: string, description: string, instructor: string, endEnrollDate: string},
     private formBuilder: FormBuilder,
     private courseServices: CoursesService,
   ) {
@@ -30,6 +31,7 @@ export class CourseDetailEditorComponent implements OnInit {
       title: [data.name, Validators.required],
       instructor: [data.instructor, Validators.required],
       description: [data.description, Validators.required],
+      endEnrollDate: [data.endEnrollDate, Validators.required]
     });
    }
 

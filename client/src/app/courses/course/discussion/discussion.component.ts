@@ -28,6 +28,9 @@ export class DiscussionComponent implements OnInit {
   description : string;        // discussion description HTML format
   posts: IPost[] = [];         // discussion posts
   isClosed: boolean = false;   // discussion isClosed
+  today: Date = new Date();
+  endDate: Date = this.today;
+  
 
   // pagination variables
   
@@ -120,10 +123,11 @@ export class DiscussionComponent implements OnInit {
     this.replying = false;
     this.htmlContent = '';
 
-    this.subscriptions.push(this.coursesServices.getDiscussionInfo(this.current_course, this.id).subscribe( (resp: {title: any, description:any, isClosed:any}) => {
+    this.subscriptions.push(this.coursesServices.getDiscussionInfo(this.current_course, this.id).subscribe( (resp: {title: any, description:any, isClosed:any, endDate: string}) => {
       this.description = resp.description;
       this.title = resp.title;
       this.isClosed = resp.isClosed;
+      this.endDate = new Date(resp.endDate);
     }))
 
     this.subscriptions.push(this.coursesServices.getDiscussionPosts(this.current_course, this.id, this.startFrom).subscribe( (resp:{posts: IPost[], total: number}) => {
@@ -132,6 +136,10 @@ export class DiscussionComponent implements OnInit {
         this.totalPosts = resp.total;
       }
     }));
+  }
+
+  isLate() {
+    return this.today.getTime() > this.endDate.getTime();
   }
 
   isAdmin() {

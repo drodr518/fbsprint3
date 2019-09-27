@@ -11,6 +11,7 @@ import { Component, OnInit, Optional, Inject } from '@angular/core';
 })
 export class NewDiscussionComponent implements OnInit {
 
+  today = new Date();
   discussionForm: FormGroup;
   current_course: string;
 
@@ -23,7 +24,8 @@ export class NewDiscussionComponent implements OnInit {
     this.discussionForm = this.FormBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      isClosed: [false, Validators.required]
+      isClosed: [false, Validators.required],
+      endDate: ['', Validators.required]
     });
 
     this.current_course = data;
@@ -60,7 +62,8 @@ export class NewDiscussionComponent implements OnInit {
     const discussion = {
       title: this.discussionForm.value.title,
       description: this.discussionForm.value.description,
-      isClosed: this.discussionForm.value.isClosed
+      isClosed: this.discussionForm.value.isClosed,
+      endDate: this.discussionForm.value.endDate,
     };
 
     this.coursesServices.newDiscussion(this.current_course, discussion).subscribe( (resp) => {

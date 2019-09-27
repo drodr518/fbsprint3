@@ -11,7 +11,9 @@ import {
   MatDialogModule,
   MatSelectModule,
   MatInputModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -64,7 +66,9 @@ import { ModuleEditorComponent } from './course/modules/module-editor/module-edi
     MatSelectModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   entryComponents: [
     DiscussionEditorComponent,
