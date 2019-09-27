@@ -10,7 +10,8 @@ import {
   MatButtonToggleModule,
   MatDialogModule,
   MatSelectModule,
-  MatInputModule
+  MatInputModule,
+  MatSlideToggleModule
 } from '@angular/material';
 
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -62,7 +63,8 @@ import { ModuleEditorComponent } from './course/modules/module-editor/module-edi
     MatDialogModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatSlideToggleModule
   ],
   entryComponents: [
     DiscussionEditorComponent,

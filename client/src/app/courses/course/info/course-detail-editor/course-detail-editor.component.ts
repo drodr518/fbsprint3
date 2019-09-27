@@ -15,7 +15,7 @@ export class CourseDetailEditorComponent implements OnInit {
 
   subscriptions: Subscription[] = [];
   courseForm: FormGroup;
-  selected = 'option2';
+  
   data: {id: string, name: string, description: string, instructor: string};
   instructors: {name: string, id: string}[] = [];
 

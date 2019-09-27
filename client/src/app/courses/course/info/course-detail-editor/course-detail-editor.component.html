@@ -4,6 +4,7 @@
     <mat-form-field appearance="outline">
         <mat-label>Course Title</mat-label>
         <input matInput type="text" formControlName="title" maxlength="100" required> 
+        <mat-hint>The new title for this course, must be under 100 characters long.</mat-hint>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -11,6 +12,7 @@
         <mat-select formControlName="instructor">
             <mat-option>None</mat-option>
             <mat-option *ngFor="let inst of instructors" value="{{inst.id}}">{{inst.name}}</mat-option>
+            <mat-hint>Reassign this course's instructor.</mat-hint>
         </mat-select>
     </mat-form-field>
 
@@ -18,6 +20,7 @@
         <mat-label><strong>Course Description:</strong></mat-label>
         <angular-editor formControlName="description" [config]="config"></angular-editor>
         <mat-error *ngIf="courseForm.invalid">{{getDescriptionError()}}</mat-error>
+        <mat-hint>Edit this course's description, cannot be empty.</mat-hint>
     </div>
 </form>
 <mat-dialog-actions>
