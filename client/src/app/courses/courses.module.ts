@@ -1,9 +1,9 @@
-import { 
-  MatToolbarModule, 
-  MatSidenavModule, 
-  MatIconModule, 
-  MatButtonModule, 
-  MatListModule, 
+import {
+  MatToolbarModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatButtonModule,
+  MatListModule,
   MatExpansionModule,
   MatCardModule,
   MatTableModule,
@@ -38,12 +38,19 @@ import { ModuleEditorComponent } from './course/modules/module-editor/module-edi
 
 @NgModule({
   declarations: [
-    CourseComponent, 
-    CoursesComponent, 
-    ModulesComponent, 
-    GradesComponent, 
-    DiscussionsComponent, 
-    InfoComponent, DiscussionComponent, AssessmentComponent, DiscussionEditorComponent, NewDiscussionComponent, CourseDetailEditorComponent, NewContentComponent, ModuleEditorComponent
+    CourseComponent,
+    CoursesComponent,
+    ModulesComponent,
+    GradesComponent,
+    DiscussionsComponent,
+    InfoComponent,
+    DiscussionComponent,
+    AssessmentComponent,
+    DiscussionEditorComponent,
+    NewDiscussionComponent,
+    CourseDetailEditorComponent,
+    NewContentComponent,
+    ModuleEditorComponent
   ],
   imports: [
     CommonModule,

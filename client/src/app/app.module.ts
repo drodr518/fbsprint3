@@ -18,14 +18,16 @@ import { MatInputModule,
   MatExpansionModule,
   MatSortModule,
   MatSelectModule} from '@angular/material';
-import { NewCourseComponent } from './new-course/new-course.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {NewCourseModule} from './new-course/new-course.module';
+import { NewCourseComponent } from './new-course/new-course/new-course.component';
 import { NewDiscussionComponent } from './courses/course/discussions/new-discussion/new-discussion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NewCourseComponent
   ],
+
   imports: [
     AppRoutingModule,
     BrowserModule,
@@ -39,8 +41,11 @@ import { NewDiscussionComponent } from './courses/course/discussions/new-discuss
     MatToolbarModule,
     MatExpansionModule,
     MatSortModule,
-    MatSelectModule
+    MatSelectModule,
+    FlexLayoutModule,
+    NewCourseModule
   ],
+
   providers: [UserService],
   bootstrap: [AppComponent],
   entryComponents: [NewCourseComponent],

@@ -2,6 +2,7 @@ import { CourseNav } from './../../courses/courses.models';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { UserService } from './../../user.service';
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,7 @@ export class NavbarComponent implements OnInit {
   private student_id = '';
   private subscriptions: Subscription[] = [];
 
-  constructor(private userServices: UserService) {
+  constructor(private userServices: UserService, private router: Router) {
     this.student_id = this.userServices.user(); // get debug student id
    }
 
@@ -40,5 +41,9 @@ export class NavbarComponent implements OnInit {
 
   isAdmin() {
     return this.userServices.getIsAdmin();
+  }
+
+  addNewCourse(){
+    this.router.navigateByUrl('/new-course');
   }
 }

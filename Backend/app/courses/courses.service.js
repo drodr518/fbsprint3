@@ -5,7 +5,6 @@ const MAX_POSTS = 50;
 class CoursesService {
     constructor() {}
 
-
     /**
      * 
      * @param {name: string, description: string, indtructor_id: ,max_size: number, isOpen: boolean} newCourse 
