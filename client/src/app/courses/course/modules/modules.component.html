@@ -11,6 +11,7 @@
                 <a *ngIf="content.url != null" mat-list-item (click)="openInNewTab(content.url)"><mat-icon>link</mat-icon>{{content.title}}</a>
                 <a *ngIf="content.link != null" mat-list-item (click)="openInNewTab(content.link)"><mat-icon>insert_drive_file</mat-icon>{{content.title}}</a>
                 <a *ngIf="content.isTimed != null" mat-list-item [routerLink]="['/nav/courses/assessment']" [queryParams]="{id: this.content.id, course: this.current_course}"><mat-icon>assessment</mat-icon>{{content.title}}</a>
+                <a *ngIf="content.embedded != null" mat-list-item><mat-icon>play_circle_filled</mat-icon>{{content.title}}</a>
         </mat-nav-list>
 
         <mat-nav-list *ngIf="this.isAdmin()">

@@ -13,7 +13,8 @@ import {
   MatInputModule,
   MatSlideToggleModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatTabsModule
 } from '@angular/material';
 
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -36,6 +37,10 @@ import { NewDiscussionComponent } from './course/discussions/new-discussion/new-
 import { CourseDetailEditorComponent } from './course/info/course-detail-editor/course-detail-editor.component';
 import { NewContentComponent } from './course/modules/new-content/new-content.component';
 import { ModuleEditorComponent } from './course/modules/module-editor/module-editor.component';
+import { NewExternalLinkComponent } from './course/modules/new-content/new-external-link/new-external-link.component';
+import { NewEmbeddedVideoComponent } from './course/modules/new-content/new-embedded-video/new-embedded-video.component';
+import { NewPageComponent } from './course/modules/new-content/new-page/new-page.component';
+import { NewQuizComponent } from './course/modules/new-content/new-quiz/new-quiz.component';
 
 
 
@@ -46,7 +51,7 @@ import { ModuleEditorComponent } from './course/modules/module-editor/module-edi
     ModulesComponent, 
     GradesComponent, 
     DiscussionsComponent, 
-    InfoComponent, DiscussionComponent, AssessmentComponent, DiscussionEditorComponent, NewDiscussionComponent, CourseDetailEditorComponent, NewContentComponent, ModuleEditorComponent
+    InfoComponent, DiscussionComponent, AssessmentComponent, DiscussionEditorComponent, NewDiscussionComponent, CourseDetailEditorComponent, NewContentComponent, ModuleEditorComponent, NewExternalLinkComponent, NewEmbeddedVideoComponent, NewPageComponent, NewQuizComponent
   ],
   imports: [
     CommonModule,
@@ -68,7 +73,8 @@ import { ModuleEditorComponent } from './course/modules/module-editor/module-edi
     MatInputModule,
     MatSlideToggleModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatTabsModule
   ],
   entryComponents: [
     DiscussionEditorComponent,

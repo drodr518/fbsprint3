@@ -224,7 +224,28 @@ class CoursesService {
             if(courses.hasChildren) {
                 courses.child(course_key).child('modules').child(module_key).child('content').ref.push({
                     title: content.title,
-                    link: content.link
+                    link: content.link,
+                });
+            } else {
+                throw false;
+            }
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
+    }
+
+    async addModuleContent(course_key, module_key, content) {
+        try {
+            var courses = await database.ref('/courses').orderByKey().equalTo(course_key).once('value');
+            if(courses.hasChildren) {
+                courses.child(course_key).child('modules').child(module_key).child('content').ref.push({
+                    title: content.title,
+                    link: content.link || null,
+                    url: content.url || null,
+                    embedded: content.embedded || null,
                 });
             } else {
                 throw false;
@@ -382,7 +403,8 @@ class CoursesService {
                     title: item.child('title').val(),
                     url: item.child('url').val(),
                     link: item.child('link').val(),
-                    isTimed: item.child('isTimed').val()
+                    isTimed: item.child('isTimed').val(),
+                    embedded: item.child('embedded').val()
                     });
                 });
    
