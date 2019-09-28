@@ -26,6 +26,7 @@ class CoursesService {
                     discussions: [],
                     MAX_SIZE: newCourse.MAX_SIZE,
                     isOpen: newCourse.isOpen,
+                    endEnrollDate: newCourse.endEnrollDate
                 }
             );
 
@@ -64,7 +65,8 @@ class CoursesService {
                 course.child('discussions').ref.push({
                     title: newDiscussion.title,
                     description: newDiscussion.description,
-                    isClosed: newDiscussion.isClosed
+                    isClosed: newDiscussion.isClosed,
+                    endDate: newDiscussion.endDate,
                 });
             });
         } catch(err) {
@@ -342,6 +344,7 @@ class CoursesService {
                 name: course.name,
                 description: course.description,
                 instructor: course.instructor_id,
+                endEnrollDate: course.endEnrollDate,
             };
         });
 
@@ -430,7 +433,8 @@ class CoursesService {
             return {
                 title: discussion.child("title").val(),
                 description: discussion.child("description").val(),
-                isClosed: discussion.child("isClosed").val()
+                isClosed: discussion.child("isClosed").val(),
+                endDate: discussion.child("endDate").val()
             };
 
         }catch (err) {
@@ -493,6 +497,7 @@ class CoursesService {
         try {
 
             payload.total = await this.getNumberOfPosts(course, discussion);
+            if(payload.total < 1) throw 'not error, the discussion is empty';
 
             let posts = await database.ref('/courses/' + course + '/discussions/' + discussion + '/posts/')
             .orderByKey()
@@ -687,7 +692,8 @@ class CoursesService {
             await database.ref('/courses/' + course.id).update({
                 name: course.name,
                 instructor_id: course.instructor,
-                description: course.description
+                description: course.description,
+                endEnrollDate: course.endEnrollDate
             });
         } catch (err) {
             console.error(err);

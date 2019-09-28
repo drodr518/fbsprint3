@@ -26,11 +26,13 @@ export class DiscussionsComponent implements OnInit, OnChanges {
 
   openDiscussionDialog() {
     const dialogRef =  this.dialog.open(NewDiscussionComponent, {
-      width: '90%'
+      width: '90%',
+      data: this.current_course
     });
 
     this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {
       if(result) {
+        this.loadDiscussions();
         console.log(result);
       }
     }));

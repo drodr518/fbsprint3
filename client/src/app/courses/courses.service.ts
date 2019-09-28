@@ -57,4 +57,8 @@ export class CoursesService {
     //const params = { params: new HttpParams().set('course', `${course}`)};
     return this.http.post(`${environment.apiAddress}/courses/update-course`, {course: course});
   }
+
+  newDiscussion(course, discussion) {
+    return this.http.post(`${environment.apiAddress}/courses/add-course-discussion`, {course: course, discussion: discussion});
+  }
 }

@@ -1,10 +1,12 @@
 <mat-card class="example-card">
   <mat-card-content>
-    <h3>Instructor</h3>
-    <h3>{{instructor}}</h3>
+
     <p>
-      <strong>Email:</strong> {{instructorEmail}}
+      <strong>Instructor: </strong>{{instructor}}
+      <br>
+      <strong>Email: </strong>{{instructorEmail}}
     </p>
+
     <div [innerHTML]="courseData.description" >
     </div>
 
