@@ -1,19 +1,20 @@
+<h3 mat-dialog-title>New Content</h3>
 
-<mat-tab-group backgroundColor="primary" animationDuration="0ms">
+<mat-tab-group backgroundColor="primary" animationDuration="0ms" dynamicHeight>
 
     <mat-tab label="Extenal Link">
-        <app-new-external-link></app-new-external-link>
+        <app-new-external-link class="myForms" [data]="data" [current_dialog]="dialogRef"></app-new-external-link>
     </mat-tab>
 
     <mat-tab label="Document / Page">
-        <app-new-page></app-new-page>
+        <app-new-page class="myForms" [data]="data" [current_dialog]="dialogRef"></app-new-page>
     </mat-tab>
 
     <mat-tab label="Embedded Video">
-        <app-new-embedded-video></app-new-embedded-video>
+        <app-new-embedded-video class="myForms" [data]="data" [current_dialog]="dialogRef"></app-new-embedded-video>
     </mat-tab>
 
     <mat-tab label="Multiple Choice Quiz">
-            <app-new-quiz></app-new-quiz>
+            <app-new-quiz class="myForms" [data]="data" [current_dialog]="dialogRef"></app-new-quiz>
     </mat-tab>
 </mat-tab-group>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit, Optional, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-new-content',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewContentComponent implements OnInit {
 
-  constructor() { }
+  data;
+
+  constructor(
+    public dialogRef: MatDialogRef<NewContentComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) data: {course: string,
+      current_module: string},
+  ) {
+    this.data = data;
+   }
 
   ngOnInit() {
   }
