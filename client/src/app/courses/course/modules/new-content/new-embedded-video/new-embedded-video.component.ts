@@ -37,6 +37,7 @@ export class NewEmbeddedVideoComponent implements OnInit {
 
     this.coursesServices.newContentPush(this.data.course, this.data.current_module, content).subscribe( (resp) => {
       console.log(resp);
+      this.current_dialog.close(resp);
     });
   }
 

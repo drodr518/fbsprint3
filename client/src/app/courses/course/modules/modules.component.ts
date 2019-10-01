@@ -46,6 +46,7 @@ export class ModulesComponent implements OnInit {
 
     this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {
       if(result) {
+        this.ngOnInit();
         console.log(result);
       }
     }));

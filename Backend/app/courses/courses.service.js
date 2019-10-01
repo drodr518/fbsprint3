@@ -238,7 +238,7 @@ class CoursesService {
     }
 
     async addModuleContent(course_key, module_key, content) {
-        console.log("course", course_key, "module", module_key, "content", content);
+        //console.log("course", course_key, "module", module_key, "content", content);
         try {
             var courses = await database.ref('/courses').orderByKey().equalTo(course_key).once('value');
             if(courses.hasChildren) {
