@@ -21,4 +21,6 @@ export class NewContentComponent implements OnInit {
   ngOnInit() {
   }
 
+  
+
 }
