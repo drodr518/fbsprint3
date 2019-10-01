@@ -65,4 +65,8 @@ export class CoursesService {
   newContentPush(course, module_id, content) {
     return this.http.post(`${environment.apiAddress}/courses/add-module-content`, {course: course, module: module_id, content: content });
   }
+
+  newQuizPush(course, module_id, quiz) {
+    return this.http.post(`${environment.apiAddress}/courses/add-module-quiz`, {course: course, module: module_id, content: quiz });
+  }
 }

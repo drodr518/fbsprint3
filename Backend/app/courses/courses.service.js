@@ -145,12 +145,13 @@ class CoursesService {
      * @return true if successfully added quiz
      */
     async addModuleQuiz(course_key, module_key, content) {
+
+        console.log('courseKey', course_key, 'moduleKey', module_key ,content);
         try {
-            var courses = await database.ref('/courses').orderByKey().equalTo(course_key).once('value');
+            var courses = await database.ref('/courses/' +  course_key).once('value');
             if(courses.hasChildren) {
-                var items = courses.child(course_key).child('modules').child(module_key).child('content').ref.push({
+                var items = courses.child('modules').child(module_key).child('content').ref.push({
                     title: content.title,
-                    isTimed: content.isTimed,
                     time: content.time,
                     dueDate: content.dueDate,
                     attempts: content.attempts,
@@ -159,9 +160,9 @@ class CoursesService {
                 let total = 0;
 
                 content.items.forEach( (item) => {
-                    total += item.val;
+                    total += item.value;
                     items.child('items').ref.push({
-                        val: item.val,
+                        value: Number(item.value),
                         question: item.question,
                         answer: item.answer,
                         options: item.options
@@ -406,7 +407,7 @@ class CoursesService {
                     title: item.child('title').val(),
                     url: item.child('url').val(),
                     link: item.child('link').val(),
-                    isTimed: item.child('isTimed').val(),
+                    outOf: item.child('outOf').val(),
                     embedded: item.child('embedded').val()
                     });
                 });
