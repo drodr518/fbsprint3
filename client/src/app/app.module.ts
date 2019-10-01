@@ -18,13 +18,11 @@ import { MatInputModule,
   MatExpansionModule,
   MatSortModule,
   MatSelectModule} from '@angular/material';
-import { NewCourseComponent } from './new-course/new-course.component';
 import { NewDiscussionComponent } from './courses/course/discussions/new-discussion/new-discussion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NewCourseComponent
   ],
   imports: [
     AppRoutingModule,
@@ -43,6 +41,5 @@ import { NewDiscussionComponent } from './courses/course/discussions/new-discuss
   ],
   providers: [UserService],
   bootstrap: [AppComponent],
-  entryComponents: [NewCourseComponent],
 })
 export class AppModule { }

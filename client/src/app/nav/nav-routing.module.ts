@@ -1,6 +1,7 @@
 import { MainComponent } from './main/main.component';
 import { Routes, RouterModule, ExtraOptions } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { NewcourseComponent } from './newcourse/newcourse.component';
 
 const routes: Routes = [
     { path: '', component: MainComponent, children: [
@@ -8,8 +9,8 @@ const routes: Routes = [
         {path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.module').then(mod => mod.DashboardModule)},
         {path: 'helppage', loadChildren: () => import('../helppage/helppage.module').then(mod => mod.HelppageModule)},
         {path: 'home', loadChildren: () => import('../home/home.module').then(mod => mod.HomeModule)},
-        {path: 'security', loadChildren: () => import('../security/security.module').then(mod => mod.SecurityModule)},
-
+        {path: 'newcourse', loadChildren: () => import('./newcourse/newcourse.component').then(mod => mod.NewcourseComponent)},
+        {path: 'security', loadChildren: () => import('../security/security.module').then(mod => mod.SecurityModule)}
       ]}
 ];
 
