@@ -16,7 +16,7 @@ export class CourseDetailEditorComponent implements OnInit {
   subscriptions: Subscription[] = [];
   courseForm: FormGroup;
   today = new Date();
-  
+
   data: {id: string, name: string, description: string, instructor: string};
   instructors: {name: string, id: string}[] = [];
 
@@ -34,7 +34,6 @@ export class CourseDetailEditorComponent implements OnInit {
       endEnrollDate: [data.endEnrollDate, Validators.required]
     });
    }
-
 
    config: AngularEditorConfig = {
     editable: true,
@@ -60,7 +59,7 @@ export class CourseDetailEditorComponent implements OnInit {
   updateCourse() {
 
     if(this.courseForm.pristine) {
-      this.dialogRef.close(); 
+      this.dialogRef.close();
     }  else {
 
       const course = {
@@ -69,11 +68,11 @@ export class CourseDetailEditorComponent implements OnInit {
         instructor: this.courseForm.value.instructor,
         description: this.courseForm.value.description
       }
-  
+
       this.subscriptions.push(this.courseServices.updateCourse(course).subscribe( (resp) => {
         if(resp) {
           this.dialogRef.close(resp);
-        }     
+        }
       }));
     }
 
@@ -82,7 +81,7 @@ export class CourseDetailEditorComponent implements OnInit {
   getDescriptionError() {
     return this.courseForm.hasError('required', 'courseForm.description')  ? '' : 'The description of a course cannot be empty!';
   }
-  
+
 
   ngOnInit() {
     this.subscriptions.push(this.courseServices.getAllInstructors().subscribe( (resp: {name: string, id: string}[]) => {

@@ -24,7 +24,7 @@ export class NewcourseComponent implements OnInit {
     public dialogRef: MatDialogRef<NewcourseComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) data: {id: string, name: string, description: string, instructor: string, endEnrollDate: string},
     private formBuilder: FormBuilder,
-    private courseServices: CoursesService,
+    private courseServices: CoursesService
   ) {
     this.data = data;
     this.courseForm = this.formBuilder.group({
@@ -70,7 +70,7 @@ export class NewcourseComponent implements OnInit {
         description: this.courseForm.value.description
       }
 
-      this.subscriptions.push(this.courseServices.updateCourse(course).subscribe( (resp) => {
+      this.subscriptions.push(this.courseServices.addCourse(course).subscribe( (resp) => {
         if(resp) {
           this.dialogRef.close(resp);
         }

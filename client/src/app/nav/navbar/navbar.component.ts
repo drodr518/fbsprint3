@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { UserService } from './../../user.service';
 import { Component, OnInit } from '@angular/core';
 import { CourseDetailEditorComponent } from '../../courses/course/info/course-detail-editor/course-detail-editor.component';
-import {NewcourseComponent} from "../newcourse/newcourse.component";
+import {NewcourseComponent} from '../newcourse/newcourse.component';
 
 @Component({
   selector: 'app-navbar',
