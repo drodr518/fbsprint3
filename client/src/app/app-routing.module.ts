@@ -11,8 +11,8 @@ const routes: Routes = [
   {path: '', redirectTo: 'nav/dashboard', pathMatch: 'full'},
   {path: 'nav', loadChildren: () => import('./nav/nav.module').then (mod => mod.NavModule), runGuardsAndResolvers: 'always'},
   {path: 'home', loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule)},
-  {path: 'security', loadChildren: () => import('./security/security.module').then(mod => mod.SecurityModule)},
-  {path: 'new-course', loadChildren: () => import('./new-course/new-course.module').then(mod => mod.NewCourseModule)},
+  // {path: 'security', loadChildren: () => import('./security/security.module').then(mod => mod.SecurityModule)},
+  // {path: 'new-course', loadChildren: () => import('./new-course/new-course.module').then(mod => mod.NewCourseModule)},
   {path: '**', redirectTo: 'nav/dashboard'}
 ];
 

@@ -1,4 +1,5 @@
-<h3 mat-dialog-title>New Course</h3>
+<mat-card>
+<h3>New Course</h3>
 <form [formGroup]="courseForm">
 
   <mat-form-field appearance="outline">
@@ -16,13 +17,14 @@
 
   <div>
     <mat-label><strong>Course Description:</strong></mat-label>
-    <angular-editor formControlName="description" [config]="config"></angular-editor>
+    <!--    <angular-editor formControlName="description" [config]="config"></angular-editor>-->
     <mat-error *ngIf="courseForm.invalid">{{getDescriptionError()}}</mat-error>
   </div>
 
 </form>
 <mat-dialog-actions>
   <span class="fill"></span>
-  <button (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>
+<!--  <button (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>-->
   <button (click)="addCourse()" mat-raised-button color="primary">Create</button>
 </mat-dialog-actions>
+</mat-card>

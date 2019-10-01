@@ -35,7 +35,6 @@ class CoursesService {
             console.error(err);
             return false;
         }
-
         return true;
     }
 

@@ -19,38 +19,40 @@ export class NewCourseComponent implements OnInit {
   data: {id: string, name: string, description: string, instructor: string};
   instructors: {name: string, id: string}[] = [];
 constructor(
-  public dialogRef: MatDialogRef<NewCourseComponent>,
-  @Optional() @Inject(MAT_DIALOG_DATA) data: {id: string, name: string, description: string, instructor: string},
+  // public dialogRef: MatDialogRef<NewCourseComponent>,
+  // @Optional() @Inject(MAT_DIALOG_DATA) data: {id: string, name: string, description: string, instructor: string},
   private formBuilder: FormBuilder,
   private newcourseService: NewCourseService,
-) {}
+) {
+  this.courseForm = this.formBuilder.group({title:['', Validators.required]});
+}
 
-config: AngularEditorConfig = {
-  editable: true,
-  spellcheck: true,
-  height: '15rem',
-  minHeight: '5rem',
-  maxHeight: '15rem',
-  placeholder: 'Enter text here...',
-  translate: 'no',
-  outline: true,
-  sanitize: false,
-  defaultFontName: 'Arial',
-  customClasses: [
-    {
-      name: 'titleText',
-      class: 'titleText',
-      tag: 'h1',
-    },
-  ]
-};
+// config: AngularEditorConfig = {
+//   editable: true,
+//   spellcheck: true,
+//   height: '15rem',
+//   minHeight: '5rem',
+//   maxHeight: '15rem',
+//   placeholder: 'Enter text here...',
+//   translate: 'no',
+//   outline: true,
+//   sanitize: false,
+//   defaultFontName: 'Arial',
+//   customClasses: [
+//     {
+//       name: 'titleText',
+//       class: 'titleText',
+//       tag: 'h1',
+//     },
+//   ]
+// };
 
 
 addCourse() {
-
-  if (this.courseForm.pristine) {
-    this.dialogRef.close();
-  }  else {
+  //
+  // if (this.courseForm.pristine) {
+  //   this.dialogRef.close();
+  // }  else {
 
     const course = {
       id: this.data.id,
@@ -59,14 +61,14 @@ addCourse() {
       description: this.courseForm.value.description
     };
 
-    this.subscriptions.push(this.newcourseService.addCourse(course).subscribe( (resp) => {
-      if (resp) {
-        this.dialogRef.close(resp);
-      }
-    }));
+    // this.subscriptions.push(this.newcourseService.addCourse(course).subscribe( (resp) => {
+    //   if (resp) {
+    //     this.dialogRef.close(resp);
+    //   }
+    // }));
   }
 
-}
+
 
 getDescriptionError() {
   return this.courseForm.hasError('required', 'courseForm.description')  ? '' : 'The description of a course cannot be empty!';
@@ -74,13 +76,14 @@ getDescriptionError() {
 
 
 ngOnInit() {
-  this.subscriptions.push(this.newcourseService.addCourse(this.courseForm).subscribe( (resp: {name: string, id: string}[]) => {
+  this.subscriptions.push(this.newcourseService.addCourse(this.courseForm).subscribe((resp: { name: string, id: string }[]) => {
     this.instructors = resp;
   }));
 }
-
-onNoClick() {
-  this.dialogRef.close();
-}
+// }
+//
+// onNoClick() {
+//   this.dialogRef.close();
+// }
 
 }
