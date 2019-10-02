@@ -46,6 +46,11 @@ module.exports = () => {
         res.json({success: resp});
     });
 
+    router.post('/add-module-content', async (req, res, next) => {
+        const resp = await coursesServices.addModuleContent(req.body.course, req.body.module, req.body.content);
+        res.json(resp);
+    });
+
     // get course catergories
     router.get('/categories', async (req, res, next) => {
         const resp = await coursesServices.getCategories();

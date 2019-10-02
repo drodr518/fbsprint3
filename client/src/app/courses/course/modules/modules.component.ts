@@ -34,13 +34,19 @@ export class ModulesComponent implements OnInit {
     private dialog: MatDialog,
     ) { }
 
-  openNewContentDialog() {
+  openNewContentDialog(sel_module) {
+
     const dialogRef = this.dialog.open(NewContentComponent, {
-      width: '90%'
+      width: '90%',
+      data: {
+        course: this.current_course,
+        current_module: sel_module
+      }
     });
 
     this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {
       if(result) {
+        this.ngOnInit();
         console.log(result);
       }
     }));
@@ -48,7 +54,7 @@ export class ModulesComponent implements OnInit {
 
   openEditModuleDialog() {
     const dialogRef = this.dialog.open(ModuleEditorComponent, {
-      width: '90%'
+      width: '90%',
     });
 
     this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {

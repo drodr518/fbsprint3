@@ -61,4 +61,8 @@ export class CoursesService {
   newDiscussion(course, discussion) {
     return this.http.post(`${environment.apiAddress}/courses/add-course-discussion`, {course: course, discussion: discussion});
   }
+
+  newContentPush(course, module_id, content) {
+    return this.http.post(`${environment.apiAddress}/courses/add-module-content`, {course: course, module: module_id, content: content });
+  }
 }
