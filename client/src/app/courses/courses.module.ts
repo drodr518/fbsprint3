@@ -46,6 +46,7 @@ import { NewEmbeddedVideoComponent } from './course/modules/new-content/new-embe
 import { NewPageComponent } from './course/modules/new-content/new-page/new-page.component';
 import { NewQuizComponent } from './course/modules/new-content/new-quiz/new-quiz.component';
 import { DocumentViewerComponent } from './course/document-viewer/document-viewer.component';
+import { PagesComponent } from './course/pages/pages.component';
 
 
 
@@ -56,7 +57,7 @@ import { DocumentViewerComponent } from './course/document-viewer/document-viewe
     ModulesComponent, 
     GradesComponent, 
     DiscussionsComponent, 
-    InfoComponent, DiscussionComponent, AssessmentComponent, DiscussionEditorComponent, NewDiscussionComponent, CourseDetailEditorComponent, NewContentComponent, ModuleEditorComponent, NewExternalLinkComponent, NewEmbeddedVideoComponent, NewPageComponent, NewQuizComponent, DocumentViewerComponent
+    InfoComponent, DiscussionComponent, AssessmentComponent, DiscussionEditorComponent, NewDiscussionComponent, CourseDetailEditorComponent, NewContentComponent, ModuleEditorComponent, NewExternalLinkComponent, NewEmbeddedVideoComponent, NewPageComponent, NewQuizComponent, DocumentViewerComponent, PagesComponent
   ],
   imports: [
     CommonModule,

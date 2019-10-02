@@ -23,6 +23,7 @@
                 <app-discussions [current_course]="current_course" *ngIf="isEqual('Discussions')"></app-discussions>
                 <app-discussion [current_course]="current_course" *ngIf="isEqual('Discussion')"></app-discussion>
                 <app-document-viewer *ngIf="isEqual('ViewDocument')"></app-document-viewer>
+                <app-pages  [current_course]="current_course" *ngIf="isEqual('Page')"></app-pages>
             </div>
 
         </mat-sidenav-content>
