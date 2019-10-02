@@ -2,8 +2,8 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { CoursesService } from '../../courses/courses.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, Optional, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-newcourse',
@@ -17,21 +17,21 @@ export class NewcourseComponent implements OnInit {
   courseForm: FormGroup;
   today = new Date();
 
-  data: {id: string, name: string, description: string, instructor: string};
+  //data: {id: string, name: string, description: string, instructor: string};
   instructors: {name: string, id: string}[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<NewcourseComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) data: {id: string, name: string, description: string, instructor: string, endEnrollDate: string},
+    // @Optional() @Inject(MAT_DIALOG_DATA) data: {id: string, name: string, description: string, instructor: string, endEnrollDate: string},
     private formBuilder: FormBuilder,
     private courseServices: CoursesService
   ) {
-    this.data = data;
+    //this.data = data;
     this.courseForm = this.formBuilder.group({
-      title: [data.name, Validators.required],
-      instructor: [data.instructor, Validators.required],
-      description: [data.description, Validators.required],
-      endEnrollDate: [data.endEnrollDate, Validators.required]
+      title: ['', Validators.required],
+      instructor: ['', Validators.required],
+      description: ['', Validators.required],
+      endEnrollDate: ['', Validators.required]
     });
   }
 
@@ -64,10 +64,13 @@ export class NewcourseComponent implements OnInit {
     }  else {
 
       const course = {
-        id: this.data.id,
         name: this.courseForm.value.title,
-        instructor: this.courseForm.value.instructor,
-        description: this.courseForm.value.description
+        instructor_id: this.courseForm.value.instructor,
+        description: this.courseForm.value.description,
+        MAX_SIZE: 100,
+        isOpen: true,
+        endEnrollDate: this.courseForm.value.endEnrollDate,
+        category: 'Mathematics'
       }
 
       this.subscriptions.push(this.courseServices.addCourse(course).subscribe( (resp) => {

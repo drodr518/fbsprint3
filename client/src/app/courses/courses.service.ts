@@ -64,6 +64,5 @@ export class CoursesService {
 
   addCourse(course) {
     return this.http.post(`${environment.apiAddress}/courses/add-course`, {course: course});
-
   }
 }

@@ -12,25 +12,25 @@ class CoursesService {
      * @return true if successfully added
      */
 
-    async addCourse(course) {
+    async addCourse(newCourse) {
         try {
-            let course = await database.ref('/courses' + course.id).once('value');
+            let course = await database.ref('/courses').once('value');
             course.ref.push(
                 {
-                    name: course.name,
-                    description: course.description,
-                    instructor_id: course.instructor_id,
+                    name: newCourse.name,
+                    description: newCourse.description,
+                    instructor_id: newCourse.instructor_id,
                     modules: [],
                     assignments: [],
                     size: 0,
                     discussions: [],
-                    MAX_SIZE: course.MAX_SIZE,
-                    isOpen: course.isOpen,
-                    endEnrollDate: course.endEnrollDate
+                    MAX_SIZE: newCourse.MAX_SIZE,
+                    isOpen: newCourse.isOpen,
+                    endEnrollDate: newCourse.endEnrollDate
                 }
             );
 
-            let cat = await database.ref('/categories/' + course.category).once('value');
+            let cat = await database.ref('/categories/' + newCourse.category).once('value');
             cat.ref.push({ courseId: course.key })
             
         } catch (err) {
