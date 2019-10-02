@@ -1,3 +1,6 @@
 <mat-card>
-    Course:{{current_course}}| Moudle:{{module_id}} | Page: {{current_page}}
+    <mat-card-title>{{page.title}}</mat-card-title>
+    <mat-card-content>
+        <p [innerHTML]="page.page"></p>
+    </mat-card-content>
 </mat-card>

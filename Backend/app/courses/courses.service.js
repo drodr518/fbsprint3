@@ -248,6 +248,7 @@ class CoursesService {
                     link: content.link || null,
                     url: content.url || null,
                     embedded: content.embedded || null,
+                    page: content.page || null,
                 });
             } else {
                 throw false;
@@ -408,7 +409,8 @@ class CoursesService {
                     url: item.child('url').val(),
                     link: item.child('link').val(),
                     outOf: item.child('outOf').val(),
-                    embedded: item.child('embedded').val()
+                    embedded: item.child('embedded').val(),
+                    page: item.child('page').val(),
                     });
                 });
    
@@ -627,6 +629,21 @@ class CoursesService {
         }
 
         return payload.courses;
+    }
+
+    async getPage(course_id, module_id, page_id){
+        //console.log('course',course_id,'module', module_id,'page', page_id);
+        let payload = {};
+        try {
+
+            let page = await database.ref('/courses/' + course_id + '/modules/' + module_id + '/content/' + page_id).once('value');
+            return page.toJSON();
+
+        } catch(err) {
+            console.error(err);
+        }
+
+        return payload;
     }
 
     /**

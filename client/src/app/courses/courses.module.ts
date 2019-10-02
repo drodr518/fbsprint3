@@ -16,7 +16,8 @@ import {
   MatNativeDateModule,
   MatTabsModule,
   MatStepperModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -83,7 +84,8 @@ import { PagesComponent } from './course/pages/pages.component';
     MatTabsModule,
     NgxDocViewerModule,
     MatStepperModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [
     DiscussionEditorComponent,

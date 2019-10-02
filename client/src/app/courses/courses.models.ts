@@ -85,3 +85,8 @@ export interface IPost {
     date: string;
     post: string;
 }
+
+export interface Page {
+    title: string;
+    page: string;
+}

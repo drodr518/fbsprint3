@@ -34,6 +34,11 @@ export class CoursesService {
     return this.http.get(`${environment.apiAddress}/courses/course-discussion-info`, params);
   }
 
+  getPage(course_id, module_id, page_id) {
+    const params = {params: new HttpParams().set('course', `${course_id}`).set('module', `${module_id}`).set('page', `${page_id}`)};
+    return this.http.get(`${environment.apiAddress}/courses/page`, params)
+  }
+
   getStudentCourseGrades(course_id, student_id) {
     const params = { params: new HttpParams().set('course', `${course_id}`).set('student', `${student_id}`)};
     return this.http.get(`${environment.apiAddress}/courses/student-grades`, params);
