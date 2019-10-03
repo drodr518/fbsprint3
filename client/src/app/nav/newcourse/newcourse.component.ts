@@ -18,7 +18,7 @@ export class NewcourseComponent implements OnInit {
   today = new Date();
 
   instructors: {name: string, id: string}[] = [];
-  categories: {id: string}[] = [];
+  categories: {name: string}[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<NewcourseComponent>,
@@ -90,7 +90,7 @@ export class NewcourseComponent implements OnInit {
     this.subscriptions.push(this.courseServices.getAllInstructors().subscribe( (resp: {name: string, id: string}[]) => {
       this.instructors = resp;
     }));
-    this.subscriptions.push(this.courseServices.getAllCategories().subscribe( (resp: {id: string}[]) => {
+    this.subscriptions.push(this.courseServices.getAllCategories().subscribe( (resp: {name: string}[]) => {
       this.categories = resp;
     }));
   }

@@ -121,7 +121,7 @@ class UsersSerivce {
 
         categoriesRef.forEach((category) => {
             payload.push({
-                id: category.key,
+                name: category.key
             });
         })
 

@@ -13,9 +13,10 @@ class CoursesService {
      */
 
     async addCourse(newCourse) {
+        console.log(newCourse);
         try {
             let course = await database.ref('/courses').once('value');
-            course.ref.push(
+            let newRef = course.ref.push(
                 {
                     name: newCourse.name,
                     description: newCourse.description,
@@ -31,7 +32,8 @@ class CoursesService {
             );
 
             let cat = await database.ref('/categories/' + newCourse.category).once('value');
-            cat.ref.push({ courseId: course.key })
+            console.log(newRef);
+            cat.ref.push({ courseId: newRef.key })
             
         } catch (err) {
             console.error(err);
@@ -319,17 +321,18 @@ class CoursesService {
     /**
      * @return {string[]} categories
      */
-    async getCategories() {
-        let payload = {
-            categories : []
-        };
+    async getAllCategories() {
+        let payload = [];
 
-        let categories = await database.ref('/categories').once('value');
-        categories.forEach( (category) => {
-            payload.categories.push(category.key);
+        let categoriesRef = await database.ref('/categories').orderByValue();
+        categoriesRef.forEach( (category) => {
+            payload.push({
+                name: category.val(),
+                id: category.key,
+            })
         })
 
-        return payload.categories;
+        return payload;
     }
 
     /** Debugging, loads all the data in a course

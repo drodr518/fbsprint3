@@ -20,8 +20,8 @@
     <mat-label>Select Category</mat-label>
     <mat-select formControlName="category">
       <mat-option>None</mat-option>
-      <mat-option *ngFor="let category of categories" value="{{category.id}}">{{category.id}}</mat-option>
-      <mat-hint>Reassign this course's instructor.</mat-hint>
+      <mat-option *ngFor="let category of categories" value="{{category.name}}">{{category.name}}</mat-option>
+      <mat-hint>Choose A Category</mat-hint>
     </mat-select>
   </mat-form-field>
 

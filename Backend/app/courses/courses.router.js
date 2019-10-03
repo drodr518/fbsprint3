@@ -53,7 +53,7 @@ module.exports = () => {
 
     // get course catergories
     router.get('/categories', async (req, res, next) => {
-        const resp = await coursesServices.getCategories();
+        const resp = await coursesServices.getAllCategories();
         res.json(resp);
     });
 
