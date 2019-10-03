@@ -145,12 +145,13 @@ class CoursesService {
      * @return true if successfully added quiz
      */
     async addModuleQuiz(course_key, module_key, content) {
+
+        console.log('courseKey', course_key, 'moduleKey', module_key ,content);
         try {
-            var courses = await database.ref('/courses').orderByKey().equalTo(course_key).once('value');
+            var courses = await database.ref('/courses/' +  course_key).once('value');
             if(courses.hasChildren) {
-                var items = courses.child(course_key).child('modules').child(module_key).child('content').ref.push({
+                var items = courses.child('modules').child(module_key).child('content').ref.push({
                     title: content.title,
-                    isTimed: content.isTimed,
                     time: content.time,
                     dueDate: content.dueDate,
                     attempts: content.attempts,
@@ -159,9 +160,9 @@ class CoursesService {
                 let total = 0;
 
                 content.items.forEach( (item) => {
-                    total += item.val;
+                    total += item.value;
                     items.child('items').ref.push({
-                        val: item.val,
+                        value: Number(item.value),
                         question: item.question,
                         answer: item.answer,
                         options: item.options
@@ -247,6 +248,7 @@ class CoursesService {
                     link: content.link || null,
                     url: content.url || null,
                     embedded: content.embedded || null,
+                    page: content.page || null,
                 });
             } else {
                 throw false;
@@ -406,8 +408,9 @@ class CoursesService {
                     title: item.child('title').val(),
                     url: item.child('url').val(),
                     link: item.child('link').val(),
-                    isTimed: item.child('isTimed').val(),
-                    embedded: item.child('embedded').val()
+                    outOf: item.child('outOf').val(),
+                    embedded: item.child('embedded').val(),
+                    page: item.child('page').val(),
                     });
                 });
    
@@ -626,6 +629,21 @@ class CoursesService {
         }
 
         return payload.courses;
+    }
+
+    async getPage(course_id, module_id, page_id){
+        //console.log('course',course_id,'module', module_id,'page', page_id);
+        let payload = {};
+        try {
+
+            let page = await database.ref('/courses/' + course_id + '/modules/' + module_id + '/content/' + page_id).once('value');
+            return page.toJSON();
+
+        } catch(err) {
+            console.error(err);
+        }
+
+        return payload;
     }
 
     /**

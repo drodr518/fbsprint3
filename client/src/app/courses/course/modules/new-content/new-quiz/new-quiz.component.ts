@@ -20,7 +20,7 @@ export class NewQuizComponent implements OnInit {
   newQuizForm: FormGroup;
   newQuestionForm: FormGroup;
   questionsForm: FormGroup;
-  enteringQuestion = false;
+  enteringQuestion = true;
   answerInvalid = false;
   items = [];
   
@@ -95,7 +95,27 @@ export class NewQuizComponent implements OnInit {
     this.questionsForm.controls['hasQuestion'].setValue(true);
 
     this.newQuestionForm.reset();
+    this.newQuestionForm.controls['value'].setValue(1);
+    this.newQuestionForm.controls['answer'].setValue(1);
     this.enteringQuestion = false;
+  }
+
+  pushQuiz() {
+    const newQuiz = {
+      title: this.newQuizForm.value.title,
+      time: this.newQuizForm.value.isTimed ? this.newQuizForm.value.time : null,
+      dueDate: !this.newQuizForm.value.noDueDate ? null : this.newQuizForm.value.dueDate,
+      attempts: !this.newQuizForm.value.isUnlimited ? null : this.newQuizForm.value.attempts,
+      items: this.items
+    };
+
+    this.coursesServices.newQuizPush(this.data.course, this.data.current_module, newQuiz).subscribe( (resp) => {
+      if(resp) {
+        this.current_dialog.close(resp);
+      }
+    });
+
+    console.log(newQuiz);
   }
 
   removeItem(itemIndex) {
@@ -106,6 +126,10 @@ export class NewQuizComponent implements OnInit {
     } else {
       this.questionsForm.controls['hasQuestion'].setValue(true);
     }
+  }
+
+  onNoClick() {
+    this.current_dialog.close();
   }
 
 }

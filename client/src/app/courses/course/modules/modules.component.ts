@@ -77,7 +77,7 @@ export class ModulesComponent implements OnInit {
 
     this.subscriptions.push(this.coursesServices.getModules(this.current_course).subscribe( (resp: []) => {
       this.modules = resp;
-      //console.log(resp);
+      console.log(resp);
     }));
   }
 

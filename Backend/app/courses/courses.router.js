@@ -105,6 +105,11 @@ module.exports = () => {
         res.json(resp);
     });
 
+    router.get('/page', async (req, res, next) => {
+        //console.log(req.query);
+        const resp = await coursesServices.getPage(req.query.course, req.query.module, req.query.page);
+        res.json(resp);
+    });
     // get all the courses that a student is enrolled in
     router.get('/student-courses', async (req, res, next) => {
         const resp = await coursesServices.getMyCourses(req.query.student);

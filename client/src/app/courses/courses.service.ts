@@ -34,6 +34,11 @@ export class CoursesService {
     return this.http.get(`${environment.apiAddress}/courses/course-discussion-info`, params);
   }
 
+  getPage(course_id, module_id, page_id) {
+    const params = {params: new HttpParams().set('course', `${course_id}`).set('module', `${module_id}`).set('page', `${page_id}`)};
+    return this.http.get(`${environment.apiAddress}/courses/page`, params)
+  }
+
   getStudentCourseGrades(course_id, student_id) {
     const params = { params: new HttpParams().set('course', `${course_id}`).set('student', `${student_id}`)};
     return this.http.get(`${environment.apiAddress}/courses/student-grades`, params);
@@ -64,5 +69,9 @@ export class CoursesService {
 
   newContentPush(course, module_id, content) {
     return this.http.post(`${environment.apiAddress}/courses/add-module-content`, {course: course, module: module_id, content: content });
+  }
+
+  newQuizPush(course, module_id, quiz) {
+    return this.http.post(`${environment.apiAddress}/courses/add-module-quiz`, {course: course, module: module_id, content: quiz });
   }
 }
