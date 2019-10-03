@@ -42,8 +42,6 @@ export class CourseComponent implements OnInit, OnChanges {
         this.loadData();
       }
     }));
-
-
   }
 
   loadData() {

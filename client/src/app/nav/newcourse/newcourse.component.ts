@@ -17,21 +17,20 @@ export class NewcourseComponent implements OnInit {
   courseForm: FormGroup;
   today = new Date();
 
-  //data: {id: string, name: string, description: string, instructor: string};
   instructors: {name: string, id: string}[] = [];
+  categories: {id: string}[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<NewcourseComponent>,
-    // @Optional() @Inject(MAT_DIALOG_DATA) data: {id: string, name: string, description: string, instructor: string, endEnrollDate: string},
     private formBuilder: FormBuilder,
     private courseServices: CoursesService
   ) {
-    //this.data = data;
     this.courseForm = this.formBuilder.group({
       title: ['', Validators.required],
       instructor: ['', Validators.required],
       description: ['', Validators.required],
-      endEnrollDate: ['', Validators.required]
+      endEnrollDate: ['', Validators.required],
+      category: ['', Validators.required]
     });
   }
 
@@ -70,7 +69,7 @@ export class NewcourseComponent implements OnInit {
         MAX_SIZE: 100,
         isOpen: true,
         endEnrollDate: this.courseForm.value.endEnrollDate,
-        category: 'Mathematics'
+        category: this.courseForm.value.category
       }
 
       this.subscriptions.push(this.courseServices.addCourse(course).subscribe( (resp) => {
@@ -90,6 +89,9 @@ export class NewcourseComponent implements OnInit {
   ngOnInit() {
     this.subscriptions.push(this.courseServices.getAllInstructors().subscribe( (resp: {name: string, id: string}[]) => {
       this.instructors = resp;
+    }));
+    this.subscriptions.push(this.courseServices.getAllCategories().subscribe( (resp: {id: string}[]) => {
+      this.categories = resp;
     }));
   }
 

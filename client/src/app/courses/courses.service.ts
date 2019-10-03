@@ -55,6 +55,10 @@ export class CoursesService {
     return this.http.get(`${environment.apiAddress}/users/all-instructors`);
   }
 
+  getAllCategories() {
+    return this.http.get(`${environment.apiAddress}/users/all-categories`);
+  }
+
   // tslint:disable-next-line:variable-name
   postDiscussionPost(course_id, discussion_id, post) {
     // tslint:disable-next-line:max-line-length

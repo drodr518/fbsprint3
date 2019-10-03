@@ -112,7 +112,21 @@ class UsersSerivce {
         return payload;
     }
 
-    
+
+    async getAllCategories() {
+
+        let payload = [];
+
+        let categoriesRef =  await database.ref('/categories').orderByKey().once('value');
+
+        categoriesRef.forEach((category) => {
+            payload.push({
+                id: category.key,
+            });
+        })
+
+        return payload;
+    }
 
     /**
      * 
