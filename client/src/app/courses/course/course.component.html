@@ -22,6 +22,7 @@
                 <app-grades [current_course]="current_course" *ngIf="isEqual('Grades')"></app-grades>
                 <app-discussions [current_course]="current_course" *ngIf="isEqual('Discussions')"></app-discussions>
                 <app-discussion [current_course]="current_course" *ngIf="isEqual('Discussion')"></app-discussion>
+                <app-document-viewer *ngIf="isEqual('ViewDocument')"></app-document-viewer>
             </div>
 
         </mat-sidenav-content>

@@ -238,6 +238,7 @@ class CoursesService {
     }
 
     async addModuleContent(course_key, module_key, content) {
+        //console.log("course", course_key, "module", module_key, "content", content);
         try {
             var courses = await database.ref('/courses').orderByKey().equalTo(course_key).once('value');
             if(courses.hasChildren) {
@@ -393,13 +394,15 @@ class CoursesService {
    
             courseModules.forEach( (mod) => {
 
-                tempModule = {name: '', resources: []};
+                tempModule = {id:'', name: '', resources: []};
    
                 tempModule.name = mod.child('name').val();
+                tempModule.id = mod.key;
    
                 mod.child('content').forEach( (item) => {
                     tempModule.resources.push({
                     id: item.key,
+                    mod: mod.key,
                     title: item.child('title').val(),
                     url: item.child('url').val(),
                     link: item.child('link').val(),

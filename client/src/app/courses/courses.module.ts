@@ -14,7 +14,9 @@ import {
   MatSlideToggleModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatTabsModule
+  MatTabsModule,
+  MatStepperModule,
+  MatCheckboxModule
 } from '@angular/material';
 
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -30,6 +32,8 @@ import { DiscussionComponent } from './course/discussion/discussion.component';
 
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+
 import { AngularEditorModule} from '@kolkov/angular-editor';
 import { AssessmentComponent } from './assessment/assessment.component';
 import { DiscussionEditorComponent } from './course/discussion/discussion-editor/discussion-editor.component';
@@ -41,6 +45,7 @@ import { NewExternalLinkComponent } from './course/modules/new-content/new-exter
 import { NewEmbeddedVideoComponent } from './course/modules/new-content/new-embedded-video/new-embedded-video.component';
 import { NewPageComponent } from './course/modules/new-content/new-page/new-page.component';
 import { NewQuizComponent } from './course/modules/new-content/new-quiz/new-quiz.component';
+import { DocumentViewerComponent } from './course/document-viewer/document-viewer.component';
 
 
 
@@ -51,7 +56,7 @@ import { NewQuizComponent } from './course/modules/new-content/new-quiz/new-quiz
     ModulesComponent, 
     GradesComponent, 
     DiscussionsComponent, 
-    InfoComponent, DiscussionComponent, AssessmentComponent, DiscussionEditorComponent, NewDiscussionComponent, CourseDetailEditorComponent, NewContentComponent, ModuleEditorComponent, NewExternalLinkComponent, NewEmbeddedVideoComponent, NewPageComponent, NewQuizComponent
+    InfoComponent, DiscussionComponent, AssessmentComponent, DiscussionEditorComponent, NewDiscussionComponent, CourseDetailEditorComponent, NewContentComponent, ModuleEditorComponent, NewExternalLinkComponent, NewEmbeddedVideoComponent, NewPageComponent, NewQuizComponent, DocumentViewerComponent
   ],
   imports: [
     CommonModule,
@@ -74,7 +79,10 @@ import { NewQuizComponent } from './course/modules/new-content/new-quiz/new-quiz
     MatSlideToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTabsModule
+    MatTabsModule,
+    NgxDocViewerModule,
+    MatStepperModule,
+    MatCheckboxModule
   ],
   entryComponents: [
     DiscussionEditorComponent,

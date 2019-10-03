@@ -8,7 +8,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 export class UserService {
 
   private student_id = "haslhadsfapsjdfp"; // debugging value
-  private isAdmin = false;
+  private isAdmin = true;
 
   constructor(private http: HttpClient) { }
 

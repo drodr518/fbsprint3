@@ -9,14 +9,14 @@
         
         <mat-nav-list *ngFor="let content of module.resources">
                 <a *ngIf="content.url != null" mat-list-item (click)="openInNewTab(content.url)"><mat-icon>link</mat-icon>{{content.title}}</a>
-                <a *ngIf="content.link != null" mat-list-item (click)="openInNewTab(content.link)"><mat-icon>insert_drive_file</mat-icon>{{content.title}}</a>
+                <a *ngIf="content.link != null" mat-list-item mat-list-item [routerLink]="['/nav/courses/view-course']" [queryParams]="{id: content.link, course: this.current_course, select: 'ViewDocument'}"><mat-icon>insert_drive_file</mat-icon>{{content.title}}</a>
                 <a *ngIf="content.isTimed != null" mat-list-item [routerLink]="['/nav/courses/assessment']" [queryParams]="{id: this.content.id, course: this.current_course}"><mat-icon>assessment</mat-icon>{{content.title}}</a>
                 <a *ngIf="content.embedded != null" mat-list-item><mat-icon>play_circle_filled</mat-icon>{{content.title}}</a>
         </mat-nav-list>
 
         <mat-nav-list *ngIf="this.isAdmin()">
             <a (click)="openEditModuleDialog()" mat-list-item class="add_button"><mat-icon>edit</mat-icon>Edit Module</a>
-            <a (click)="openNewContentDialog()" mat-list-item><mat-icon>add</mat-icon>Add Content</a>
+            <a (click)="openNewContentDialog(module.id)" mat-list-item><mat-icon>add</mat-icon>Add Content</a>
         </mat-nav-list>
     </mat-expansion-panel>
 </mat-accordion>
