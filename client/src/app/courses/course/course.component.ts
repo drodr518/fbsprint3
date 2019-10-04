@@ -15,7 +15,8 @@ export class CourseComponent implements OnInit, OnChanges {
     {val:'Home', ico: 'home'},
     {val:'Modules', ico:'view_module'},
     {val:'Grades', ico:'assessment'},
-    {val:'Discussions', ico: 'forum'}];
+    {val:'Discussions', ico: 'forum'},
+    {val: 'Roll Call', ico: 'forum'}];
 
   private navItem = 'Home';
 
@@ -62,7 +63,7 @@ export class CourseComponent implements OnInit, OnChanges {
       if(this.authorized) {
         this.subscriptions.push(this.coursesServices
           .getCourseInfo(this.current_course)
-          .subscribe( (course: {id: string, name:string, description: string, instructor: string}) => {
+          .subscribe( (course: {id: string, name:string, description: string, instructor: string, students: string[]}) => {
           this.course = course;
           //console.log(course);
         }));

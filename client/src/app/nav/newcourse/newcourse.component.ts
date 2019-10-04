@@ -19,6 +19,8 @@ export class NewcourseComponent implements OnInit {
 
   instructors: {name: string, id: string}[] = [];
   categories: {name: string}[] = [];
+  MAX_SIZE: {MAX_SIZE: number};
+  isOpen: {isOpen: boolean};
 
   constructor(
     public dialogRef: MatDialogRef<NewcourseComponent>,
@@ -30,7 +32,9 @@ export class NewcourseComponent implements OnInit {
       instructor: ['', Validators.required],
       description: ['', Validators.required],
       endEnrollDate: ['', Validators.required],
-      category: ['', Validators.required]
+      category: ['', Validators.required],
+      MAX_SIZE: ['', Validators.required],
+      isOpen: ['', Validators.required]
     });
   }
 
@@ -66,8 +70,8 @@ export class NewcourseComponent implements OnInit {
         name: this.courseForm.value.title,
         instructor_id: this.courseForm.value.instructor,
         description: this.courseForm.value.description,
-        MAX_SIZE: 100,
-        isOpen: true,
+        MAX_SIZE: this.courseForm.value.MAX_SIZE,
+        isOpen: this.courseForm.value.isOpen,
         endEnrollDate: this.courseForm.value.endEnrollDate,
         category: this.courseForm.value.category
       }

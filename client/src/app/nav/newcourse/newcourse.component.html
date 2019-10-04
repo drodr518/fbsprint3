@@ -32,6 +32,18 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
+  <mat-form-field appearance="outline">
+    <mat-label>Maximum Enrollment</mat-label>
+    <input matInput formControlName="MAX_SIZE" type="number" [min]="0" [max]="100" placeholder="0 - 100" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Open/Close Course</mat-label>
+    <input matInput formControlName="isOpen" type="boolean"required>
+        <mat-option value="{{!isOpen}}">{{"Open"}}</mat-option>
+        <mat-option value="{{!isOpen}}">{{"Closed"}}</mat-option>
+  </mat-form-field>
+
   <div>
     <mat-label><strong>Course Description:</strong></mat-label>
     <angular-editor formControlName="description" [config]="config"></angular-editor>
@@ -39,6 +51,8 @@
     <mat-hint>Edit this course's description, cannot be empty.</mat-hint>
   </div>
 </form>
+
+
 <mat-dialog-actions>
   <span class="fill"></span>
   <button (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>

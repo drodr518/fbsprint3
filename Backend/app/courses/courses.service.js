@@ -267,7 +267,7 @@ class CoursesService {
      * instructor_id: string, size: number, MAX_SIZE: number}[]
      * } courses
      */
-    async getAllCourses() {
+    async getAllCourses(key) {
         let payload = [];
         let courses = await database.ref('/courses').orderByKey().equalTo(key).once('value');
         courses.forEach( (course) => {
@@ -359,7 +359,7 @@ class CoursesService {
      */
     async getCourseInfo(key) {
 
-        let myCourse;
+        let myCourse = {};
 
         let courses = await database.ref('/courses').orderByKey().equalTo(key).once('value');
         courses.forEach( (member) => {
@@ -422,6 +422,7 @@ class CoursesService {
    
            return payload.modules;
     }
+
 
     /**
      * 
@@ -668,6 +669,7 @@ class CoursesService {
      * @param {string} assessment_id, assesment key in the database
      * 
      * @return {doneOn: string, score: number} record
+
      */
     async getStudentRecord(student_id, course_id, assessment_id) {
         try {
@@ -713,7 +715,81 @@ class CoursesService {
         return false;
     }
 
-    async updateCourse(course) {
+    /**
+     *
+     * @param {string} course_id , course key in the database
+     * @param {string} student_id , student key in the database
+     *
+     * @return {{{id: string, title: string, dueDate: string, outOf: number, doneOn: string, score: number}[]}} records
+
+     async getCourseModules(courses_id) {
+
+        let payload = {
+            modules: []
+        };
+
+        let tempModule;
+
+        try {
+
+            var courseModules = await database.ref('/courses/' + courses_id + '/modules').once('value');
+
+            courseModules.forEach( (mod) => {
+
+                tempModule = {id:'', name: '', resources: []};
+
+                tempModule.name = mod.child('name').val();
+                tempModule.id = mod.key;
+
+                mod.child('content').forEach( (item) => {
+                    tempModule.resources.push({
+                    id: item.key,
+                    mod: mod.key,
+                    title: item.child('title').val(),
+                    url: item.child('url').val(),
+                    link: item.child('link').val(),
+                    isTimed: item.child('isTimed').val(),
+                    embedded: item.child('embedded').val()
+                    });
+                });
+
+                   payload.modules.push(tempModule);
+            });
+        } catch (err) {
+               console.error(err);
+        }
+
+           return payload.modules;
+    }
+*/
+    // async getCourseStudents(courses_id) {
+    //
+    //     let payload = {
+    //         students: []
+    //     };
+    //
+    //     let tempStudent;
+    //
+    //     try {
+    //
+    //         var courseStudents = await database.ref('/courses/' + courses_id + '/students').once('value');
+    //
+    //         courseStudents.forEach( (stu) => {
+    //
+    //             tempStudent = {name: ''};
+    //
+    //             tempStudent.name = stu.child('name').val();
+    //             // tempStudent.id = stu.key;
+    //
+    //             payload.students.push(tempStudent);
+    //         });
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    //
+    //     return payload.students;
+    // }
+     async updateCourse(course) {
         
         try {
 
