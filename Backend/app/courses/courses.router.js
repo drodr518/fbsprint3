@@ -133,5 +133,10 @@ module.exports = () => {
         res.json(resp);
     });
 
+    router.post('/remove-content', async(req, res, next) => {
+        const resp = await coursesServices.removeContent(req.body.course, req.body.module, req.body.content);
+        res.json(resp);
+    });
+
     return router;
 }

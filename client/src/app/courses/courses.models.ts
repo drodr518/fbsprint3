@@ -90,3 +90,14 @@ export interface Page {
     title: string;
     page: string;
 }
+
+export interface Resource {
+    embedded: string;
+    id: string;
+    link: string;
+    mod: string;
+    outOf: string;
+    page: string;
+    title: string;
+    url: string;
+}

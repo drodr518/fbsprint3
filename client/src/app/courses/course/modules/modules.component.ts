@@ -2,14 +2,6 @@ import { MatDialog } from '@angular/material';
 import { UserService } from './../../../user.service';
 import { CoursesService } from './../../courses.service';
 import { Subscription } from 'rxjs';
-import { 
-  Module, 
-  Content, 
-  Document, 
-  EmbededVideo, 
-  ExternalLink, 
-  Assessment
-} from './../../courses.models';
 import { Component, OnInit, Input } from '@angular/core';
 import { NewContentComponent } from './new-content/new-content.component';
 import { ModuleEditorComponent } from './module-editor/module-editor.component';
@@ -52,9 +44,12 @@ export class ModulesComponent implements OnInit {
     }));
   }
 
-  openEditModuleDialog() {
+  openEditModuleDialog(course_module) {
+
+    console.log(course_module);
     const dialogRef = this.dialog.open(ModuleEditorComponent, {
       width: '90%',
+      data: {module: course_module, course_id: this.current_course}
     });
 
     this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {
