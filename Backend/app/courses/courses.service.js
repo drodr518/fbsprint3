@@ -297,7 +297,7 @@ class CoursesService {
 
             courseModules.forEach( (mod) => {
                 mod.child("content").forEach( (cont) => {
-                    if(cont.hasChild('isTimed')) {
+                    if(cont.hasChild('outOf')) {
                         //console.log(cont.child('title').val());
                         const assessment = cont.toJSON();
                         assessments.push({
@@ -706,6 +706,22 @@ class CoursesService {
             doneOn: null,
              score: null
             };
+    }
+
+
+    async removeModule() {
+
+    }
+
+    async removeContent(course, module_id, content) {
+        try {
+            await database.ref('/courses/' + course + '/modules/' + module_id + '/content/' + content).remove();
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
     }
 
 
