@@ -16,8 +16,8 @@
 
     <mat-dialog-actions>
         <span class="fill"></span>
-        <button (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>
-        <button [disabled]="newLinkForm.invalid" (click)="pushLink()" mat-raised-button color="primary">Create</button>
+        <button type="button" (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>
+        <button type="button" [disabled]="newLinkForm.invalid || submitting" (click)="pushLink()" mat-raised-button color="primary">Create</button>
     </mat-dialog-actions>
 
 </form>

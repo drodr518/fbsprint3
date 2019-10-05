@@ -74,4 +74,18 @@ export class CoursesService {
   newQuizPush(course, module_id, quiz) {
     return this.http.post(`${environment.apiAddress}/courses/add-module-quiz`, {course: course, module: module_id, content: quiz });
   }
+
+  newModule(course, newModule) {
+    return this.http.post(`${environment.apiAddress}/courses/add-module`, {course: course, module: newModule});
+  }
+
+  removeContent(course, module_id, content) {
+    return this.http.post(`${environment.apiAddress}/courses/remove-content`, {course: course, module: module_id, content: content});
+  }
+
+  getCourseModule(course, module_id) {
+    const params = { params: new HttpParams().set('course', `${course}`).set('module', module_id)};
+    return this.http.get(`${environment.apiAddress}/courses/course-module`, params);
+  }
+
 }

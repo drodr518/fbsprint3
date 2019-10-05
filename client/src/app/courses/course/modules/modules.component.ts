@@ -16,6 +16,8 @@ export class ModulesComponent implements OnInit {
 
   @Input('current_course') current_course: string;
 
+  loading = true;
+
   modules = [];
 
   subscriptions: Subscription[] = [];
@@ -53,9 +55,7 @@ export class ModulesComponent implements OnInit {
     });
 
     this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {
-      if(result) {
-        console.log(result);
-      }
+      this.ngOnInit();
     }));
   }
 
@@ -69,10 +69,11 @@ export class ModulesComponent implements OnInit {
   }
   
   ngOnInit() {
-
+    this.loading = true;
     this.subscriptions.push(this.coursesServices.getModules(this.current_course).subscribe( (resp: []) => {
       this.modules = resp;
-      console.log(resp);
+      this.loading = false;
+      //console.log(resp);
     }));
   }
 

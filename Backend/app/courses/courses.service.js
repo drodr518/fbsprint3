@@ -146,7 +146,7 @@ class CoursesService {
      */
     async addModuleQuiz(course_key, module_key, content) {
 
-        console.log('courseKey', course_key, 'moduleKey', module_key ,content);
+        //console.log('courseKey', course_key, 'moduleKey', module_key ,content);
         try {
             var courses = await database.ref('/courses/' +  course_key).once('value');
             if(courses.hasChildren) {
@@ -745,6 +745,8 @@ class CoursesService {
     }
 
     async updateCourse(course) {
+
+        console.log(course.endEnrollDate);
         
         try {
 
@@ -760,6 +762,39 @@ class CoursesService {
         }
 
         return true;
+    }
+
+
+    async getModule(course, module_id) {
+        let payload = {id: '', title: '', resources: []};
+
+        try {
+
+            let current_module = await database.ref('/courses').child(course)
+            .child('modules').child(module_id).once('value');
+
+            payload.title = current_module.child('name').val();
+            payload.id = current_module.key;
+
+            current_module.child('content').forEach( (item) => {
+                payload.resources.push({
+                    id: item.key,
+                    mod: current_module.key,
+                    title: item.child('title').val(),
+                    url: item.child('url').val(),
+                    link: item.child('link').val(),
+                    outOf: item.child('outOf').val(),
+                    embedded: item.child('embedded').val(),
+                    page: item.child('page').val(),
+                });
+            });
+
+        } catch (err) {
+            console.error(err);
+        }
+
+        return payload;
+
     }
 
 

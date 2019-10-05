@@ -111,12 +111,12 @@
                     </mat-list-item>
                 </mat-list>
                     
-                <button mat-raised-button color="warn" style="width: 100%;" (click)="removeItem(items.indexOf(item))">remove</button>
+                <button type="button" mat-raised-button color="warn" style="width: 100%;" (click)="removeItem(items.indexOf(item))">remove</button>
             </mat-card>
 
             <div>
-                <button  mat-raised-button color="warn" style="width: 50%;" matStepperPrevious>Previous</button>
-                <button [disabled]="questionsForm.invalid" (click)="pushQuiz()" mat-raised-button color="primary" style="width: 50%;">Submit</button>
+                <button type="button" mat-raised-button color="warn" style="width: 50%;" matStepperPrevious>Previous</button>
+                <button type="button" [disabled]="questionsForm.invalid || submitting" (click)="pushQuiz()" mat-raised-button color="primary" style="width: 50%;">Submit</button>
             </div>
     </mat-step>
 </mat-horizontal-stepper>

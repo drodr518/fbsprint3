@@ -138,5 +138,9 @@ module.exports = () => {
         res.json(resp);
     });
 
+    router.get('/course-module', async(req, res, next) => {
+        const resp = await coursesServices.getModule(req.query.course, req.query.module);
+        res.json(resp);
+    });
     return router;
 }

@@ -1,4 +1,5 @@
-<mat-accordion multi="true">
+
+<mat-accordion *ngIf="!loading" multi="true">
     <mat-expansion-panel *ngFor="let module of modules">
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -25,6 +26,7 @@
 
 
 <mat-card *ngIf="1 > modules.length || this.isAdmin()">
+    <mat-spinner *ngIf="loading" style="margin-left: auto; margin-right: auto;"></mat-spinner>
     <div *ngIf="1 > modules.length" class="empty_message">
         There are no modules.
     </div>

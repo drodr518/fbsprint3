@@ -22,6 +22,8 @@ export class GradesComponent implements OnInit {
 
   @Input('current_course') current_course: string;
 
+  loading = true;
+
   private debugUser = this.userServices.user();
   private subscriptions: Subscription[] = [];
 
@@ -41,9 +43,12 @@ export class GradesComponent implements OnInit {
 
 
   loadGrades() {
+    this.loading = true;
     this.subscriptions.push(this.coursesServices.getStudentCourseGrades(this.current_course, this.debugUser).subscribe( (resp: Record[]) => {
       this.dataSource = resp;
+      this.loading = false;
     }));
+    
   }
 
   getPercent() {

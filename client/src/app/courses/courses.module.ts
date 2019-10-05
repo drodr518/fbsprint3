@@ -17,7 +17,8 @@ import {
   MatTabsModule,
   MatStepperModule,
   MatCheckboxModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatDividerModule
 } from '@angular/material';
 
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -85,7 +86,8 @@ import { PagesComponent } from './course/pages/pages.component';
     NgxDocViewerModule,
     MatStepperModule,
     MatCheckboxModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDividerModule
   ],
   entryComponents: [
     DiscussionEditorComponent,
