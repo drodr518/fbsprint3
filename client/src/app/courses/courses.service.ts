@@ -88,4 +88,8 @@ export class CoursesService {
     return this.http.get(`${environment.apiAddress}/courses/course-module`, params);
   }
 
+  updateDiscussion(course, discussion) {
+    return this.http.post(`${environment.apiAddress}/courses/update-discussion`, {course: course, discussion: discussion});
+  }
+
 }

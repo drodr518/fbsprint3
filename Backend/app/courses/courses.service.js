@@ -798,6 +798,25 @@ class CoursesService {
     }
 
 
+    async updateDiscussion(course, discussion) {
+        try {
+
+            await database.ref('/courses/' + course + '/discussions/' + discussion.id).update({
+                description: discussion.description,
+                endDate: discussion.endDate,
+                isClosed: discussion.isClosed,
+                title: discussion.title,
+            });
+
+        } catch(err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
+    }
+
+
 
 }
 

@@ -78,12 +78,19 @@ export class DiscussionComponent implements OnInit {
 
   openEditDiscussionDialog() {
     const dialogRef = this.dialog.open(DiscussionEditorComponent, {
-      width: '90%'
+      width: '90%',
+      data: {course: this.current_course, id: this.id, title: this.title, description: this.description, isClosed: this.isClosed, endDate: this.endDate},
     });
 
     this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {
       if(result) {
         console.log(result);
+        this.subscriptions.push(this.coursesServices.getDiscussionInfo(this.current_course, this.id).subscribe( (resp: {title: any, description:any, isClosed:any, endDate: string}) => {
+          this.description = resp.description;
+          this.title = resp.title;
+          this.isClosed = resp.isClosed;
+          this.endDate = new Date(resp.endDate);
+        }))
       }
     }))
   }
