@@ -13,7 +13,7 @@
 </form>
 <mat-dialog-actions>
     <span class="fill"></span>
-    <button (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>
-    <button (click)="pushPage()" mat-raised-button color="primary">Create Page</button>
+    <button type="button" (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>
+    <button [disabled]="newPageForm.invalid || submitting" type="button" (click)="pushPage()" mat-raised-button color="primary">Create Page</button>
 </mat-dialog-actions>
 <br>

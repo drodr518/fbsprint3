@@ -1,21 +1,22 @@
 <h3 mat-dialog-title>New Content</h3>
-<div mat-dialog-content>
-<mat-tab-group backgroundColor="primary" animationDuration="0ms" dynamicHeight>
+<mat-spinner *ngIf="isSubmitting" style="margin-left: auto; margin-right: auto;"></mat-spinner>
+<div id="content" mat-dialog-content>
+<mat-tab-group backgroundColor="primary"  dynamicHeight>
 
-    <mat-tab label="Extenal Link">
-        <app-new-external-link class="myForms" [data]="data" [current_dialog]="dialogRef"></app-new-external-link>
+    <mat-tab [disabled]="isSubmitting" label="Extenal Link">
+        <app-new-external-link (isSubmitting)="loading($event)" class="myForms" [data]="data" [current_dialog]="dialogRef"></app-new-external-link>
     </mat-tab>
 
-    <mat-tab label="Document / Page">
-        <app-new-page class="myForms" [data]="data" [current_dialog]="dialogRef"></app-new-page>
+    <mat-tab [disabled]="isSubmitting" label="Page">
+        <app-new-page (isSubmitting)="loading($event)" class="myForms" [data]="data" [current_dialog]="dialogRef"></app-new-page>
     </mat-tab>
 
-    <mat-tab label="Embedded Video">
-        <app-new-embedded-video class="myForms" [data]="data" [current_dialog]="dialogRef"></app-new-embedded-video>
+    <mat-tab [disabled]="isSubmitting" label="Embedded Video">
+        <app-new-embedded-video (isSubmitting)="$event; loading($event)" class="myForms" [data]="data" [current_dialog]="dialogRef"></app-new-embedded-video>
     </mat-tab>
 
-    <mat-tab label="Multiple Choice Quiz">
-            <app-new-quiz class="myForms" [data]="data" [current_dialog]="dialogRef"></app-new-quiz>
+    <mat-tab [disabled]="isSubmitting" label="Multiple Choice Quiz">
+            <app-new-quiz (isSubmitting)="loading($event)" class="myForms" [data]="data" [current_dialog]="dialogRef"></app-new-quiz>
     </mat-tab>
 </mat-tab-group>
 </div>

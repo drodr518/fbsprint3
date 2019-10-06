@@ -1,5 +1,8 @@
 <!-- Discussion information and replying container -->
 <mat-card>
+    
+    <mat-spinner *ngIf="loading" style="margin-left: auto; margin-right: auto;"></mat-spinner>
+    
     <mat-card-header>
         <mat-card-title>
             {{title}}

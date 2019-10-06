@@ -42,15 +42,8 @@ export class DiscussionComponent implements OnInit {
   replying = false;
   htmlContent = '';
 
-  constructor(
-    private route: ActivatedRoute,
-    private coursesServices: CoursesService,
-    private userServices: UserService,
-    private router: Router,
-    private dialog: MatDialog
-    ) {}
+  loading = true;
 
-  @Input('current_course') current_course: string;
 
   config: AngularEditorConfig = {
     editable: true,
@@ -69,14 +62,35 @@ export class DiscussionComponent implements OnInit {
     ]
   };
 
+  @Input('current_course') current_course: string;
+
+  constructor(
+    private route: ActivatedRoute,
+    private coursesServices: CoursesService,
+    private userServices: UserService,
+    private router: Router,
+    private dialog: MatDialog
+    ) {}
+
+  
+
+  
+
   openEditDiscussionDialog() {
     const dialogRef = this.dialog.open(DiscussionEditorComponent, {
-      width: '90%'
+      width: '90%',
+      data: {course: this.current_course, id: this.id, title: this.title, description: this.description, isClosed: this.isClosed, endDate: this.endDate},
     });
 
     this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {
       if(result) {
         console.log(result);
+        this.subscriptions.push(this.coursesServices.getDiscussionInfo(this.current_course, this.id).subscribe( (resp: {title: any, description:any, isClosed:any, endDate: string}) => {
+          this.description = resp.description;
+          this.title = resp.title;
+          this.isClosed = resp.isClosed;
+          this.endDate = new Date(resp.endDate);
+        }))
       }
     }))
   }
@@ -84,6 +98,8 @@ export class DiscussionComponent implements OnInit {
 
   // runs when this component is loaded, gets parameters from url
   ngOnInit() {
+
+    this.loading = true;
 
     this.subscriptions.push(this.route.queryParams.subscribe( (params) => {
       if(params.discussion) {
@@ -96,7 +112,6 @@ export class DiscussionComponent implements OnInit {
     }));
 
     this.loadDiscussion();
-
   }
 
 
@@ -120,6 +135,7 @@ export class DiscussionComponent implements OnInit {
 
   // loads discussion information and the current page of posts
   loadDiscussion() {
+    this.loading = true;
     this.replying = false;
     this.htmlContent = '';
 
@@ -135,7 +151,9 @@ export class DiscussionComponent implements OnInit {
         this.posts = resp.posts;
         this.totalPosts = resp.total;
       }
+      this.loading = false;
     }));
+    
   }
 
   isLate() {

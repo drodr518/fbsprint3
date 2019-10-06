@@ -146,7 +146,7 @@ class CoursesService {
      */
     async addModuleQuiz(course_key, module_key, content) {
 
-        console.log('courseKey', course_key, 'moduleKey', module_key ,content);
+        //console.log('courseKey', course_key, 'moduleKey', module_key ,content);
         try {
             var courses = await database.ref('/courses/' +  course_key).once('value');
             if(courses.hasChildren) {
@@ -297,7 +297,7 @@ class CoursesService {
 
             courseModules.forEach( (mod) => {
                 mod.child("content").forEach( (cont) => {
-                    if(cont.hasChild('isTimed')) {
+                    if(cont.hasChild('outOf')) {
                         //console.log(cont.child('title').val());
                         const assessment = cont.toJSON();
                         assessments.push({
@@ -709,6 +709,22 @@ class CoursesService {
     }
 
 
+    async removeModule() {
+
+    }
+
+    async removeContent(course, module_id, content) {
+        try {
+            await database.ref('/courses/' + course + '/modules/' + module_id + '/content/' + content).remove();
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
+    }
+
+
     /**
      * @param {string} course_id , course key in the database
      * @param {string} student_id , student key in the database
@@ -729,6 +745,8 @@ class CoursesService {
     }
 
     async updateCourse(course) {
+
+        console.log(course.endEnrollDate);
         
         try {
 
@@ -739,6 +757,58 @@ class CoursesService {
                 endEnrollDate: course.endEnrollDate
             });
         } catch (err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
+    }
+
+
+    async getModule(course, module_id) {
+        let payload = {id: '', title: '', resources: []};
+
+        try {
+
+            let current_module = await database.ref('/courses').child(course)
+            .child('modules').child(module_id).once('value');
+
+            payload.title = current_module.child('name').val();
+            payload.id = current_module.key;
+
+            current_module.child('content').forEach( (item) => {
+                payload.resources.push({
+                    id: item.key,
+                    mod: current_module.key,
+                    title: item.child('title').val(),
+                    url: item.child('url').val(),
+                    link: item.child('link').val(),
+                    outOf: item.child('outOf').val(),
+                    embedded: item.child('embedded').val(),
+                    page: item.child('page').val(),
+                });
+            });
+
+        } catch (err) {
+            console.error(err);
+        }
+
+        return payload;
+
+    }
+
+
+    async updateDiscussion(course, discussion) {
+        try {
+
+            await database.ref('/courses/' + course + '/discussions/' + discussion.id).update({
+                description: discussion.description,
+                endDate: discussion.endDate,
+                isClosed: discussion.isClosed,
+                title: discussion.title,
+            });
+
+        } catch(err) {
             console.error(err);
             return false;
         }

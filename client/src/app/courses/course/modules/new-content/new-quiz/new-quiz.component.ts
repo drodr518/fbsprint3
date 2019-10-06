@@ -2,7 +2,7 @@ import { CoursesService } from 'src/app/courses/courses.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NewContentComponent } from './../new-content.component';
 import { MatDialogRef } from '@angular/material';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -14,6 +14,9 @@ export class NewQuizComponent implements OnInit {
 
   @Input('current_dialog') current_dialog: MatDialogRef<NewContentComponent>;
   @Input('data') data: {course: string, current_module: string};
+  @Output() isSubmitting = new EventEmitter<boolean>();
+
+  submitting = false;
 
 
   today = new Date();
@@ -109,10 +112,14 @@ export class NewQuizComponent implements OnInit {
       items: this.items
     };
 
+    this.submitting = true;
+    this.isSubmitting.emit(true);
     this.coursesServices.newQuizPush(this.data.course, this.data.current_module, newQuiz).subscribe( (resp) => {
       if(resp) {
         this.current_dialog.close(resp);
       }
+      this.submitting = false;
+      this.isSubmitting.emit(false);
     });
 
     console.log(newQuiz);
