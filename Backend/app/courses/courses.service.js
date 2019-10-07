@@ -817,7 +817,16 @@ class CoursesService {
     }
 
 
+    async removeDiscussion(course, discussion) {
+        try {
+            await database.ref('/courses/' + course + '/discussions/' + discussion).remove();
+        } catch(err) {
+            console.error(err);
+            return false;
+        }
 
+        return true;
+    }
 }
 
 module.exports = new CoursesService();

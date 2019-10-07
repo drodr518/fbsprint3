@@ -92,4 +92,8 @@ export class CoursesService {
     return this.http.post(`${environment.apiAddress}/courses/update-discussion`, {course: course, discussion: discussion});
   }
 
+  deleteDiscussion(course, discussion) {
+    return this.http.post(`${environment.apiAddress}/courses/remove-discussion`, {course: course, discussion: discussion});
+  }
+
 }

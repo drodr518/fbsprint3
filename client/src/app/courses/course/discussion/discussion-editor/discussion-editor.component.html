@@ -30,6 +30,7 @@
     </div>
     <mat-dialog-actions>
         <span class="fill"></span>
+        <button (click)="tryDelete()" mat-raised-button>Delete Discussion</button>
         <button (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>
         <button [disabled]="discussionForm.invalid" (click)="updateDiscussion()" mat-raised-button color="primary">Update</button>
     </mat-dialog-actions>

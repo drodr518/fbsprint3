@@ -84,13 +84,12 @@ export class DiscussionComponent implements OnInit {
 
     this.subscriptions.push(dialogRef.afterClosed().subscribe( (result) => {
       if(result) {
-        console.log(result);
         this.subscriptions.push(this.coursesServices.getDiscussionInfo(this.current_course, this.id).subscribe( (resp: {title: any, description:any, isClosed:any, endDate: string}) => {
           this.description = resp.description;
           this.title = resp.title;
           this.isClosed = resp.isClosed;
           this.endDate = new Date(resp.endDate);
-        }))
+        }));
       }
     }))
   }

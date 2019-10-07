@@ -147,5 +147,10 @@ module.exports = () => {
         const resp = await coursesServices.updateDiscussion(req.body.course, req.body.discussion);
         res.json(resp);
     });
+
+    router.post('/remove-discussion', async(req, res, next) => {
+        const resp = await coursesServices.removeDiscussion(req.body.course, req.body.discussion);
+        res.json(resp);
+    });
     return router;
 }

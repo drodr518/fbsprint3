@@ -1,3 +1,4 @@
+import { YesNoDialogComponent } from 'src/app/yes-no-dialog/yes-no-dialog.component';
 import { CoursesService } from './../../../courses.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
@@ -16,6 +17,7 @@ export class ModuleEditorComponent implements OnInit {
   current_module: {id: string, name: string, resources: Resource[]};
 
   submitting = false;
+  changed = false;
 
   moduleForm: FormGroup;
 
@@ -37,7 +39,7 @@ export class ModuleEditorComponent implements OnInit {
   }
 
   onNoClick() {
-    this.dialogRef.close();
+    this.dialogRef.close(this.changed);
   }
 
   reloadModule() {
@@ -61,13 +63,25 @@ export class ModuleEditorComponent implements OnInit {
   }
 
   removeContent(content: Resource) {
-    console.log('remove:', content);
-    this.courseServices.removeContent(this.current_course, this.current_module.id, content.id).subscribe( (resp) => {
-      if(resp) {
-        this.current_module.resources.splice(this.current_module.resources.indexOf(content));
+    
+    const yesNoDialogRef = this.dialog.open(YesNoDialogComponent, {
+      data: {
+        title: "Warning!",
+        message: "Do you really want to delete this discussion?\n This action cannot be undone.",
       }
-      console.log(resp);
     });
+    
+    yesNoDialogRef.afterClosed().subscribe( (resp: boolean) => {
+      if(resp) {
+        this.courseServices.removeContent(this.current_course, this.current_module.id, content.id).subscribe( (resp) => {
+          if(resp) {
+            this.current_module.resources.splice(this.current_module.resources.indexOf(content));
+            this.changed = true;
+        }
+        });
+      }
+    });
+    
   }
 
   openNewContentDialog() {
@@ -84,6 +98,7 @@ export class ModuleEditorComponent implements OnInit {
       if(result) {
         console.log(result);
         this.reloadModule();
+        this.changed = true;
       }
     })
   }

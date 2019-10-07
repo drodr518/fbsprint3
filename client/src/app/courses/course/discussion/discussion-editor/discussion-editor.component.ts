@@ -2,7 +2,8 @@ import { CoursesService } from './../../../courses.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Optional, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { YesNoDialogComponent } from 'src/app/yes-no-dialog/yes-no-dialog.component';
 
 @Component({
   selector: 'app-discussion-editor',
@@ -43,6 +44,7 @@ export class DiscussionEditorComponent implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) data: {course: string, id: string, title: string, description: string, isClosed: boolean, endDate: string},
     private formBuilder: FormBuilder,
     private coursesServices: CoursesService,
+    private dialog: MatDialog,
   ) { 
     this.discussionForm = this.formBuilder.group({
       title: [data.title , Validators.required],
@@ -85,6 +87,30 @@ export class DiscussionEditorComponent implements OnInit {
       this.submitting = false;
       document.getElementById('form').style.display = 'none';
     })
+  }
+
+  tryDelete() {
+    const yesNodialogRef = this.dialog.open(YesNoDialogComponent, {
+      data: {
+        title: "Warning!",
+        message: "Do you really want to delete this discussion?\n This action cannot be undone.",
+      }
+    });
+
+    yesNodialogRef.afterClosed().subscribe( (resp: boolean) => {
+      if(resp) {
+
+        this.submitting = true;
+        document.getElementById('form').style.display = 'block';
+        this.coursesServices.deleteDiscussion(this.current_course, this.current_discussion).subscribe( (resp) => {
+          if(resp) {
+            this.dialogRef.close(resp);
+          }
+          this.submitting = false;
+          document.getElementById('form').style.display = 'none';
+        });
+      }
+    });
   }
 
 }

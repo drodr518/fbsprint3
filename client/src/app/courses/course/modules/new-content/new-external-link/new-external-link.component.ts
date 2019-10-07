@@ -34,7 +34,7 @@ export class NewExternalLinkComponent implements OnInit {
   ) {
     this.newLinkForm = this.formBuilder.group({
       title: ['', Validators.required],
-      link: ['', [Validators.required, urlValidator]]
+      link: ['https://', [Validators.required, urlValidator]]
     });
   }
 
