@@ -11,6 +11,10 @@ export class Course {
     modules: Module[]; // module objs
     discussions: Discussion[]; // discussion objs
 }
+export class Students {
+  id: string;
+  name: string;
+  }
 
 export class Module {
     id: string;
@@ -84,4 +88,20 @@ export interface IPost {
     user_name: string;
     date: string;
     post: string;
+}
+
+export interface Page {
+    title: string;
+    page: string;
+}
+
+export interface Resource {
+    embedded: string;
+    id: string;
+    link: string;
+    mod: string;
+    outOf: string;
+    page: string;
+    title: string;
+    url: string;
 }

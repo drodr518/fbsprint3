@@ -66,7 +66,8 @@ export class CourseDetailEditorComponent implements OnInit {
         id: this.data.id,
         name: this.courseForm.value.title,
         instructor: this.courseForm.value.instructor,
-        description: this.courseForm.value.description
+        description: this.courseForm.value.description,
+        endEnrollDate: this.courseForm.value.endEnrollDate
       }
 
       this.subscriptions.push(this.courseServices.updateCourse(course).subscribe( (resp) => {

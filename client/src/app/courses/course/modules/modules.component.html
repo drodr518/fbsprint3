@@ -1,4 +1,5 @@
-<mat-accordion multi="true">
+
+<mat-accordion *ngIf="!loading" multi="true">
     <mat-expansion-panel *ngFor="let module of modules">
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -9,25 +10,27 @@
         
         <mat-nav-list *ngFor="let content of module.resources">
                 <a *ngIf="content.url != null" mat-list-item (click)="openInNewTab(content.url)"><mat-icon>link</mat-icon>{{content.title}}</a>
-                <a *ngIf="content.link != null" mat-list-item mat-list-item [routerLink]="['/nav/courses/view-course']" [queryParams]="{id: content.link, course: this.current_course, select: 'ViewDocument'}"><mat-icon>insert_drive_file</mat-icon>{{content.title}}</a>
-                <a *ngIf="content.isTimed != null" mat-list-item [routerLink]="['/nav/courses/assessment']" [queryParams]="{id: this.content.id, course: this.current_course}"><mat-icon>assessment</mat-icon>{{content.title}}</a>
+                <a *ngIf="content.page != null" mat-list-item mat-list-item [routerLink]="['/nav/courses/view-course']" [queryParams]="{course: this.current_course, module: module.id, page_id: content.id, select: 'Page'}"><mat-icon>insert_drive_file</mat-icon>{{content.title}}</a>
+                <a *ngIf="content.outOf != null" mat-list-item [routerLink]="['/nav/courses/assessment']" [queryParams]="{id: this.content.id, course: this.current_course}"><mat-icon>assessment</mat-icon>{{content.title}}</a>
                 <a *ngIf="content.embedded != null" mat-list-item><mat-icon>play_circle_filled</mat-icon>{{content.title}}</a>
         </mat-nav-list>
 
         <mat-nav-list *ngIf="this.isAdmin()">
-            <a (click)="openEditModuleDialog()" mat-list-item class="add_button"><mat-icon>edit</mat-icon>Edit Module</a>
+            <a (click)="openEditModuleDialog(module)" mat-list-item class="add_button"><mat-icon>edit</mat-icon>Edit Module</a>
             <a (click)="openNewContentDialog(module.id)" mat-list-item><mat-icon>add</mat-icon>Add Content</a>
         </mat-nav-list>
     </mat-expansion-panel>
 </mat-accordion>
 
-<br *ngIf="modules.length > 1 && this.isAdmin()">
+<br *ngIf="modules.length != 0">
+
 
 <mat-card *ngIf="1 > modules.length || this.isAdmin()">
+    <mat-spinner *ngIf="loading" style="margin-left: auto; margin-right: auto;"></mat-spinner>
     <div *ngIf="1 > modules.length" class="empty_message">
         There are no modules.
     </div>
     <mat-nav-list *ngIf="this.isAdmin()">
-        <a (click)="openEditModuleDialog()" mat-list-item class="add_button"><mat-icon>add</mat-icon>Add Module</a>
+        <a (click)="openEditModuleDialog({id:null, name:null, resources: []})" mat-list-item class="add_button"><mat-icon>add</mat-icon>Add Module</a>
     </mat-nav-list>
 </mat-card>

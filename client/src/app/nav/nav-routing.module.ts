@@ -1,7 +1,6 @@
 import { MainComponent } from './main/main.component';
 import { Routes, RouterModule, ExtraOptions } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { NewcourseComponent } from './newcourse/newcourse.component';
 
 const routes: Routes = [
     { path: '', component: MainComponent, children: [

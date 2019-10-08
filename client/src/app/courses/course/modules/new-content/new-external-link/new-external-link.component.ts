@@ -1,7 +1,8 @@
+import { EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NewContentComponent } from './../new-content.component';
 import { MatDialogRef } from '@angular/material';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { CoursesService } from 'src/app/courses/courses.service';
 
 function urlValidator(control: FormControl) {
@@ -22,8 +23,10 @@ export class NewExternalLinkComponent implements OnInit {
 
   @Input('current_dialog') current_dialog: MatDialogRef<NewContentComponent>;
   @Input('data') data: {course: string, current_module: string};
+  @Output() isSubmitting = new EventEmitter<boolean>();
 
   newLinkForm: FormGroup;
+  submitting = false;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -31,7 +34,7 @@ export class NewExternalLinkComponent implements OnInit {
   ) {
     this.newLinkForm = this.formBuilder.group({
       title: ['', Validators.required],
-      link: ['', [Validators.required, urlValidator]]
+      link: ['https://', [Validators.required, urlValidator]]
     });
   }
 
@@ -40,10 +43,14 @@ export class NewExternalLinkComponent implements OnInit {
       title: this.newLinkForm.value.title,
       url: this.newLinkForm.value.link
     };
+    this.submitting = true;
+    this.isSubmitting.emit(true);
     this.coursesServices.newContentPush(this.data.course, this.data.current_module, content).subscribe( (resp) => {
       if(resp) {
         this.current_dialog.close(resp);
       }
+      this.submitting = false;
+      this.isSubmitting.emit(false);
     });
     
   }

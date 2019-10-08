@@ -3,6 +3,9 @@ const database = require('firebase-admin').database();
 const MAX_POSTS = 50;
 
 class CoursesService {
+
+    course_id =  database.ref('/courses/' + + id).once('value');
+
     constructor() {}
 
     /**
@@ -147,12 +150,13 @@ class CoursesService {
      * @return true if successfully added quiz
      */
     async addModuleQuiz(course_key, module_key, content) {
+
+        //console.log('courseKey', course_key, 'moduleKey', module_key ,content);
         try {
-            var courses = await database.ref('/courses').orderByKey().equalTo(course_key).once('value');
+            var courses = await database.ref('/courses/' +  course_key).once('value');
             if(courses.hasChildren) {
-                var items = courses.child(course_key).child('modules').child(module_key).child('content').ref.push({
+                var items = courses.child('modules').child(module_key).child('content').ref.push({
                     title: content.title,
-                    isTimed: content.isTimed,
                     time: content.time,
                     dueDate: content.dueDate,
                     attempts: content.attempts,
@@ -161,9 +165,9 @@ class CoursesService {
                 let total = 0;
 
                 content.items.forEach( (item) => {
-                    total += item.val;
+                    total += item.value;
                     items.child('items').ref.push({
-                        val: item.val,
+                        value: Number(item.value),
                         question: item.question,
                         answer: item.answer,
                         options: item.options
@@ -249,6 +253,7 @@ class CoursesService {
                     link: content.link || null,
                     url: content.url || null,
                     embedded: content.embedded || null,
+                    page: content.page || null,
                 });
             } else {
                 throw false;
@@ -297,7 +302,7 @@ class CoursesService {
 
             courseModules.forEach( (mod) => {
                 mod.child("content").forEach( (cont) => {
-                    if(cont.hasChild('isTimed')) {
+                    if(cont.hasChild('outOf')) {
                         //console.log(cont.child('title').val());
                         const assessment = cont.toJSON();
                         assessments.push({
@@ -409,8 +414,9 @@ class CoursesService {
                     title: item.child('title').val(),
                     url: item.child('url').val(),
                     link: item.child('link').val(),
-                    isTimed: item.child('isTimed').val(),
-                    embedded: item.child('embedded').val()
+                    outOf: item.child('outOf').val(),
+                    embedded: item.child('embedded').val(),
+                    page: item.child('page').val(),
                     });
                 });
    
@@ -632,6 +638,21 @@ class CoursesService {
         return payload.courses;
     }
 
+    async getPage(course_id, module_id, page_id){
+        //console.log('course',course_id,'module', module_id,'page', page_id);
+        let payload = {};
+        try {
+
+            let page = await database.ref('/courses/' + course_id + '/modules/' + module_id + '/content/' + page_id).once('value');
+            return page.toJSON();
+
+        } catch(err) {
+            console.error(err);
+        }
+
+        return payload;
+    }
+
     /**
      * 
      * @param {string} course_id , course key in the database
@@ -693,6 +714,22 @@ class CoursesService {
             doneOn: null,
              score: null
             };
+    }
+
+
+    async removeModule() {
+
+    }
+
+    async removeContent(course, module_id, content) {
+        try {
+            await database.ref('/courses/' + course + '/modules/' + module_id + '/content/' + content).remove();
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
     }
 
 
@@ -789,8 +826,10 @@ class CoursesService {
     //
     //     return payload.students;
     // }
-     async updateCourse(course) {
-        
+    async updateCourse(course) {
+
+        console.log(course.endEnrollDate);
+
         try {
 
             await database.ref('/courses/' + course.id).update({
@@ -808,6 +847,74 @@ class CoursesService {
     }
 
 
+    async getModule(course, module_id) {
+        let payload = {id: '', title: '', resources: []};
+
+        try {
+
+            let current_module = await database.ref('/courses').child(course)
+            .child('modules').child(module_id).once('value');
+
+            payload.title = current_module.child('name').val();
+            payload.id = current_module.key;
+
+            current_module.child('content').forEach( (item) => {
+                payload.resources.push({
+                    id: item.key,
+                    mod: current_module.key,
+                    title: item.child('title').val(),
+                    url: item.child('url').val(),
+                    link: item.child('link').val(),
+                    outOf: item.child('outOf').val(),
+                    embedded: item.child('embedded').val(),
+                    page: item.child('page').val(),
+                });
+            });
+
+        } catch (err) {
+            console.error(err);
+        }
+
+        return payload;
+
+    }
+
+
+    async updateDiscussion(course, discussion) {
+        try {
+
+            await database.ref('/courses/' + course + '/discussions/' + discussion.id).update({
+                description: discussion.description,
+                endDate: discussion.endDate,
+                isClosed: discussion.isClosed,
+                title: discussion.title,
+            });
+
+        } catch(err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
+    }
+
+
+    async removeDiscussion(course, discussion) {
+        try {
+            await database.ref('/courses/' + course + '/discussions/' + discussion).remove();
+        } catch(err) {
+            console.error(err);
+            return false;
+        }
+
+        return true;
+    }
+
+    course(){
+        return this.course_id;
+    }
 }
+
+
 
 module.exports = new CoursesService();

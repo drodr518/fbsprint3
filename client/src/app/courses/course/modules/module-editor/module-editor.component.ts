@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { YesNoDialogComponent } from 'src/app/yes-no-dialog/yes-no-dialog.component';
+import { CoursesService } from './../../../courses.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { Component, OnInit, Optional, Inject } from '@angular/core';
+import { Resource } from 'src/app/courses/courses.models';
+import { NewContentComponent } from '../new-content/new-content.component';
 
 @Component({
   selector: 'app-module-editor',
@@ -7,9 +13,94 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModuleEditorComponent implements OnInit {
 
-  constructor() { }
+  current_course: string;
+  current_module: {id: string, name: string, resources: Resource[]};
+
+  submitting = false;
+  changed = false;
+
+  moduleForm: FormGroup;
+
+  constructor(
+    public dialogRef: MatDialogRef<ModuleEditorComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) data: {module:{id: string, name: string, resources: Resource[]}, course_id: string},
+    private formBuilder: FormBuilder,
+    private courseServices: CoursesService,
+    private dialog: MatDialog,
+  ) { 
+    this.current_course = data.course_id;
+    this.current_module = data.module;
+    this.moduleForm = this.formBuilder.group({
+      title: [data.module.name, Validators.required],
+    });
+  }
 
   ngOnInit() {
+  }
+
+  onNoClick() {
+    this.dialogRef.close(this.changed);
+  }
+
+  reloadModule() {
+  
+    this.courseServices.getCourseModule(this.current_course, this.current_module.id).subscribe( (resp: {id: string, name: string, resources: Resource[]}) => {
+      this.current_module = resp;
+    });
+  }
+
+  createModule() {
+    const newModule = {
+      name: this.moduleForm.value.title
+    };
+    this.submitting = true;
+    this.courseServices.newModule(this.current_course, newModule).subscribe( (resp) => {
+      if(resp) {
+        this.dialogRef.close(resp);
+      }
+      this.submitting = false;
+    });
+  }
+
+  removeContent(content: Resource) {
+    
+    const yesNoDialogRef = this.dialog.open(YesNoDialogComponent, {
+      data: {
+        title: "Warning!",
+        message: "Do you really want to delete this discussion?\n This action cannot be undone.",
+      }
+    });
+    
+    yesNoDialogRef.afterClosed().subscribe( (resp: boolean) => {
+      if(resp) {
+        this.courseServices.removeContent(this.current_course, this.current_module.id, content.id).subscribe( (resp) => {
+          if(resp) {
+            this.current_module.resources.splice(this.current_module.resources.indexOf(content));
+            this.changed = true;
+        }
+        });
+      }
+    });
+    
+  }
+
+  openNewContentDialog() {
+
+    const dialogReference = this.dialog.open(NewContentComponent, {
+      width: '90%',
+      data: {
+        course: this.current_course,
+        current_module: this.current_module.id,
+      }
+    });
+
+    dialogReference.afterClosed().subscribe( (result) => {
+      if(result) {
+        console.log(result);
+        this.reloadModule();
+        this.changed = true;
+      }
+    })
   }
 
 }

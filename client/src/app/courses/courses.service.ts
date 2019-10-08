@@ -29,6 +29,7 @@ export class CoursesService {
 
   // tslint:disable-next-line:variable-name
   getDiscussionPosts(course_id, discussion_id, startFrom) {
+    // tslint:disable-next-line:max-line-length
     const params = { params: new HttpParams().set('course', `${course_id}`).set('discussion', `${discussion_id}`).set('start', `${startFrom}`)};
     return this.http.get(`${environment.apiAddress}/courses/discussion-posts-from`, params);
   }
@@ -40,6 +41,11 @@ export class CoursesService {
   }
 
   // tslint:disable-next-line:variable-name
+  getPage(course_id, module_id, page_id) {
+    const params = {params: new HttpParams().set('course', `${course_id}`).set('module', `${module_id}`).set('page', `${page_id}`)};
+    return this.http.get(`${environment.apiAddress}/courses/page`, params);
+  }
+
   getStudentCourseGrades(course_id, student_id) {
     const params = { params: new HttpParams().set('course', `${course_id}`).set('student', `${student_id}`)};
     return this.http.get(`${environment.apiAddress}/courses/student-grades`, params);
@@ -59,9 +65,9 @@ export class CoursesService {
     return this.http.get(`${environment.apiAddress}/users/all-categories`);
   }
 
-  // getAllStudents() {
-  //   return this.http.get(`${environment.apiAddress}/courses/student-has-course`);
-  // }
+  getAllStudents() {
+    return this.http.get(`${environment.apiAddress}/courses/student-has-course`);
+  }
 
   // tslint:disable-next-line:variable-name
   postDiscussionPost(course_id, discussion_id, post) {
@@ -87,5 +93,35 @@ export class CoursesService {
   // tslint:disable-next-line:variable-name
   newContentPush(course, module_id, content) {
     return this.http.post(`${environment.apiAddress}/courses/add-module-content`, {course, module: module_id, content });
+  }
+
+  newQuizPush(course, module_id, quiz) {
+    return this.http.post(`${environment.apiAddress}/courses/add-module-quiz`, {course: course, module: module_id, content: quiz });
+  }
+
+  newModule(course, newModule) {
+    return this.http.post(`${environment.apiAddress}/courses/add-module`, {course: course, module: newModule});
+  }
+
+  removeContent(course, module_id, content) {
+    return this.http.post(`${environment.apiAddress}/courses/remove-content`, {course: course, module: module_id, content: content});
+  }
+
+  getCourseModule(course, module_id) {
+    const params = { params: new HttpParams().set('course', `${course}`).set('module', module_id)};
+    return this.http.get(`${environment.apiAddress}/courses/course-module`, params);
+  }
+
+  updateDiscussion(course, discussion) {
+    return this.http.post(`${environment.apiAddress}/courses/update-discussion`, {course: course, discussion: discussion});
+  }
+
+  deleteDiscussion(course, discussion) {
+    return this.http.post(`${environment.apiAddress}/courses/remove-discussion`, {course: course, discussion: discussion});
+  }
+
+  course(course_id) {
+    const id = {params: new HttpParams().set('id', `${course_id}`)};
+    return this.http.get(`${environment.apiAddress}/courses/id`, id);
   }
 }

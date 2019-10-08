@@ -16,7 +16,9 @@ export class InfoComponent implements OnInit, OnChanges {
   subscriptions: Subscription[] = [];
 
   @Input('current_course') current_course: string;
-  @Input('courseData') courseData: {id: string, name: string, description: string, instructor: string};
+  courseData: {id: string, name: string, description: string, instructor: string};
+
+  loading = true;
 
   description: string;
   instructor: string;
@@ -28,7 +30,7 @@ export class InfoComponent implements OnInit, OnChanges {
     private dialog: MatDialog,
     ) { }
 
-  
+
   openEditCourse() {
     const dialogRef = this.dialog.open(CourseDetailEditorComponent, {
       width: '90%',
@@ -44,9 +46,15 @@ export class InfoComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     //console.log(this.courseData);
-    this.subscriptions.push(this.courseServices.getInstructorInfo(this.courseData.instructor).subscribe( (resp: {contactEmail: string, name: string}) => {
-      this.instructor = resp.name;
-      this.instructorEmail = resp.contactEmail;
+    this.loading = true;
+    this.subscriptions.push(this.courseServices.getCourseInfo(this.current_course).subscribe( (resp: {id: string, name:string, description: string, instructor: string}) => {
+      this.courseData = resp;
+
+      this.subscriptions.push(this.courseServices.getInstructorInfo(this.courseData.instructor).subscribe( (resp: {contactEmail: string, name: string}) => {
+        this.instructor = resp.name;
+        this.instructorEmail = resp.contactEmail;
+      }));
+      this.loading = false;
     }));
   }
 

@@ -17,12 +17,16 @@ import { MatInputModule,
   MatToolbarModule,
   MatExpansionModule,
   MatSortModule,
-  MatSelectModule} from '@angular/material';
+  MatSelectModule,
+  MatDialogModule} from '@angular/material';
 import { NewDiscussionComponent } from './courses/course/discussions/new-discussion/new-discussion.component';
+// import { NewcourseComponent } from './nav/newcourse/newcourse.component';
+import { YesNoDialogComponent } from './yes-no-dialog/yes-no-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    YesNoDialogComponent
   ],
   imports: [
     AppRoutingModule,
@@ -37,9 +41,11 @@ import { NewDiscussionComponent } from './courses/course/discussions/new-discuss
     MatToolbarModule,
     MatExpansionModule,
     MatSortModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent],
+  entryComponents: [YesNoDialogComponent],
 })
 export class AppModule { }

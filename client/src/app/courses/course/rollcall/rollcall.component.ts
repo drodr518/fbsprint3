@@ -2,6 +2,7 @@ import { UserService } from './../../../user.service';
 import { Subscription } from 'rxjs';
 import { CoursesService } from './../../courses.service';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import {Students} from '../../courses.models';
 
 @Component({
   selector: 'app-rollcall',
@@ -12,20 +13,28 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 export class RollcallComponent implements OnInit, OnChanges {
 
   subscriptions: Subscription[] = [];
+  students: {name: string, id: string}[] = [];
 
-  @Input('courseData') courseData: {id: string, name: string, description: string, instructor: string, students: string[]};
+  // private course_id = '-Lp5NZdSH8TLyL92KkIq';
+  @Input('courseData') courseData: {id: string, name: string, description: string, instructor: string, student: string};
 
   constructor(
     private courseServices: CoursesService,
     private userServices: UserService,
-  ) { }
+  ) {
+  }
 
+loadStudents(){
+  this.subscriptions.push(this.courseServices.getCourseInfo(this.courseData.student).subscribe( (resp: Students[]) => {
+    this.students = resp;
+  }));
+}
 
   ngOnInit() {
-    console.log(this.courseData);
-    //this.subscriptions.push(this.courseServices.getCourseInfo(this.courseData).subscribe( (resp: {students: any}) => {
-    //   this.student = this.courseData.students;
-    // }));
+  this.loadStudents();
+  this.subscriptions.push(this.courseServices.getAllStudents().subscribe( (resp: {name: string, id: string}[]) => {
+      this.students = resp;
+    }));
   }
 
 

@@ -16,7 +16,9 @@ import {
   MatNativeDateModule,
   MatTabsModule,
   MatStepperModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatProgressSpinnerModule,
+  MatDividerModule
 } from '@angular/material';
 
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -47,6 +49,7 @@ import { NewPageComponent } from './course/modules/new-content/new-page/new-page
 import { NewQuizComponent } from './course/modules/new-content/new-quiz/new-quiz.component';
 import { DocumentViewerComponent } from './course/document-viewer/document-viewer.component';
 import { RollcallComponent } from './course/rollcall/rollcall.component';
+import { PagesComponent } from './course/pages/pages.component';
 
 
 
@@ -59,7 +62,8 @@ import { RollcallComponent } from './course/rollcall/rollcall.component';
     DiscussionsComponent,
     InfoComponent,
     DiscussionComponent,
-    AssessmentComponent, DiscussionEditorComponent,
+    AssessmentComponent,
+    DiscussionEditorComponent,
     NewDiscussionComponent,
     CourseDetailEditorComponent,
     NewContentComponent,
@@ -69,7 +73,8 @@ import { RollcallComponent } from './course/rollcall/rollcall.component';
     NewPageComponent,
     NewQuizComponent,
     DocumentViewerComponent,
-    RollcallComponent
+    RollcallComponent,
+    PagesComponent
   ],
   imports: [
     CommonModule,
@@ -95,7 +100,9 @@ import { RollcallComponent } from './course/rollcall/rollcall.component';
     MatTabsModule,
     NgxDocViewerModule,
     MatStepperModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatDividerModule
   ],
   entryComponents: [
     DiscussionEditorComponent,

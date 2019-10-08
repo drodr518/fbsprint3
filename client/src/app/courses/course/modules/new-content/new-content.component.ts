@@ -1,5 +1,5 @@
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Component, OnInit, Optional, Inject } from '@angular/core';
+import { Component, OnInit, Optional, Inject, Input } from '@angular/core';
 
 @Component({
   selector: 'app-new-content',
@@ -8,6 +8,7 @@ import { Component, OnInit, Optional, Inject } from '@angular/core';
 })
 export class NewContentComponent implements OnInit {
 
+  isSubmitting = false;
   data;
 
   constructor(
@@ -21,6 +22,15 @@ export class NewContentComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  loading(isLoading) {
+    this.isSubmitting = isLoading;
+    if(isLoading) {
+      document.getElementById('content').style.display = 'none';
+    } else {
+      document.getElementById('content').style.display = 'block';
+    }
+  }
   
 
 }
